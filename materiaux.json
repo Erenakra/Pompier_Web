@@ -1,0 +1,253 @@
+[
+  {
+    "id_produit": "ps_bilan_01",
+    "nom": "Thermomètre",
+    "emplacement": "Sac prompt secours",
+    "localisation_precise": "Sacoche Bilan",
+    "quantite": 1,
+    "etat": "Opérationnel",
+    "perimable": false,
+    "date_peremption": null
+  },
+  {
+    "id_produit": "ps_bilan_02",
+    "nom": "Tensiomètre",
+    "emplacement": "Sac prompt secours",
+    "localisation_precise": "Sacoche Bilan",
+    "quantite": 1,
+    "etat": "Opérationnel",
+    "perimable": false,
+    "date_peremption": null
+  },
+  {
+    "id_produit": "ps_bilan_03",
+    "nom": "Oxymètre de pouls (Saturomètre)",
+    "emplacement": "Sac prompt secours",
+    "localisation_precise": "Sacoche Bilan",
+    "quantite": 1,
+    "etat": "Opérationnel",
+    "perimable": false,
+    "date_peremption": null
+  },
+  {
+    "id_produit": "ps_bilan_04",
+    "nom": "Lampe pupillaire",
+    "emplacement": "Sac prompt secours",
+    "localisation_precise": "Sacoche Bilan",
+    "quantite": 1,
+    "etat": "Opérationnel",
+    "perimable": false,
+    "date_peremption": null
+  },
+  {
+    "id_produit": "ps_hemo_01",
+    "nom": "Coussin Hémostatique d'Urgence (CHU)",
+    "emplacement": "Sac prompt secours",
+    "localisation_precise": "Sacoche Hémorragie",
+    "quantite": 2,
+    "etat": "Opérationnel",
+    "perimable": true,
+    "date_peremption": "2026-08-12"
+  },
+  {
+    "id_produit": "ps_hemo_02",
+    "nom": "Compresses stériles",
+    "emplacement": "Sac prompt secours",
+    "localisation_precise": "Sacoche Hémorragie",
+    "quantite": 10,
+    "etat": "Opérationnel",
+    "perimable": true,
+    "date_peremption": "2026-11-20"
+  },
+  {
+    "id_produit": "ps_hemo_03",
+    "nom": "Garrot",
+    "emplacement": "Sac prompt secours",
+    "localisation_precise": "Sacoche Hémorragie",
+    "quantite": 1,
+    "etat": "Opérationnel",
+    "perimable": false,
+    "date_peremption": null
+  },
+  {
+    "id_produit": "ps_hors_01",
+    "nom": "Défibrillateur Semi-Automatique (DSA)",
+    "emplacement": "Sac prompt secours",
+    "localisation_precise": "Corps du sac",
+    "quantite": 1,
+    "etat": "Opérationnel",
+    "perimable": true,
+    "date_peremption": "2026-12-01"
+  },
+  {
+    "id_produit": "ps_hors_02",
+    "nom": "Collier cervical adulte",
+    "emplacement": "Sac prompt secours",
+    "localisation_precise": "Corps du sac",
+    "quantite": 2,
+    "etat": "Opérationnel",
+    "perimable": false,
+    "date_peremption": null
+  },
+  {
+    "id_produit": "ps_hors_03",
+    "nom": "Collier cervical pédiatrique",
+    "emplacement": "Sac prompt secours",
+    "localisation_precise": "Corps du sac",
+    "quantite": 1,
+    "etat": "Opérationnel",
+    "perimable": false,
+    "date_peremption": null
+  },
+  {
+    "id_produit": "ps_poche_01",
+    "nom": "Drap stérile",
+    "emplacement": "Sac prompt secours",
+    "localisation_precise": "Poche avant",
+    "quantite": 2,
+    "etat": "Opérationnel",
+    "perimable": true,
+    "date_peremption": "2029-01-10"
+  },
+  {
+    "id_produit": "o2_01",
+    "nom": "Bouteille d'Oxygène (O2)",
+    "emplacement": "Sac oxygénation",
+    "localisation_precise": "Corps du sac",
+    "quantite": 1,
+    "etat": "Opérationnel",
+    "pression_bars": 200,
+    "perimable": false,
+    "date_peremption": null
+  },
+  {
+    "id_produit": "o2_02",
+    "nom": "Insufflateur manuel (BAVU) Adulte",
+    "emplacement": "Sac oxygénation",
+    "localisation_precise": "Corps du sac",
+    "quantite": 1,
+    "etat": "Opérationnel",
+    "perimable": false,
+    "date_peremption": null
+  },
+  {
+    "id_produit": "o2_03",
+    "nom": "Insufflateur manuel (BAVU) Enfant",
+    "emplacement": "Sac oxygénation",
+    "localisation_precise": "Corps du sac",
+    "quantite": 1,
+    "etat": "Opérationnel",
+    "perimable": false,
+    "date_peremption": null
+  },
+  {
+    "id_produit": "o2_04",
+    "nom": "Masque Haute Concentration Adulte",
+    "emplacement": "Sac oxygénation",
+    "localisation_precise": "Corps du sac",
+    "quantite": 2,
+    "etat": "Opérationnel",
+    "perimable": true,
+    "date_peremption": "2028-08-15"
+  },
+  {
+    "id_produit": "o2_05",
+    "nom": "Masque Haute Concentration Enfant",
+    "emplacement": "Sac oxygénation",
+    "localisation_precise": "Corps du sac",
+    "quantite": 2,
+    "etat": "Opérationnel",
+    "perimable": true,
+    "date_peremption": "2028-08-15"
+  },
+  {
+    "id_produit": "o2_06",
+    "nom": "Canules de Guedel (tailles assorties)",
+    "emplacement": "Sac oxygénation",
+    "localisation_precise": "Poche interne",
+    "quantite": 1,
+    "etat": "Opérationnel",
+    "perimable": true,
+    "date_peremption": "2027-04-30"
+  },
+  {
+    "id_produit": "gen_coffre_01",
+    "nom": "Cônes de Lübeck (K5a)",
+    "emplacement": "Matériel Général",
+    "localisation_precise": "Dans le coffre",
+    "quantite": 5,
+    "etat": "Opérationnel",
+    "perimable": false,
+    "date_peremption": null
+  },
+  {
+    "id_produit": "gen_coffre_02",
+    "nom": "Échelle télescopique",
+    "emplacement": "Matériel Général",
+    "localisation_precise": "Dans le coffre",
+    "quantite": 1,
+    "etat": "Opérationnel",
+    "perimable": false,
+    "date_peremption": null
+  },
+  {
+    "id_produit": "gen_coffre_03",
+    "nom": "Extincteurs",
+    "emplacement": "Matériel Général",
+    "localisation_precise": "Dans le coffre",
+    "quantite": 2,
+    "etat": "Opérationnel",
+    "perimable": true,
+    "date_peremption": "2025-10-01"
+  },
+  {
+    "id_produit": "gen_caisse_01",
+    "nom": "Brancard souple",
+    "emplacement": "Matériel Général",
+    "localisation_precise": "Caisse en plastique (Coffre)",
+    "quantite": 1,
+    "etat": "Opérationnel",
+    "perimable": false,
+    "date_peremption": null
+  },
+  {
+    "id_produit": "gen_caisse_02",
+    "nom": "Couverture bactériostatique",
+    "emplacement": "Matériel Général",
+    "localisation_precise": "Caisse en plastique (Coffre)",
+    "quantite": 1,
+    "etat": "Opérationnel",
+    "perimable": false,
+    "date_peremption": null
+  },
+  {
+    "id_produit": "gen_caisse_03",
+    "nom": "Casque F2 + Gants",
+    "emplacement": "Matériel Général",
+    "localisation_precise": "Caisse en plastique (Coffre)",
+    "quantite": 1,
+    "etat": "Opérationnel",
+    "perimable": false,
+    "date_peremption": null
+  },
+  {
+    "id_produit": "gen_hab_01",
+    "nom": "Gilets de Haute Visibilité (GHV)",
+    "emplacement": "Matériel Général",
+    "localisation_precise": "Habitacle",
+    "quantite": 4,
+    "etat": "Opérationnel",
+    "perimable": false,
+    "date_peremption": null
+  },
+  {
+    "id_produit": "gen_hab_02",
+    "nom": "Phare de recherche",
+    "emplacement": "Matériel Général",
+    "localisation_precise": "Boîte à gants",
+    "quantite": 1,
+    "etat": "Opérationnel",
+    "perimable": false,
+    "date_peremption": null
+  }
+]

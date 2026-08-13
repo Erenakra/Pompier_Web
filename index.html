@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check VTULE - Pompiers</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <div id="vehicule-info">
+        <!-- Rempli par le JS -->
+        <h1>Chargement VTULE...</h1>
+    </div>
+</header>
+
+<!-- Mode Inventaire & Actions globales -->
+<div class="inventory-toggle-container">
+    <button id="btn-toggle-inventory" class="btn-inventory-mode">📋 Activer le Mode Inventaire</button>
+    <button id="btn-export-csv" class="btn-export">📥 Exporter le réassort (CSV)</button>
+</div>
+
+<!-- Barre de recherche pour filtrer le matériel en temps réel -->
+<div class="search-container">
+    <input type="text" id="search-input" placeholder="🔍 Rechercher un matériel ou un emplacement..." aria-label="Rechercher un matériel ou un emplacement">
+</div>
+
+<!-- Zone d'alerte critique -->
+<div id="alert-banner" class="hidden">
+    ⚠️ ATTENTION : Du matériel est périmé ou abîmé !
+</div>
+
+<main>
+    <section id="sac-prompt-secours">
+        <h2>Sac Prompt Secours</h2>
+        <div class="materiaux-liste" id="liste-prompt-secours"></div>
+    </section>
+
+    <section id="sac-oxygenation">
+        <h2>Sac Oxygénation</h2>
+        <div class="materiaux-liste" id="liste-oxygenation"></div>
+    </section>
+
+    <section id="materiel-general">
+        <h2>Matériel Général</h2>
+        <div class="materiaux-liste" id="liste-general"></div>
+    </section>
+</main>
+
+<!-- Modale d'édition de matériel -->
+<div id="edit-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+        <h3>Modifier le matériel</h3>
+        <form id="edit-form">
+            <input type="hidden" id="edit-id">
+            
+            <div class="form-group">
+                <label for="edit-nom">Nom du matériel</label>
+                <input type="text" id="edit-nom" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="edit-quantite">Quantité</label>
+                <input type="number" id="edit-quantite" min="0" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="edit-date">Date de péremption</label>
+                <input type="date" id="edit-date">
+                <small>Laisser vide si non périssable</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="edit-statut">Statut</label>
+                <select id="edit-statut" required>
+                    <option value="Opérationnel">Opérationnel</option>
+                    <option value="Non opérationnel">Non opérationnel</option>
+                </select>
+            </div>
+            
+            <div class="modal-actions">
+                <button type="button" id="btn-cancel-edit" class="btn-cancel">Annuler</button>
+                <button type="submit" class="btn-save">Sauvegarder</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
