@@ -8,9 +8,15 @@
 </head>
 <body>
 <header>
-    <div id="vehicule-info">
-        <!-- Rempli par le JS -->
-        <h1>Chargement VTULE...</h1>
+    <div class="header-content">
+        <div id="vehicule-info">
+            <!-- Rempli par le JS -->
+            <h1>Chargement VTULE...</h1>
+        </div>
+        <div id="user-info-banner" class="hidden">
+            <span id="connected-user-name"></span>
+            <button id="btn-logout" class="btn-logout">Déconnexion</button>
+        </div>
     </div>
 </header>
 
@@ -18,6 +24,7 @@
 <div class="inventory-toggle-container">
     <button id="btn-toggle-inventory" class="btn-inventory-mode">📋 Activer le Mode Inventaire</button>
     <button id="btn-export-csv" class="btn-export">📥 Exporter le réassort (CSV)</button>
+    <button id="btn-view-history" class="btn-history">🕒 Voir l'historique</button>
 </div>
 
 <!-- Barre de recherche pour filtrer le matériel en temps réel -->
@@ -83,6 +90,50 @@
                 <button type="submit" class="btn-save">Sauvegarder</button>
             </div>
         </form>
+    </div>
+</div>
+
+<!-- Modale de Connexion (Obligatoire) -->
+<div id="login-modal" class="modal-overlay hidden" style="z-index: 9999;">
+    <div class="modal-content login-content">
+        <h3>Identification requise</h3>
+        <p>Veuillez vous identifier pour accéder au contrôle du matériel.</p>
+        <form id="login-form">
+            <div class="form-group">
+                <label for="login-grade">Grade</label>
+                <select id="login-grade" required>
+                    <option value="" disabled selected>Sélectionnez un grade</option>
+                    <option value="Sap.">Sapeur</option>
+                    <option value="Cap.">Caporal</option>
+                    <option value="Sgt.">Sergent</option>
+                    <option value="Adj.">Adjudant</option>
+                    <option value="Ltn.">Lieutenant</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="login-nom">Nom de famille</label>
+                <input type="text" id="login-nom" placeholder="Ex: Dupont" required>
+            </div>
+            
+            <div class="modal-actions">
+                <button type="submit" class="btn-save" style="width: 100%;">Se connecter</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modale d'Historique -->
+<div id="history-modal" class="modal-overlay hidden">
+    <div class="modal-content history-content">
+        <h3>Historique des modifications</h3>
+        <div id="history-list" class="history-list">
+            <!-- Liste des logs remplie par JS -->
+        </div>
+        <div class="modal-actions" style="justify-content: space-between;">
+            <button type="button" id="btn-clear-history" class="btn-cancel" style="background-color: #dc3545;">Effacer l'historique</button>
+            <button type="button" id="btn-close-history" class="btn-save">Fermer</button>
+        </div>
     </div>
 </div>
 

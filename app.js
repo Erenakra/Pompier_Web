@@ -24,6 +24,78 @@ document.addEventListener('DOMContentLoaded', async () => {
             <p>Responsable : <strong>${vehicule.responsable_actuel}</strong></p>
         `;
 
+        // --- Système d'identification ---
+        const loginModal = document.getElementById('login-modal');
+        const loginForm = document.getElementById('login-form');
+        const userInfoBanner = document.getElementById('user-info-banner');
+        const connectedUserName = document.getElementById('connected-user-name');
+        const btnLogout = document.getElementById('btn-logout');
+        
+        let currentUser = null;
+
+        const checkAuth = () => {
+            const savedUser = localStorage.getItem('currentUser');
+            const loginTime = localStorage.getItem('loginTime');
+            
+            if (savedUser && loginTime) {
+                const nowMs = new Date().getTime();
+                const daysDiff = (nowMs - parseInt(loginTime, 10)) / (1000 * 60 * 60 * 24);
+                
+                if (daysDiff <= 15) {
+                    currentUser = savedUser;
+                    connectedUserName.innerText = `Connecté : ${currentUser}`;
+                    userInfoBanner.classList.remove('hidden');
+                    loginModal.classList.add('hidden');
+                    return;
+                }
+            }
+            
+            // Session expirée ou absente
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('loginTime');
+            currentUser = null;
+            userInfoBanner.classList.add('hidden');
+            loginModal.classList.remove('hidden');
+        };
+
+        if (loginForm) {
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const grade = document.getElementById('login-grade').value;
+                const nom = document.getElementById('login-nom').value.trim();
+                if (grade && nom) {
+                    const fullName = `${grade} ${nom}`;
+                    localStorage.setItem('currentUser', fullName);
+                    localStorage.setItem('loginTime', new Date().getTime().toString());
+                    checkAuth();
+                }
+            });
+        }
+
+        if (btnLogout) {
+            btnLogout.addEventListener('click', () => {
+                localStorage.removeItem('currentUser');
+                localStorage.removeItem('loginTime');
+                window.location.reload();
+            });
+        }
+
+        // Vérification initiale
+        checkAuth();
+
+        // --- Système de Logs ---
+        const addLog = (action, materielNom) => {
+            if (!currentUser) return;
+            const logs = JSON.parse(localStorage.getItem('inventoryLogs') || '[]');
+            const dateStr = new Date().toLocaleString('fr-FR', { 
+                day: '2-digit', month: '2-digit', year: 'numeric', 
+                hour: '2-digit', minute: '2-digit', second: '2-digit' 
+            });
+            const logEntry = `[${dateStr}] - ${currentUser} a modifié ${materielNom} : ${action}.`;
+            logs.push(logEntry);
+            localStorage.setItem('inventoryLogs', JSON.stringify(logs));
+        };
+
         const searchInput = document.getElementById('search-input');
 
         const now = new Date();
@@ -273,8 +345,52 @@ document.addEventListener('DOMContentLoaded', async () => {
                         alertBanner.classList.add('hidden');
                     }
                     
+                    addLog("Mise à jour des informations", item.nom);
+                    
                     renderMateriaux(searchInput ? searchInput.value : '');
                     closeEditModal();
+                }
+            });
+        }
+
+        // --- Historique Modal ---
+        const btnViewHistory = document.getElementById('btn-view-history');
+        const historyModal = document.getElementById('history-modal');
+        const btnCloseHistory = document.getElementById('btn-close-history');
+        const btnClearHistory = document.getElementById('btn-clear-history');
+        const historyList = document.getElementById('history-list');
+
+        const renderHistory = () => {
+            const logs = JSON.parse(localStorage.getItem('inventoryLogs') || '[]');
+            if (logs.length === 0) {
+                historyList.innerHTML = '<p style="text-align:center; color:#888;">Aucun historique disponible.</p>';
+            } else {
+                historyList.innerHTML = logs.slice().reverse().map(log => {
+                    // Mettre en gras le nom de l'utilisateur pour la lisibilité
+                    return `<div class="history-item">${log.replace(currentUser, `<strong>${currentUser}</strong>`)}</div>`;
+                }).join('');
+            }
+        };
+
+        if (btnViewHistory) {
+            btnViewHistory.addEventListener('click', () => {
+                if (!currentUser) return;
+                renderHistory();
+                historyModal.classList.remove('hidden');
+            });
+        }
+
+        if (btnCloseHistory) {
+            btnCloseHistory.addEventListener('click', () => {
+                historyModal.classList.add('hidden');
+            });
+        }
+
+        if (btnClearHistory) {
+            btnClearHistory.addEventListener('click', () => {
+                if (confirm("Êtes-vous sûr de vouloir effacer tout l'historique ? Cette action est irréversible.")) {
+                    localStorage.removeItem('inventoryLogs');
+                    renderHistory();
                 }
             });
         }
@@ -286,6 +402,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const item = items.find(m => m.id_produit === id);
                 if (item) {
                     item.controlled = true;
+                    addLog("Conforme", item.nom);
                     renderMateriaux(searchInput ? searchInput.value : '');
                 }
             } else if (e.target.classList.contains('btn-anomalie')) {
@@ -295,6 +412,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     item.etat = "Non opérationnel";
                     isGlobalCritical = true;
                     alertBanner.classList.remove('hidden');
+                    addLog("Anomalie", item.nom);
                     renderMateriaux(searchInput ? searchInput.value : '');
                 }
             } else if (e.target.classList.contains('btn-action')) {
