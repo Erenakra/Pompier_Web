@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const containers = {
         "Sac prompt secours": document.getElementById('liste-prompt-secours'),
         "Sac oxygénation": document.getElementById('liste-oxygenation'),
-        "Général": document.getElementById('liste-general')
+        "Matériel Général": document.getElementById('liste-general')
     };
 
     try {
@@ -104,8 +104,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Vérification globale des éléments critiques pour la bannière d'alerte
         items.forEach(m => {
-            const isExpired = m.perimable && new Date(m.date_peremption) < now;
-            if (m.etat === "Abîmé" || m.etat === "Manquant" || isExpired) {
+            const isExpired = m.perimable && m.date_peremption && new Date(m.date_peremption) < now;
+            if (m.etat === "Abîmé" || m.etat === "Manquant" || m.etat === "Non opérationnel" || isExpired) {
                 isGlobalCritical = true;
             }
         });
@@ -177,7 +177,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                     return `
                         <div class="materiel-card ${cardClass} ${controlledClass}">
                             <div class="materiel-info">
-                                <div class="materiel-nom">${m.nom}</div>
+                                <div class="materiel-nom">
+                                    ${m.nom}
+                                    ${m.imageUrl ? `<button class="btn-photo" data-image="${m.imageUrl}" aria-label="Voir la photo">📷</button>` : ''}
+                                </div>
                                 <div class="localisation-badge">📍 ${m.localisation_precise}</div>
                                 <div class="badges-container">
                                     <span class="badge">📦 ${m.quantite}</span>
@@ -395,6 +398,39 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
         }
 
+        // --- Système d'Images (Plan et Photos) ---
+        const btnViewPlan = document.getElementById('btn-view-plan');
+        const planModal = document.getElementById('plan-modal');
+        const photoModal = document.getElementById('photo-modal');
+        const photoModalImg = document.getElementById('photo-modal-img');
+
+        if (btnViewPlan) {
+            btnViewPlan.addEventListener('click', () => {
+                if (!currentUser) return; // Sécurité optionnelle
+                planModal.classList.remove('hidden');
+            });
+        }
+
+        // Fermeture générique de toutes les modales via les boutons ✕ ou un clic sur le fond (overlay)
+        document.body.addEventListener('click', (e) => {
+            // Fermeture via la croix
+            if (e.target.classList.contains('btn-close-modal')) {
+                e.target.closest('.modal-overlay').classList.add('hidden');
+            }
+            // Fermeture via le clic sur le fond (overlay) uniquement, pas sur le contenu
+            if (e.target.classList.contains('modal-overlay')) {
+                e.target.classList.add('hidden');
+            }
+            // Ouverture de la photo du matériel
+            if (e.target.classList.contains('btn-photo')) {
+                const imgUrl = e.target.getAttribute('data-image');
+                if (imgUrl) {
+                    photoModalImg.src = imgUrl;
+                    photoModal.classList.remove('hidden');
+                }
+            }
+        });
+
         // Gestion des clics sur les boutons d'actions (délégation d'événements)
         document.body.addEventListener('click', (e) => {
             if (e.target.classList.contains('btn-conforme')) {
@@ -424,7 +460,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     editNomInput.value = item.nom;
                     editQuantiteInput.value = item.quantite;
                     editDateInput.value = item.date_peremption || '';
-                    editStatutInput.value = item.etat === 'Opérationnel' ? 'Opérationnel' : 'Non opérationnel';
+                    editStatutInput.value = ["Opérationnel", "Non opérationnel", "Abîmé", "Manquant"].includes(item.etat) ? item.etat : 'Non opérationnel';
                     
                     editModal.classList.remove('hidden');
                 }

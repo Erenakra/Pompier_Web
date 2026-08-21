@@ -7,7 +7,8 @@
     "quantite": 1,
     "etat": "Opérationnel",
     "perimable": false,
-    "date_peremption": null
+    "date_peremption": null,
+    "imageUrl": "images/demo-thermometre.jpg"
   },
   {
     "id_produit": "ps_bilan_02",
@@ -17,7 +18,8 @@
     "quantite": 1,
     "etat": "Opérationnel",
     "perimable": false,
-    "date_peremption": null
+    "date_peremption": null,
+    "imageUrl": "images/demo-tensiometre.jpg"
   },
   {
     "id_produit": "ps_bilan_03",

@@ -25,6 +25,7 @@
     <button id="btn-toggle-inventory" class="btn-inventory-mode">📋 Activer le Mode Inventaire</button>
     <button id="btn-export-csv" class="btn-export">📥 Exporter le réassort (CSV)</button>
     <button id="btn-view-history" class="btn-history">🕒 Voir l'historique</button>
+    <button id="btn-view-plan" class="btn-history">🗺️ Plan de rangement</button>
 </div>
 
 <!-- Barre de recherche pour filtrer le matériel en temps réel -->
@@ -82,6 +83,8 @@
                 <select id="edit-statut" required>
                     <option value="Opérationnel">Opérationnel</option>
                     <option value="Non opérationnel">Non opérationnel</option>
+                    <option value="Abîmé">Abîmé</option>
+                    <option value="Manquant">Manquant</option>
                 </select>
             </div>
             
@@ -134,6 +137,38 @@
             <button type="button" id="btn-clear-history" class="btn-cancel" style="background-color: #dc3545;">Effacer l'historique</button>
             <button type="button" id="btn-close-history" class="btn-save">Fermer</button>
         </div>
+    </div>
+</div>
+
+<!-- Modale Plan de Rangement -->
+<div id="plan-modal" class="modal-overlay hidden">
+    <div class="modal-content plan-content" style="max-width: 800px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 15px;">
+            <h3 style="margin: 0; border: none; padding: 0;">Plan de Rangement VTULE</h3>
+            <button type="button" class="btn-close-modal" aria-label="Fermer">✕</button>
+        </div>
+        <div class="plan-grid">
+            <div class="plan-card">
+                <div class="plan-img-placeholder">Image du coffre arrière</div>
+                <p>Coffre arrière</p>
+            </div>
+            <div class="plan-card">
+                <div class="plan-img-placeholder">Image de la cabine</div>
+                <p>Cabine (Avant)</p>
+            </div>
+            <div class="plan-card">
+                <div class="plan-img-placeholder">Image des portières</div>
+                <p>Portières latérales</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modale Photo Matériel -->
+<div id="photo-modal" class="modal-overlay hidden">
+    <div class="modal-content photo-content" style="background: transparent; box-shadow: none; max-width: 90%; text-align: center; position: relative;">
+        <button type="button" class="btn-close-modal btn-close-photo" aria-label="Fermer">✕</button>
+        <img id="photo-modal-img" src="" alt="Photo du matériel" style="max-width: 100%; max-height: 80vh; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
     </div>
 </div>
 
