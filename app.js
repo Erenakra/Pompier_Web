@@ -415,7 +415,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     
                     // Mettre à jour l'alerte globale
                     isGlobalCritical = items.some(m => {
-                        const expired = m.perimable && m.date_peremption && new Date(m.date_peremption) < now;
+                        const expired = m.perimable && m.date_peremption && new Date(m.date_peremption) < new Date();
                         return m.etat === "Abîmé" || m.etat === "Manquant" || m.etat === "Non opérationnel" || expired;
                     });
                     
