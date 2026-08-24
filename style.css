@@ -495,3 +495,63 @@ body.inventory-mode-active .inventory-actions {
     font-size: 2rem;
     text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
+
+/* --- Barre de Progression --- */
+.progress-container {
+    max-width: 800px;
+    margin: 15px auto 0 auto;
+    text-align: center;
+}
+
+.progress-text {
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #003366;
+    margin-bottom: 5px;
+}
+
+.progress-bar-bg {
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    height: 12px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    background-color: #28a745;
+    height: 100%;
+    transition: width 0.3s ease;
+}
+
+/* --- Filtres Rapides (Pilules) --- */
+.filters-container {
+    max-width: 800px;
+    margin: 10px auto 20px auto;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.filter-pill {
+    background-color: white;
+    color: #555;
+    border: 1px solid #ccc;
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+.filter-pill:hover {
+    background-color: #f1f1f1;
+}
+
+.filter-pill.active {
+    background-color: #003366;
+    color: white;
+    border-color: #003366;
+}

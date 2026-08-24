@@ -26,11 +26,28 @@
     <button id="btn-export-csv" class="btn-export">📥 Exporter le réassort (CSV)</button>
     <button id="btn-view-history" class="btn-history">🕒 Voir l'historique</button>
     <button id="btn-view-plan" class="btn-history">🗺️ Plan de rangement</button>
+    <button id="btn-reset-json" class="btn-history" style="border-color: #dc3545; color: #dc3545;">🔄 Recharger depuis le fichier JSON</button>
+</div>
+
+<!-- Barre de progression de l'inventaire (Masquée par défaut) -->
+<div id="progress-container" class="progress-container hidden">
+    <div class="progress-text" id="progress-text">0 / 0 matériels contrôlés</div>
+    <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="progress-bar-fill" style="width: 0%;"></div>
+    </div>
 </div>
 
 <!-- Barre de recherche pour filtrer le matériel en temps réel -->
 <div class="search-container">
     <input type="text" id="search-input" placeholder="🔍 Rechercher un matériel ou un emplacement..." aria-label="Rechercher un matériel ou un emplacement">
+</div>
+
+<!-- Filtres rapides par statut -->
+<div class="filters-container">
+    <button class="filter-pill active" data-filter="Tout">Tout</button>
+    <button class="filter-pill" data-filter="Critique">🔴 Critique</button>
+    <button class="filter-pill" data-filter="Surveiller">🟠 À surveiller</button>
+    <button class="filter-pill" data-filter="OK">🟢 OK</button>
 </div>
 
 <!-- Zone d'alerte critique -->
@@ -149,15 +166,24 @@
         </div>
         <div class="plan-grid">
             <div class="plan-card">
-                <div class="plan-img-placeholder">Image du coffre arrière</div>
+                <picture style="cursor: pointer;">
+                    <source srcset="images/1001361802.avif" type="image/avif">
+                    <img src="images/1001361802.jpg" alt="Coffre arrière" class="plan-img" style="width: 100%; height: 150px; object-fit: cover; border-radius: 6px;" data-image="images/1001361802.avif">
+                </picture>
                 <p>Coffre arrière</p>
             </div>
             <div class="plan-card">
-                <div class="plan-img-placeholder">Image de la cabine</div>
+                <picture style="cursor: pointer;">
+                    <source srcset="images/1001361830.avif" type="image/avif">
+                    <img src="images/1001361830.jpg" alt="Cabine (Avant)" class="plan-img" style="width: 100%; height: 150px; object-fit: cover; border-radius: 6px;" data-image="images/1001361830.avif">
+                </picture>
                 <p>Cabine (Avant)</p>
             </div>
             <div class="plan-card">
-                <div class="plan-img-placeholder">Image des portières</div>
+                <picture style="cursor: pointer;">
+                    <source srcset="images/1001361815.avif" type="image/avif">
+                    <img src="images/1001361815.jpg" alt="Portières latérales" class="plan-img" style="width: 100%; height: 150px; object-fit: cover; border-radius: 6px;" data-image="images/1001361815.avif">
+                </picture>
                 <p>Portières latérales</p>
             </div>
         </div>
@@ -168,7 +194,7 @@
 <div id="photo-modal" class="modal-overlay hidden">
     <div class="modal-content photo-content" style="background: transparent; box-shadow: none; max-width: 90%; text-align: center; position: relative;">
         <button type="button" class="btn-close-modal btn-close-photo" aria-label="Fermer">✕</button>
-        <img id="photo-modal-img" src="" alt="Photo du matériel" style="max-width: 100%; max-height: 80vh; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+        <div id="photo-modal-container"></div>
     </div>
 </div>
 
