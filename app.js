@@ -489,6 +489,19 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
         }
 
+        // --- Plier / Déplier les zones du Plan de Rangement ---
+        const planZoneTitles = document.querySelectorAll('.plan-zone-title');
+        planZoneTitles.forEach(title => {
+            title.addEventListener('click', () => {
+                title.classList.toggle('collapsed');
+                const zoneName = title.getAttribute('data-zone');
+                const content = document.querySelector(`[data-zone-content="${zoneName}"]`);
+                if (content) {
+                    content.classList.toggle('collapsed');
+                }
+            });
+        });
+
         const btnResetJson = document.getElementById('btn-reset-json');
         if (btnResetJson) {
             btnResetJson.addEventListener('click', () => {

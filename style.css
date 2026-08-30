@@ -456,6 +456,12 @@ body.inventory-mode-active .inventory-actions {
     padding: 10px;
     text-align: center;
     background-color: #f9f9f9;
+    transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.plan-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transform: translateY(-2px);
 }
 
 .plan-card p {
@@ -464,17 +470,54 @@ body.inventory-mode-active .inventory-actions {
     color: #333;
 }
 
-.plan-img-placeholder {
+/* Style des images cliquables dans le plan */
+.plan-img {
     width: 100%;
     height: 150px;
-    background-color: #e0e0e0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #888;
-    font-size: 0.9em;
+    object-fit: cover;
     border-radius: 6px;
-    border: 1px dashed #aaa;
+    cursor: pointer;
+    display: block;
+}
+
+/* --- Zones pliables du Plan de Rangement --- */
+.plan-zone {
+    margin-bottom: 20px;
+}
+
+.plan-zone-title {
+    color: #003366;
+    font-size: 1.1em;
+    cursor: pointer;
+    padding: 10px 15px;
+    background-color: #e8eef5;
+    border-radius: 8px;
+    margin: 0 0 10px 0;
+    user-select: none;
+    transition: background-color 0.2s;
+}
+
+.plan-zone-title:hover {
+    background-color: #d0dde8;
+}
+
+.plan-zone-title.collapsed::after {
+    content: ' ▸';
+}
+
+.plan-zone-content {
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.plan-zone-content.collapsed {
+    display: none;
+}
+
+/* Scroll vertical si la modale est trop haute */
+.plan-content {
+    max-height: 85vh;
+    overflow-y: auto;
 }
 
 /* --- Bouton Fermer Modale (X) --- */

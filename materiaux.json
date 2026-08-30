@@ -19,7 +19,7 @@
     "etat": "Opérationnel",
     "perimable": false,
     "date_peremption": null,
-    "imageUrl": "images/demo-tensiometre.avif"
+    "imageUrl": "images/Sac tensiomètre.avif"
   },
   {
     "id_produit": "ps_bilan_03",
@@ -79,7 +79,8 @@
     "quantite": 1,
     "etat": "Opérationnel",
     "perimable": true,
-    "date_peremption": "2026-12-01"
+    "date_peremption": "2026-12-01",
+    "imageUrl": "images/DSA dans Sac PS.avif"
   },
   {
     "id_produit": "ps_hors_02",
@@ -150,7 +151,8 @@
     "quantite": 2,
     "etat": "Opérationnel",
     "perimable": true,
-    "date_peremption": "2028-08-15"
+    "date_peremption": "2028-08-15",
+    "imageUrl": "images/Masques dans PS.avif"
   },
   {
     "id_produit": "o2_05",
@@ -160,7 +162,8 @@
     "quantite": 2,
     "etat": "Opérationnel",
     "perimable": true,
-    "date_peremption": "2028-08-15"
+    "date_peremption": "2028-08-15",
+    "imageUrl": "images/Masques dans PS.avif"
   },
   {
     "id_produit": "o2_06",
@@ -250,6 +253,7 @@
     "quantite": 1,
     "etat": "Opérationnel",
     "perimable": false,
-    "date_peremption": null
+    "date_peremption": null,
+    "imageUrl": "images/Gants dans PS.avif"
   }
 ]
