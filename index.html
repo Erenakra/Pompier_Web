@@ -11,8 +11,12 @@
     <div class="header-content">
         <div id="vehicule-info">
             <!-- Rempli par le JS -->
-            <h1>Chargement VTULE...</h1>
+            <h1>Chargement Véhicule...</h1>
         </div>
+        <select id="vehicule-selector">
+            <option value="VTULE">VTULE</option>
+            <option value="VPI">VPI</option>
+        </select>
         <div id="user-info-banner" class="hidden">
             <span id="connected-user-name"></span>
             <button id="btn-logout" class="btn-logout">Déconnexion</button>
@@ -161,93 +165,136 @@
 <div id="plan-modal" class="modal-overlay hidden">
     <div class="modal-content plan-content" style="max-width: 900px;">
         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 15px;">
-            <h3 style="margin: 0; border: none; padding: 0;">Plan de Rangement VTULE</h3>
+            <h3 style="margin: 0; border: none; padding: 0;">Plan de Rangement</h3>
             <button type="button" class="btn-close-modal" aria-label="Fermer">✕</button>
         </div>
 
+        <!-- ZONES COMMUNES -->
         <!-- Zone : Cabine -->
-        <div class="plan-zone">
+        <div class="plan-zone" data-vehicule="commun">
             <h4 class="plan-zone-title" data-zone="cabine">🚐 Cabine ▾</h4>
             <div class="plan-grid plan-zone-content" data-zone-content="cabine">
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/cabine avant gauche.avif" type="image/avif"><img src="images/cabine avant gauche.avif" alt="Cabine - Avant gauche" class="plan-img" data-image="images/cabine avant gauche.avif"></picture><p>Cabine - Avant gauche</p></div>
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/cabine avant droit.avif" type="image/avif"><img src="images/cabine avant droit.avif" alt="Cabine - Avant droit" class="plan-img" data-image="images/cabine avant droit.avif"></picture><p>Cabine - Avant droit</p></div>
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/cabine arrière gauche.avif" type="image/avif"><img src="images/cabine arrière gauche.avif" alt="Cabine - Arrière gauche" class="plan-img" data-image="images/cabine arrière gauche.avif"></picture><p>Cabine - Arrière gauche</p></div>
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/cabine coffre banquette.avif" type="image/avif"><img src="images/cabine coffre banquette.avif" alt="Cabine - Coffre banquette" class="plan-img" data-image="images/cabine coffre banquette.avif"></picture><p>Cabine - Coffre banquette</p></div>
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/cabinet arrière gauche3.avif" type="image/avif"><img src="images/cabinet arrière gauche3.avif" alt="Cabine - Arrière gauche (détail)" class="plan-img" data-image="images/cabinet arrière gauche3.avif"></picture><p>Cabine - Arrière gauche (détail)</p></div>
-            </div>
-        </div>
-
-        <!-- Zone : Coffre -->
-        <div class="plan-zone">
-            <h4 class="plan-zone-title" data-zone="coffre">📦 Coffre ▾</h4>
-            <div class="plan-grid plan-zone-content" data-zone-content="coffre">
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/VTULE coffre.avif" type="image/avif"><img src="images/VTULE coffre.avif" alt="Coffre - Vue d'ensemble" class="plan-img" data-image="images/VTULE coffre.avif"></picture><p>Coffre - Vue d'ensemble</p></div>
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/VTULE coffre antiere.avif" type="image/avif"><img src="images/VTULE coffre antiere.avif" alt="Coffre - Vue antérieure" class="plan-img" data-image="images/VTULE coffre antiere.avif"></picture><p>Coffre - Vue antérieure</p></div>
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/VPI arrière.avif" type="image/avif"><img src="images/VPI arrière.avif" alt="Véhicule - Arrière" class="plan-img" data-image="images/VPI arrière.avif"></picture><p>Véhicule - Arrière</p></div>
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/arrière vpi.avif" type="image/avif"><img src="images/arrière vpi.avif" alt="Arrière du VPI" class="plan-img" data-image="images/arrière vpi.avif"></picture><p>Arrière du VPI</p></div>
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/coffre bas avant gauche.avif" type="image/avif"><img src="images/coffre bas avant gauche.avif" alt="Coffre bas - Avant gauche" class="plan-img" data-image="images/coffre bas avant gauche.avif"></picture><p>Coffre bas - Avant gauche</p></div>
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/Coffre bas arrière gauche.avif" type="image/avif"><img src="images/Coffre bas arrière gauche.avif" alt="Coffre bas - Arrière gauche" class="plan-img" data-image="images/Coffre bas arrière gauche.avif"></picture><p>Coffre bas - Arrière gauche</p></div>
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/VPI coffre bas avant droit.avif" type="image/avif"><img src="images/VPI coffre bas avant droit.avif" alt="Coffre bas - Avant droit" class="plan-img" data-image="images/VPI coffre bas avant droit.avif"></picture><p>Coffre bas - Avant droit</p></div>
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/VPI coffre bas arrière droit.avif" type="image/avif"><img src="images/VPI coffre bas arrière droit.avif" alt="Coffre bas - Arrière droit" class="plan-img" data-image="images/VPI coffre bas arrière droit.avif"></picture><p>Coffre bas - Arrière droit</p></div>
+                <div class="plan-card"><img src="images/cabine avant gauche.avif" alt="Cabine - Avant gauche" class="plan-img rotate-right" data-image="images/cabine avant gauche.avif"><p>Cabine - Avant gauche</p></div>
+                <div class="plan-card"><img src="images/cabine avant droit.avif" alt="Cabine - Avant droit" class="plan-img rotate-right" data-image="images/cabine avant droit.avif"><p>Cabine - Avant droit</p></div>
+                <div class="plan-card"><img src="images/cabine arrière gauche.avif" alt="Cabine - Arrière gauche" class="plan-img rotate-right" data-image="images/cabine arrière gauche.avif"><p>Cabine - Arrière gauche</p></div>
+                <div class="plan-card"><img src="images/cabine coffre banquette.avif" alt="Cabine - Coffre banquette" class="plan-img" data-image="images/cabine coffre banquette.avif"><p>Cabine - Coffre banquette</p></div>
+                <div class="plan-card"><img src="images/cabinet arrière gauche3.avif" alt="Cabine - Arrière gauche (détail)" class="plan-img rotate-right" data-image="images/cabinet arrière gauche3.avif"><p>Cabine - Arrière gauche (détail)</p></div>
             </div>
         </div>
 
         <!-- Zone : Latéral -->
-        <div class="plan-zone">
+        <div class="plan-zone" data-vehicule="commun">
             <h4 class="plan-zone-title" data-zone="lateral">↔️ Latéral ▾</h4>
             <div class="plan-grid plan-zone-content" data-zone-content="lateral">
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/latérale avant gauche.avif" type="image/avif"><img src="images/latérale avant gauche.avif" alt="Latéral - Avant gauche" class="plan-img" data-image="images/latérale avant gauche.avif"></picture><p>Latéral - Avant gauche</p></div>
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/latéral arrière gauche.avif" type="image/avif"><img src="images/latéral arrière gauche.avif" alt="Latéral - Arrière gauche" class="plan-img" data-image="images/latéral arrière gauche.avif"></picture><p>Latéral - Arrière gauche</p></div>
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/Coffre latérale avant droit.avif" type="image/avif"><img src="images/Coffre latérale avant droit.avif" alt="Coffre latéral - Avant droit" class="plan-img" data-image="images/Coffre latérale avant droit.avif"></picture><p>Coffre latéral - Avant droit</p></div>
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/Coffre latérale arrière droit.avif" type="image/avif"><img src="images/Coffre latérale arrière droit.avif" alt="Coffre latéral - Arrière droit" class="plan-img" data-image="images/Coffre latérale arrière droit.avif"></picture><p>Coffre latéral - Arrière droit</p></div>
+                <div class="plan-card"><img src="images/latérale avant gauche.avif" alt="Latéral - Avant gauche" class="plan-img" data-image="images/latérale avant gauche.avif"><p>Latéral - Avant gauche</p></div>
+                <div class="plan-card"><img src="images/latéral arrière gauche.avif" alt="Latéral - Arrière gauche" class="plan-img" data-image="images/latéral arrière gauche.avif"><p>Latéral - Arrière gauche</p></div>
+                <div class="plan-card"><img src="images/Coffre latérale avant droit.avif" alt="Coffre latéral - Avant droit" class="plan-img" data-image="images/Coffre latérale avant droit.avif"><p>Coffre latéral - Avant droit</p></div>
+                <div class="plan-card"><img src="images/Coffre latérale arrière droit.avif" alt="Coffre latéral - Arrière droit" class="plan-img" data-image="images/Coffre latérale arrière droit.avif"><p>Coffre latéral - Arrière droit</p></div>
             </div>
         </div>
 
-        <!-- Zone : Toit -->
-        <div class="plan-zone">
-            <h4 class="plan-zone-title" data-zone="toit">⬆️ Toit ▾</h4>
-            <div class="plan-grid plan-zone-content" data-zone-content="toit">
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/coffre toit VPI.avif" type="image/avif"><img src="images/coffre toit VPI.avif" alt="Coffre de toit" class="plan-img" data-image="images/coffre toit VPI.avif"></picture><p>Coffre de toit</p></div>
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/Avant coffre toit VPI.avif" type="image/avif"><img src="images/Avant coffre toit VPI.avif" alt="Avant du coffre de toit" class="plan-img" data-image="images/Avant coffre toit VPI.avif"></picture><p>Avant du coffre de toit</p></div>
+        <!-- Zone : Coffre bas (commun) -->
+        <div class="plan-zone" data-vehicule="commun">
+            <h4 class="plan-zone-title" data-zone="coffre-bas">📦 Coffre bas ▾</h4>
+            <div class="plan-grid plan-zone-content" data-zone-content="coffre-bas">
+                <div class="plan-card"><img src="images/coffre bas avant gauche.avif" alt="Coffre bas - Avant gauche" class="plan-img" data-image="images/coffre bas avant gauche.avif"><p>Coffre bas - Avant gauche</p></div>
+                <div class="plan-card"><img src="images/Coffre bas arrière gauche.avif" alt="Coffre bas - Arrière gauche" class="plan-img" data-image="images/Coffre bas arrière gauche.avif"><p>Coffre bas - Arrière gauche</p></div>
             </div>
         </div>
 
-        <!-- Zone : Bacs & Accessoires -->
-        <div class="plan-zone">
-            <h4 class="plan-zone-title" data-zone="bacs">🧰 Bacs & Accessoires ▾</h4>
-            <div class="plan-grid plan-zone-content" data-zone-content="bacs">
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/Bac commandes VPI.avif" type="image/avif"><img src="images/Bac commandes VPI.avif" alt="Bac Commandes" class="plan-img" data-image="images/Bac commandes VPI.avif"></picture><p>Bac Commandes</p></div>
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/Bac Cordages VPI.avif" type="image/avif"><img src="images/Bac Cordages VPI.avif" alt="Bac Cordages" class="plan-img" data-image="images/Bac Cordages VPI.avif"></picture><p>Bac Cordages</p></div>
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/bac d'urgence.avif" type="image/avif"><img src="images/bac d'urgence.avif" alt="Bac d'urgence" class="plan-img" data-image="images/bac d'urgence.avif"></picture><p>Bac d'urgence</p></div>
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/Bac EPI VTULE .avif" type="image/avif"><img src="images/Bac EPI VTULE .avif" alt="Bac EPI" class="plan-img" data-image="images/Bac EPI VTULE .avif"></picture><p>Bac EPI</p></div>
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/Bac hydraulique VPI.avif" type="image/avif"><img src="images/Bac hydraulique VPI.avif" alt="Bac hydraulique" class="plan-img" data-image="images/Bac hydraulique VPI.avif"></picture><p>Bac hydraulique</p></div>
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/bac tronçonneuse.avif" type="image/avif"><img src="images/bac tronçonneuse.avif" alt="Bac Tronçonneuse" class="plan-img" data-image="images/bac tronçonneuse.avif"></picture><p>Bac Tronçonneuse</p></div>
+        <!-- Zone : Sacs & Équipements communs -->
+        <div class="plan-zone" data-vehicule="commun">
+            <h4 class="plan-zone-title" data-zone="sacs-commun">🎒 Sacs & Équipements communs ▾</h4>
+            <div class="plan-grid plan-zone-content" data-zone-content="sacs-commun">
+                <div class="plan-card"><img src="images/Sac PS2.avif" alt="Sac PS2" class="plan-img" data-image="images/Sac PS2.avif"><p>Sac PS2</p></div>
+                <div class="plan-card"><img src="images/Sac Bilan dans PS.avif" alt="Sac Bilan dans PS" class="plan-img rotate-right" data-image="images/Sac Bilan dans PS.avif"><p>Sac Bilan dans PS</p></div>
+                <div class="plan-card"><img src="images/Sacoche jaune PS.avif" alt="Sacoche jaune" class="plan-img" data-image="images/Sacoche jaune PS.avif"><p>Sacoche jaune</p></div>
+                <div class="plan-card"><img src="images/Sacoche rouge PS.avif" alt="Sacoche rouge" class="plan-img" data-image="images/Sacoche rouge PS.avif"><p>Sacoche rouge</p></div>
+                <div class="plan-card"><img src="images/Sacoche verte PS.avif" alt="Sacoche verte" class="plan-img" data-image="images/Sacoche verte PS.avif"><p>Sacoche verte</p></div>
+                <div class="plan-card"><img src="images/Sacs DASRI dans PS.avif" alt="Sacs DASRI" class="plan-img" data-image="images/Sacs DASRI dans PS.avif"><p>Sacs DASRI</p></div>
+                <div class="plan-card"><img src="images/Sac aspi mucosités.avif" alt="Aspirateur à mucosités" class="plan-img" data-image="images/Sac aspi mucosités.avif"><p>Aspirateur à mucosités</p></div>
+                <div class="plan-card"><img src="images/Sac oxygénation.avif" alt="Sac Oxygénation" class="plan-img" data-image="images/Sac oxygénation.avif"><p>Sac Oxygénation</p></div>
+                <div class="plan-card"><img src="images/sac oxygénation1.avif" alt="Sac Oxygénation (détail 1)" class="plan-img" data-image="images/sac oxygénation1.avif"><p>Sac Oxygénation (détail 1)</p></div>
+                <div class="plan-card"><img src="images/sac oxygénation2.avif" alt="Sac Oxygénation (détail 2)" class="plan-img" data-image="images/sac oxygénation2.avif"><p>Sac Oxygénation (détail 2)</p></div>
+                <div class="plan-card"><img src="images/sac oxygénation éclaté.avif" alt="Sac Oxygénation - Éclaté" class="plan-img" data-image="images/sac oxygénation éclaté.avif"><p>Sac Oxygénation - Éclaté</p></div>
+                <div class="plan-card"><img src="images/DSA dans Sac PS.avif" alt="DSA dans Sac PS" class="plan-img" data-image="images/DSA dans Sac PS.avif"><p>DSA dans Sac PS</p></div>
+                <div class="plan-card"><img src="images/Gants dans PS.avif" alt="Gants dans PS" class="plan-img" data-image="images/Gants dans PS.avif"><p>Gants dans PS</p></div>
+                <div class="plan-card"><img src="images/Masques dans PS.avif" alt="Masques dans PS" class="plan-img" data-image="images/Masques dans PS.avif"><p>Masques dans PS</p></div>
+                <div class="plan-card"><img src="images/Sac tensiomètre.avif" alt="Sac tensiomètre" class="plan-img" data-image="images/Sac tensiomètre.avif"><p>Sac tensiomètre</p></div>
+                <div class="plan-card"><img src="images/20260820_150211.avif" alt="Vue d'ensemble" class="plan-img" data-image="images/20260820_150211.avif"><p>Vue d'ensemble</p></div>
             </div>
         </div>
 
-        <!-- Zone : Sacs & Poches -->
-        <div class="plan-zone">
-            <h4 class="plan-zone-title" data-zone="sacs">🎒 Sacs & Poches ▾</h4>
-            <div class="plan-grid plan-zone-content" data-zone-content="sacs">
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/Sac PS VTULE.avif" type="image/avif"><img src="images/Sac PS VTULE.avif" alt="Sac PS - Vue d'ensemble" class="plan-img" data-image="images/Sac PS VTULE.avif"></picture><p>Sac PS - Vue d'ensemble</p></div>
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/Sac PS VPI éclaté.avif" type="image/avif"><img src="images/Sac PS VPI éclaté.avif" alt="Sac PS - Éclaté" class="plan-img" data-image="images/Sac PS VPI éclaté.avif"></picture><p>Sac PS - Éclaté</p></div>
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/Sac PS1 VTULE.avif" type="image/avif"><img src="images/Sac PS1 VTULE.avif" alt="Sac PS1" class="plan-img" data-image="images/Sac PS1 VTULE.avif"></picture><p>Sac PS1</p></div>
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/Sac PS2.avif" type="image/avif"><img src="images/Sac PS2.avif" alt="Sac PS2" class="plan-img" data-image="images/Sac PS2.avif"></picture><p>Sac PS2</p></div>
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/Sac Bilan dans PS.avif" type="image/avif"><img src="images/Sac Bilan dans PS.avif" alt="Sac Bilan dans PS" class="plan-img" data-image="images/Sac Bilan dans PS.avif"></picture><p>Sac Bilan dans PS</p></div>
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/Sac PS poche avant VPI.avif" type="image/avif"><img src="images/Sac PS poche avant VPI.avif" alt="Sac PS - Poche avant" class="plan-img" data-image="images/Sac PS poche avant VPI.avif"></picture><p>Sac PS - Poche avant</p></div>
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/Sac PS VTULE poche avant.avif" type="image/avif"><img src="images/Sac PS VTULE poche avant.avif" alt="Sac PS - Poche avant (détail)" class="plan-img" data-image="images/Sac PS VTULE poche avant.avif"></picture><p>Sac PS - Poche avant (détail)</p></div>
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/Sac PS VTULE poche avant2.avif" type="image/avif"><img src="images/Sac PS VTULE poche avant2.avif" alt="Sac PS - Poche avant (détail 2)" class="plan-img" data-image="images/Sac PS VTULE poche avant2.avif"></picture><p>Sac PS - Poche avant (détail 2)</p></div>
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/Sac PS Poche latérale SAT.avif" type="image/avif"><img src="images/Sac PS Poche latérale SAT.avif" alt="Sac PS - Poche latérale SAT" class="plan-img" data-image="images/Sac PS Poche latérale SAT.avif"></picture><p>Sac PS - Poche latérale SAT</p></div>
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/Sac PS VPI Poche latérale hémorragie.avif" type="image/avif"><img src="images/Sac PS VPI Poche latérale hémorragie.avif" alt="Sac PS - Poche hémorragie" class="plan-img" data-image="images/Sac PS VPI Poche latérale hémorragie.avif"></picture><p>Sac PS - Poche hémorragie</p></div>
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/Sacoche jaune PS.avif" type="image/avif"><img src="images/Sacoche jaune PS.avif" alt="Sacoche jaune" class="plan-img" data-image="images/Sacoche jaune PS.avif"></picture><p>Sacoche jaune</p></div>
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/Sacoche rouge PS.avif" type="image/avif"><img src="images/Sacoche rouge PS.avif" alt="Sacoche rouge" class="plan-img" data-image="images/Sacoche rouge PS.avif"></picture><p>Sacoche rouge</p></div>
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/Sacoche verte PS.avif" type="image/avif"><img src="images/Sacoche verte PS.avif" alt="Sacoche verte" class="plan-img" data-image="images/Sacoche verte PS.avif"></picture><p>Sacoche verte</p></div>
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/Sacs DASRI dans PS.avif" type="image/avif"><img src="images/Sacs DASRI dans PS.avif" alt="Sacs DASRI" class="plan-img" data-image="images/Sacs DASRI dans PS.avif"></picture><p>Sacs DASRI</p></div>
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/Sac aspi mucosités.avif" type="image/avif"><img src="images/Sac aspi mucosités.avif" alt="Aspirateur à mucosités" class="plan-img" data-image="images/Sac aspi mucosités.avif"></picture><p>Aspirateur à mucosités</p></div>
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/Sac oxygénation.avif" type="image/avif"><img src="images/Sac oxygénation.avif" alt="Sac Oxygénation" class="plan-img" data-image="images/Sac oxygénation.avif"></picture><p>Sac Oxygénation</p></div>
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/sac oxygénation1.avif" type="image/avif"><img src="images/sac oxygénation1.avif" alt="Sac Oxygénation (détail 1)" class="plan-img" data-image="images/sac oxygénation1.avif"></picture><p>Sac Oxygénation (détail 1)</p></div>
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/sac oxygénation2.avif" type="image/avif"><img src="images/sac oxygénation2.avif" alt="Sac Oxygénation (détail 2)" class="plan-img" data-image="images/sac oxygénation2.avif"></picture><p>Sac Oxygénation (détail 2)</p></div>
-                <div class="plan-card"><picture style="cursor: pointer;"><source srcset="images/sac oxygénation éclaté.avif" type="image/avif"><img src="images/sac oxygénation éclaté.avif" alt="Sac Oxygénation - Éclaté" class="plan-img" data-image="images/sac oxygénation éclaté.avif"></picture><p>Sac Oxygénation - Éclaté</p></div>
+        <!-- ZONES VTULE -->
+        <!-- Zone : Coffre VTULE -->
+        <div class="plan-zone" data-vehicule="VTULE">
+            <h4 class="plan-zone-title" data-zone="coffre-vtule">📦 Coffre VTULE ▾</h4>
+            <div class="plan-grid plan-zone-content" data-zone-content="coffre-vtule">
+                <div class="plan-card"><img src="images/VTULE coffre.avif" alt="Coffre - Vue d'ensemble" class="plan-img rotate-right" data-image="images/VTULE coffre.avif"><p>Coffre - Vue d'ensemble</p></div>
+                <div class="plan-card"><img src="images/VTULE coffre antiere.avif" alt="Coffre - Vue antérieure" class="plan-img rotate-right" data-image="images/VTULE coffre antiere.avif"><p>Coffre - Vue antérieure</p></div>
+            </div>
+        </div>
+
+        <!-- Zone : Bacs VTULE -->
+        <div class="plan-zone" data-vehicule="VTULE">
+            <h4 class="plan-zone-title" data-zone="bacs-vtule">🧰 Bacs VTULE ▾</h4>
+            <div class="plan-grid plan-zone-content" data-zone-content="bacs-vtule">
+                <div class="plan-card"><img src="images/bac d'urgence.avif" alt="Bac d'urgence" class="plan-img" data-image="images/bac d'urgence.avif"><p>Bac d'urgence</p></div>
+                <div class="plan-card"><img src="images/Bac EPI VTULE .avif" alt="Bac EPI" class="plan-img" data-image="images/Bac EPI VTULE .avif"><p>Bac EPI</p></div>
+            </div>
+        </div>
+
+        <!-- Zone : Sacs VTULE -->
+        <div class="plan-zone" data-vehicule="VTULE">
+            <h4 class="plan-zone-title" data-zone="sacs-vtule">🎒 Sacs VTULE ▾</h4>
+            <div class="plan-grid plan-zone-content" data-zone-content="sacs-vtule">
+                <div class="plan-card"><img src="images/Sac PS VTULE.avif" alt="Sac PS - Vue d'ensemble" class="plan-img" data-image="images/Sac PS VTULE.avif"><p>Sac PS - Vue d'ensemble</p></div>
+                <div class="plan-card"><img src="images/Sac PS VTULE poche avant.avif" alt="Sac PS - Poche avant (détail)" class="plan-img rotate-right" data-image="images/Sac PS VTULE poche avant.avif"><p>Sac PS - Poche avant (détail)</p></div>
+                <div class="plan-card"><img src="images/Sac PS VTULE poche avant2.avif" alt="Sac PS - Poche avant (détail 2)" class="plan-img rotate-right" data-image="images/Sac PS VTULE poche avant2.avif"><p>Sac PS - Poche avant (détail 2)</p></div>
+                <div class="plan-card"><img src="images/Sac PS1 VTULE.avif" alt="Sac PS1" class="plan-img rotate-right" data-image="images/Sac PS1 VTULE.avif"><p>Sac PS1</p></div>
+            </div>
+        </div>
+
+        <!-- ZONES VPI -->
+        <!-- Zone : Coffre VPI -->
+        <div class="plan-zone" data-vehicule="VPI">
+            <h4 class="plan-zone-title" data-zone="coffre-vpi">📦 Coffre VPI ▾</h4>
+            <div class="plan-grid plan-zone-content" data-zone-content="coffre-vpi">
+                <div class="plan-card"><img src="images/VPI arrière.avif" alt="Véhicule - Arrière" class="plan-img rotate-right" data-image="images/VPI arrière.avif"><p>Véhicule - Arrière</p></div>
+                <div class="plan-card"><img src="images/arrière vpi.avif" alt="Arrière du VPI" class="plan-img" data-image="images/arrière vpi.avif"><p>Arrière du VPI</p></div>
+                <div class="plan-card"><img src="images/VPI coffre bas avant droit.avif" alt="Coffre bas - Avant droit" class="plan-img" data-image="images/VPI coffre bas avant droit.avif"><p>Coffre bas - Avant droit</p></div>
+                <div class="plan-card"><img src="images/VPI coffre bas arrière droit.avif" alt="Coffre bas - Arrière droit" class="plan-img" data-image="images/VPI coffre bas arrière droit.avif"><p>Coffre bas - Arrière droit</p></div>
+            </div>
+        </div>
+
+        <!-- Zone : Toit VPI -->
+        <div class="plan-zone" data-vehicule="VPI">
+            <h4 class="plan-zone-title" data-zone="toit-vpi">⬆️ Toit VPI ▾</h4>
+            <div class="plan-grid plan-zone-content" data-zone-content="toit-vpi">
+                <div class="plan-card"><img src="images/coffre toit VPI.avif" alt="Coffre de toit" class="plan-img" data-image="images/coffre toit VPI.avif"><p>Coffre de toit</p></div>
+                <div class="plan-card"><img src="images/Avant coffre toit VPI.avif" alt="Avant du coffre de toit" class="plan-img" data-image="images/Avant coffre toit VPI.avif"><p>Avant du coffre de toit</p></div>
+            </div>
+        </div>
+
+        <!-- Zone : Bacs VPI -->
+        <div class="plan-zone" data-vehicule="VPI">
+            <h4 class="plan-zone-title" data-zone="bacs-vpi">🧰 Bacs VPI ▾</h4>
+            <div class="plan-grid plan-zone-content" data-zone-content="bacs-vpi">
+                <div class="plan-card"><img src="images/Bac commandes VPI.avif" alt="Bac Commandes" class="plan-img rotate-right" data-image="images/Bac commandes VPI.avif"><p>Bac Commandes</p></div>
+                <div class="plan-card"><img src="images/Bac Cordages VPI.avif" alt="Bac Cordages" class="plan-img rotate-right" data-image="images/Bac Cordages VPI.avif"><p>Bac Cordages</p></div>
+                <div class="plan-card"><img src="images/Bac hydraulique VPI.avif" alt="Bac hydraulique" class="plan-img" data-image="images/Bac hydraulique VPI.avif"><p>Bac hydraulique</p></div>
+                <div class="plan-card"><img src="images/bac tronçonneuse.avif" alt="Bac Tronçonneuse" class="plan-img rotate-right" data-image="images/bac tronçonneuse.avif"><p>Bac Tronçonneuse</p></div>
+            </div>
+        </div>
+
+        <!-- Zone : Sacs VPI -->
+        <div class="plan-zone" data-vehicule="VPI">
+            <h4 class="plan-zone-title" data-zone="sacs-vpi">🎒 Sacs VPI ▾</h4>
+            <div class="plan-grid plan-zone-content" data-zone-content="sacs-vpi">
+                <div class="plan-card"><img src="images/Sac PS poche avant VPI.avif" alt="Sac PS - Poche avant" class="plan-img rotate-right" data-image="images/Sac PS poche avant VPI.avif"><p>Sac PS - Poche avant</p></div>
+                <div class="plan-card"><img src="images/Sac PS VPI Poche latérale hémorragie.avif" alt="Sac PS - Poche hémorragie" class="plan-img" data-image="images/Sac PS VPI Poche latérale hémorragie.avif"><p>Sac PS - Poche hémorragie</p></div>
+                <div class="plan-card"><img src="images/Sac PS VPI éclaté.avif" alt="Sac PS - Éclaté" class="plan-img" data-image="images/Sac PS VPI éclaté.avif"><p>Sac PS - Éclaté</p></div>
+                <div class="plan-card"><img src="images/Sac PS Poche latérale SAT.avif" alt="Sac PS - Poche latérale SAT" class="plan-img" data-image="images/Sac PS Poche latérale SAT.avif"><p>Sac PS - Poche latérale SAT</p></div>
             </div>
         </div>
 

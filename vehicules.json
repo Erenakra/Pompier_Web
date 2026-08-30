@@ -1,6 +1,16 @@
 {
-  "id": "VTULE-01",
-  "responsable_actuel": "Sgt. Dupont",
-  "etat_global": "OpÃ©rationnel",
-  "derniere_mise_a_jour": "2026-06-13T17:21:20Z"
+  "VTULE": {
+    "id": "VTULE-01",
+    "type": "VTULE",
+    "responsable_actuel": "Sgt. Dupont",
+    "etat_global": "Opérationnel",
+    "derniere_mise_a_jour": "2026-06-13T17:21:20Z"
+  },
+  "VPI": {
+    "id": "VPI-01",
+    "type": "VPI",
+    "responsable_actuel": "Sgt. Dupont",
+    "etat_global": "Opérationnel",
+    "derniere_mise_a_jour": "2026-06-13T17:21:20Z"
+  }
 }

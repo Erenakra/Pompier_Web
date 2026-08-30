@@ -598,3 +598,21 @@ body.inventory-mode-active .inventory-actions {
     color: white;
     border-color: #003366;
 }
+/* Rotation 90° horaire pour les photos mal orientées */
+.plan-img.rotate-right {
+    transform: rotate(90deg) scale(1.5);
+    transform-origin: center center;
+}
+
+#vehicule-selector {
+    margin-top: 10px;
+    padding: 5px 10px;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background: #fff;
+    color: #003366;
+    font-weight: bold;
+    cursor: pointer;
+}
+

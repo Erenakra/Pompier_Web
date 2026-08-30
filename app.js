@@ -19,9 +19,45 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const initApp = async () => {
         try {
+            // --- Gestion du Véhicule (URL / LocalStorage / Header) ---
+            const urlParams = new URLSearchParams(window.location.search);
+            let activeVehicule = urlParams.get('vehicule');
+            
+            if (activeVehicule && (activeVehicule === 'VTULE' || activeVehicule === 'VPI')) {
+                localStorage.setItem('activeVehicule', activeVehicule);
+            } else {
+                activeVehicule = localStorage.getItem('activeVehicule') || 'VTULE';
+            }
+
+            const vehiculeSelector = document.getElementById('vehicule-selector');
+            if (vehiculeSelector) {
+                vehiculeSelector.value = activeVehicule;
+                vehiculeSelector.addEventListener('change', (e) => {
+                    const newVal = e.target.value;
+                    localStorage.setItem('activeVehicule', newVal);
+                    
+                    const newUrl = new URL(window.location);
+                    newUrl.searchParams.set('vehicule', newVal);
+                    window.history.replaceState({}, '', newUrl);
+                    
+                    window.location.reload(); // Recharger avec le nouveau véhicule
+                });
+            }
+            
             const resVehicule = await fetch('vehicules.json');
             if (!resVehicule.ok) throw new Error('Échec du fetch véhicule');
-            const vehicule = await resVehicule.json();
+            const vehiculesData = await resVehicule.json();
+            const vehicule = vehiculesData[activeVehicule] || vehiculesData['VTULE'];
+
+            // Filtrage des zones du plan de rangement
+            document.querySelectorAll('.plan-zone').forEach(zone => {
+                const zoneVehicule = zone.getAttribute('data-vehicule');
+                if (zoneVehicule === 'commun' || zoneVehicule === activeVehicule) {
+                    zone.style.display = 'block';
+                } else {
+                    zone.style.display = 'none';
+                }
+            });
 
             let materiaux;
             const localData = localStorage.getItem('materiauxData');
@@ -528,17 +564,18 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (e.target.classList.contains('btn-photo') || e.target.classList.contains('plan-img')) {
                 const imgUrl = e.target.getAttribute('data-image');
                 if (imgUrl) {
+                    // Si on clique sur une photo du plan, on ferme d'abord la modale plan
                     if (e.target.classList.contains('plan-img')) {
                         planModal.classList.add('hidden');
                     }
-                    const jpgUrl = imgUrl.replace(/\.avif$/i, '.jpg');
                     const altText = escapeHtml(e.target.getAttribute('alt') || 'Photo équipement');
                     
+                    // Vérifier si l'image doit être pivotée
+                    const rotateClass = e.target.classList.contains('rotate-right') ? 'rotate-right' : '';
+                    
+                    // Injection directe d'un <img> avec l'URL AVIF
                     photoModalContainer.innerHTML = `
-                        <picture>
-                            <source srcset="${escapeHtml(imgUrl)}" type="image/avif">
-                            <img src="${escapeHtml(jpgUrl)}" alt="${altText}" style="max-width: 100%; max-height: 80vh; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
-                        </picture>
+                        <img src="${escapeHtml(imgUrl)}" alt="${altText}" class="${rotateClass}" style="max-width: 100%; max-height: 80vh; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
                     `;
                     photoModal.classList.remove('hidden');
                 }
