@@ -16,65 +16,92 @@ document.addEventListener('DOMContentLoaded', async () => {
             .replace(/"/g, '&quot;')
             .replace(/'/g, '&#39;');
     };
+    const filterPlanByVehicule = (vehicule) => {
+        document.querySelectorAll('.plan-zone').forEach(zone => {
+            const zoneVehicule = zone.getAttribute('data-vehicule');
+            if (zoneVehicule === 'commun' || zoneVehicule === vehicule) {
+                zone.style.display = 'block';
+            } else {
+                zone.style.display = 'none';
+            }
+        });
+    };
+
+    let activeVehicule = 'VTULE';
+    let vehiculesData = {};
+    let items = [];
+    
+    // Pour que saveItems ait accès à activeVehicule
+    const saveItems = () => {
+        localStorage.setItem('materiauxData_' + activeVehicule, JSON.stringify(items));
+    };
 
     const initApp = async () => {
         try {
             // --- Gestion du Véhicule (URL / LocalStorage / Header) ---
             const urlParams = new URLSearchParams(window.location.search);
-            let activeVehicule = urlParams.get('vehicule');
+            let urlVehicule = urlParams.get('vehicule');
             
-            if (activeVehicule && (activeVehicule === 'VTULE' || activeVehicule === 'VPI')) {
-                localStorage.setItem('activeVehicule', activeVehicule);
+            if (urlVehicule && (urlVehicule === 'VTULE' || urlVehicule === 'VPI')) {
+                localStorage.setItem('activeVehicule', urlVehicule);
+                activeVehicule = urlVehicule;
             } else {
                 activeVehicule = localStorage.getItem('activeVehicule') || 'VTULE';
             }
 
+            const resVehicule = await fetch('vehicules.json');
+            if (!resVehicule.ok) throw new Error('Échec du fetch véhicule');
+            vehiculesData = await resVehicule.json();
+            
+            const updateVehiculeHeader = (vehiculeKey) => {
+                const vehiculeObj = vehiculesData[vehiculeKey] || vehiculesData['VTULE'];
+                vehiculeInfo.innerHTML = `
+                    <h1>${escapeHtml(vehiculeObj.id)}</h1>
+                    <p>Responsable : <strong>${escapeHtml(vehiculeObj.responsable_actuel)}</strong></p>
+                `;
+            };
+            
+            updateVehiculeHeader(activeVehicule);
+            filterPlanByVehicule(activeVehicule);
+
             const vehiculeSelector = document.getElementById('vehicule-selector');
             if (vehiculeSelector) {
                 vehiculeSelector.value = activeVehicule;
-                vehiculeSelector.addEventListener('change', (e) => {
+                vehiculeSelector.addEventListener('change', async (e) => {
                     const newVal = e.target.value;
+                    activeVehicule = newVal;
                     localStorage.setItem('activeVehicule', newVal);
                     
+                    // Mettre à jour l'URL sans recharger
                     const newUrl = new URL(window.location);
                     newUrl.searchParams.set('vehicule', newVal);
                     window.history.replaceState({}, '', newUrl);
                     
-                    window.location.reload(); // Recharger avec le nouveau véhicule
+                    updateVehiculeHeader(newVal);
+                    filterPlanByVehicule(newVal);
+                    
+                    // Recharger la liste du matériel de ce véhicule
+                    await loadMateriauxData();
+                    if (typeof renderMateriaux === 'function') {
+                        const searchInput = document.getElementById('search-input');
+                        renderMateriaux(searchInput ? searchInput.value : '');
+                    }
                 });
             }
             
-            const resVehicule = await fetch('vehicules.json');
-            if (!resVehicule.ok) throw new Error('Échec du fetch véhicule');
-            const vehiculesData = await resVehicule.json();
-            const vehicule = vehiculesData[activeVehicule] || vehiculesData['VTULE'];
-
-            // Filtrage des zones du plan de rangement
-            document.querySelectorAll('.plan-zone').forEach(zone => {
-                const zoneVehicule = zone.getAttribute('data-vehicule');
-                if (zoneVehicule === 'commun' || zoneVehicule === activeVehicule) {
-                    zone.style.display = 'block';
+            const loadMateriauxData = async () => {
+                const localData = localStorage.getItem('materiauxData_' + activeVehicule);
+                if (localData) {
+                    items = JSON.parse(localData);
                 } else {
-                    zone.style.display = 'none';
+                    const resMateriaux = await fetch('materiaux.json');
+                    if (!resMateriaux.ok) throw new Error('Échec du fetch materiaux');
+                    items = await resMateriaux.json();
+                    saveItems();
                 }
-            });
-
-            let materiaux;
-            const localData = localStorage.getItem('materiauxData');
+            };
             
-            if (localData) {
-                materiaux = JSON.parse(localData);
-            } else {
-                const resMateriaux = await fetch('materiaux.json');
-                if (!resMateriaux.ok) throw new Error('Échec du fetch materiaux');
-                materiaux = await resMateriaux.json();
-            }
-
-            // Infos véhicule
-            vehiculeInfo.innerHTML = `
-                <h1>${escapeHtml(vehicule.id)}</h1>
-                <p>Responsable : <strong>${escapeHtml(vehicule.responsable_actuel)}</strong></p>
-            `;
+            await loadMateriauxData();
 
             // --- Système d'identification ---
             const loginModal = document.getElementById('login-modal');
@@ -154,12 +181,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         let activeFilter = 'Tout';
         let isGlobalCritical = false;
         
-        const items = Array.isArray(materiaux) ? materiaux : [materiaux];
-        const saveItems = () => {
-            localStorage.setItem('materiauxData', JSON.stringify(items));
-        };
+        items = Array.isArray(items) ? items : [items];
         
-        if (!localData) {
+        // Initialiser si pas de données locales pour ce véhicule
+        const currentLocalData = localStorage.getItem('materiauxData_' + activeVehicule);
+        if (!currentLocalData) {
             saveItems();
         }
 
@@ -194,9 +220,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             const now = new Date(); // Date instanciée à chaque rendu !
 
             Object.entries(containers).forEach(([zone, container]) => {
-                // Filtrage selon le nom du matériel, l'emplacement et activeFilter
+                // Filtrage selon le nom du matériel, l'emplacement, le véhicule et activeFilter
                 const filtered = items.filter(m => {
                     if (m.emplacement !== zone) return false;
+                    
+                    const itemVehicule = m.vehicule || 'commun';
+                    if (itemVehicule !== 'commun' && itemVehicule !== activeVehicule) return false;
                     
                     let diffDays = 999;
                     if (m.perimable && m.date_peremption) {
@@ -541,8 +570,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         const btnResetJson = document.getElementById('btn-reset-json');
         if (btnResetJson) {
             btnResetJson.addEventListener('click', () => {
-                if (confirm("Attention : Vous allez écraser vos vérifications locales et recharger les données brutes du fichier JSON. Continuer ?")) {
-                    localStorage.removeItem('materiauxData');
+                if (confirm(`Attention : Vous allez écraser vos vérifications locales et recharger les données brutes du fichier JSON pour le véhicule ${activeVehicule}. Continuer ?`)) {
+                    localStorage.removeItem('materiauxData_' + activeVehicule);
                     window.location.reload();
                 }
             });

@@ -457,6 +457,7 @@ body.inventory-mode-active .inventory-actions {
     text-align: center;
     background-color: #f9f9f9;
     transition: box-shadow 0.2s, transform 0.2s;
+    overflow: hidden;
 }
 
 .plan-card:hover {
@@ -598,10 +599,12 @@ body.inventory-mode-active .inventory-actions {
     color: white;
     border-color: #003366;
 }
-/* Rotation 90° horaire pour les photos mal orientées */
+/* Rotation 90 horaire pour les photos mal orientes */
 .plan-img.rotate-right {
-    transform: rotate(90deg) scale(1.5);
+    transform: rotate(90deg) scale(1.6);
     transform-origin: center center;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 #vehicule-selector {

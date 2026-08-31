@@ -8,7 +8,8 @@
     "etat": "Opérationnel",
     "perimable": false,
     "date_peremption": null,
-    "imageUrl": "images/demo-thermometre.avif"
+    "imageUrl": "images/demo-thermometre.avif",
+    "vehicule": "commun"
   },
   {
     "id_produit": "ps_bilan_02",
@@ -19,7 +20,8 @@
     "etat": "Opérationnel",
     "perimable": false,
     "date_peremption": null,
-    "imageUrl": "images/Sac tensiomètre.avif"
+    "imageUrl": "images/Sac tensiomètre.avif",
+    "vehicule": "commun"
   },
   {
     "id_produit": "ps_bilan_03",
@@ -29,7 +31,8 @@
     "quantite": 1,
     "etat": "Opérationnel",
     "perimable": false,
-    "date_peremption": null
+    "date_peremption": null,
+    "vehicule": "commun"
   },
   {
     "id_produit": "ps_bilan_04",
@@ -39,7 +42,8 @@
     "quantite": 1,
     "etat": "Opérationnel",
     "perimable": false,
-    "date_peremption": null
+    "date_peremption": null,
+    "vehicule": "commun"
   },
   {
     "id_produit": "ps_hemo_01",
@@ -49,7 +53,8 @@
     "quantite": 2,
     "etat": "Opérationnel",
     "perimable": true,
-    "date_peremption": "2026-08-12"
+    "date_peremption": "2026-08-12",
+    "vehicule": "commun"
   },
   {
     "id_produit": "ps_hemo_02",
@@ -59,7 +64,8 @@
     "quantite": 10,
     "etat": "Opérationnel",
     "perimable": true,
-    "date_peremption": "2026-11-20"
+    "date_peremption": "2026-11-20",
+    "vehicule": "commun"
   },
   {
     "id_produit": "ps_hemo_03",
@@ -69,7 +75,8 @@
     "quantite": 1,
     "etat": "Opérationnel",
     "perimable": false,
-    "date_peremption": null
+    "date_peremption": null,
+    "vehicule": "commun"
   },
   {
     "id_produit": "ps_hors_01",
@@ -80,7 +87,8 @@
     "etat": "Opérationnel",
     "perimable": true,
     "date_peremption": "2026-12-01",
-    "imageUrl": "images/DSA dans Sac PS.avif"
+    "imageUrl": "images/DSA dans Sac PS.avif",
+    "vehicule": "commun"
   },
   {
     "id_produit": "ps_hors_02",
@@ -90,7 +98,8 @@
     "quantite": 2,
     "etat": "Opérationnel",
     "perimable": false,
-    "date_peremption": null
+    "date_peremption": null,
+    "vehicule": "commun"
   },
   {
     "id_produit": "ps_hors_03",
@@ -100,7 +109,8 @@
     "quantite": 1,
     "etat": "Opérationnel",
     "perimable": false,
-    "date_peremption": null
+    "date_peremption": null,
+    "vehicule": "commun"
   },
   {
     "id_produit": "ps_poche_01",
@@ -110,7 +120,8 @@
     "quantite": 2,
     "etat": "Opérationnel",
     "perimable": true,
-    "date_peremption": "2029-01-10"
+    "date_peremption": "2029-01-10",
+    "vehicule": "commun"
   },
   {
     "id_produit": "o2_01",
@@ -121,7 +132,8 @@
     "etat": "Opérationnel",
     "pression_bars": 200,
     "perimable": false,
-    "date_peremption": null
+    "date_peremption": null,
+    "vehicule": "commun"
   },
   {
     "id_produit": "o2_02",
@@ -131,7 +143,8 @@
     "quantite": 1,
     "etat": "Opérationnel",
     "perimable": false,
-    "date_peremption": null
+    "date_peremption": null,
+    "vehicule": "commun"
   },
   {
     "id_produit": "o2_03",
@@ -141,7 +154,8 @@
     "quantite": 1,
     "etat": "Opérationnel",
     "perimable": false,
-    "date_peremption": null
+    "date_peremption": null,
+    "vehicule": "commun"
   },
   {
     "id_produit": "o2_04",
@@ -152,7 +166,8 @@
     "etat": "Opérationnel",
     "perimable": true,
     "date_peremption": "2028-08-15",
-    "imageUrl": "images/Masques dans PS.avif"
+    "imageUrl": "images/Masques dans PS.avif",
+    "vehicule": "commun"
   },
   {
     "id_produit": "o2_05",
@@ -163,7 +178,8 @@
     "etat": "Opérationnel",
     "perimable": true,
     "date_peremption": "2028-08-15",
-    "imageUrl": "images/Masques dans PS.avif"
+    "imageUrl": "images/Masques dans PS.avif",
+    "vehicule": "commun"
   },
   {
     "id_produit": "o2_06",
@@ -173,7 +189,8 @@
     "quantite": 1,
     "etat": "Opérationnel",
     "perimable": true,
-    "date_peremption": "2027-04-30"
+    "date_peremption": "2027-04-30",
+    "vehicule": "commun"
   },
   {
     "id_produit": "gen_coffre_01",
@@ -183,7 +200,8 @@
     "quantite": 5,
     "etat": "Opérationnel",
     "perimable": false,
-    "date_peremption": null
+    "date_peremption": null,
+    "vehicule": "VTULE"
   },
   {
     "id_produit": "gen_coffre_02",
@@ -193,7 +211,8 @@
     "quantite": 1,
     "etat": "Opérationnel",
     "perimable": false,
-    "date_peremption": null
+    "date_peremption": null,
+    "vehicule": "VTULE"
   },
   {
     "id_produit": "gen_coffre_03",
@@ -203,7 +222,8 @@
     "quantite": 2,
     "etat": "Opérationnel",
     "perimable": true,
-    "date_peremption": "2025-10-01"
+    "date_peremption": "2025-10-01",
+    "vehicule": "VTULE"
   },
   {
     "id_produit": "gen_caisse_01",
@@ -213,7 +233,8 @@
     "quantite": 1,
     "etat": "Opérationnel",
     "perimable": false,
-    "date_peremption": null
+    "date_peremption": null,
+    "vehicule": "VTULE"
   },
   {
     "id_produit": "gen_caisse_02",
@@ -223,7 +244,8 @@
     "quantite": 1,
     "etat": "Opérationnel",
     "perimable": false,
-    "date_peremption": null
+    "date_peremption": null,
+    "vehicule": "VTULE"
   },
   {
     "id_produit": "gen_caisse_03",
@@ -233,7 +255,8 @@
     "quantite": 1,
     "etat": "Opérationnel",
     "perimable": false,
-    "date_peremption": null
+    "date_peremption": null,
+    "vehicule": "VTULE"
   },
   {
     "id_produit": "gen_hab_01",
@@ -243,7 +266,8 @@
     "quantite": 4,
     "etat": "Opérationnel",
     "perimable": false,
-    "date_peremption": null
+    "date_peremption": null,
+    "vehicule": "commun"
   },
   {
     "id_produit": "gen_hab_02",
@@ -254,6 +278,55 @@
     "etat": "Opérationnel",
     "perimable": false,
     "date_peremption": null,
-    "imageUrl": "images/Gants dans PS.avif"
+    "imageUrl": "images/Gants dans PS.avif",
+    "vehicule": "commun"
+  },
+  {
+    "id_produit": "vpi_bac_01",
+    "nom": "Tronçonneuse",
+    "emplacement": "Matériel Général",
+    "localisation_precise": "Bac Tronçonneuse (VPI)",
+    "quantite": 1,
+    "etat": "Opérationnel",
+    "perimable": false,
+    "date_peremption": null,
+    "vehicule": "VPI",
+    "imageUrl": "images/bac tronçonneuse.avif"
+  },
+  {
+    "id_produit": "vpi_bac_02",
+    "nom": "Kit hydraulique",
+    "emplacement": "Matériel Général",
+    "localisation_precise": "Bac hydraulique (VPI)",
+    "quantite": 1,
+    "etat": "Opérationnel",
+    "perimable": false,
+    "date_peremption": null,
+    "vehicule": "VPI",
+    "imageUrl": "images/Bac hydraulique VPI.avif"
+  },
+  {
+    "id_produit": "vpi_bac_03",
+    "nom": "Cordages",
+    "emplacement": "Matériel Général",
+    "localisation_precise": "Bac Cordages (VPI)",
+    "quantite": 1,
+    "etat": "Opérationnel",
+    "perimable": false,
+    "date_peremption": null,
+    "vehicule": "VPI",
+    "imageUrl": "images/Bac Cordages VPI.avif"
+  },
+  {
+    "id_produit": "vpi_bac_04",
+    "nom": "Bac Commandes",
+    "emplacement": "Matériel Général",
+    "localisation_precise": "Bac Commandes (VPI)",
+    "quantite": 1,
+    "etat": "Opérationnel",
+    "perimable": false,
+    "date_peremption": null,
+    "vehicule": "VPI",
+    "imageUrl": "images/Bac commandes VPI.avif"
   }
 ]
