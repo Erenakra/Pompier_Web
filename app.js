@@ -554,15 +554,15 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
         }
 
-        // --- Plier / Déplier les zones du Plan de Rangement ---
-        const planZoneTitles = document.querySelectorAll('.plan-zone-title');
-        planZoneTitles.forEach(title => {
+        // --- Plier / Déplier les sous-sections du Plan de Rangement (optionnel) ---
+        const planSubTitles = document.querySelectorAll('.plan-sub-title');
+        planSubTitles.forEach(title => {
             title.addEventListener('click', () => {
                 title.classList.toggle('collapsed');
-                const zoneName = title.getAttribute('data-zone');
-                const content = document.querySelector(`[data-zone-content="${zoneName}"]`);
+                const content = title.nextElementSibling;
                 if (content) {
-                    content.classList.toggle('collapsed');
+                    const isHidden = content.style.display === 'none';
+                    content.style.display = isHidden ? 'block' : 'none';
                 }
             });
         });
@@ -579,34 +579,44 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Fusion des écouteurs d'événements (Event Delegation)
         document.body.addEventListener('click', (e) => {
-            // Fermeture via la croix
-            if (e.target.classList.contains('btn-close-modal')) {
-                e.target.closest('.modal-overlay').classList.add('hidden');
+            // Fermeture via la croix (X) ou bouton "Fermer"
+            if (e.target.classList.contains('btn-close-modal') || e.target.closest('.btn-close-modal')) {
+                const modal = e.target.closest('.modal-overlay');
+                if (modal) modal.classList.add('hidden');
                 return;
             }
-            // Fermeture via le clic sur le fond (overlay) uniquement, pas sur le contenu
+
+            // Fermeture rapide de la photo agrandie : clic en dehors de l'image (sur l'arrière-plan semi-transparent ou le conteneur)
+            if (e.target.closest('#photo-modal') && e.target.tagName !== 'IMG') {
+                const photoModal = document.getElementById('photo-modal');
+                if (photoModal) photoModal.classList.add('hidden');
+                return;
+            }
+
+            // Fermeture via le clic sur le fond (overlay) pour les autres modales
+            // Verrouillage du plan de rangement contre la fermeture accidentelle : #plan-modal ne se ferme PAS au clic extérieur
             if (e.target.classList.contains('modal-overlay')) {
+                if (e.target.id === 'plan-modal') {
+                    // Ne rien faire lors d'un clic en dehors du contenu du plan
+                    return;
+                }
                 e.target.classList.add('hidden');
                 return;
             }
-            // Ouverture de la photo du matériel ou du plan
+
+            // Ouverture de la photo du matériel ou du plan (orientation native)
             if (e.target.classList.contains('btn-photo') || e.target.classList.contains('plan-img')) {
                 const imgUrl = e.target.getAttribute('data-image');
                 if (imgUrl) {
-                    // Si on clique sur une photo du plan, on ferme d'abord la modale plan
-                    if (e.target.classList.contains('plan-img')) {
-                        planModal.classList.add('hidden');
-                    }
                     const altText = escapeHtml(e.target.getAttribute('alt') || 'Photo équipement');
                     
-                    // Vérifier si l'image doit être pivotée
-                    const rotateClass = e.target.classList.contains('rotate-right') ? 'rotate-right' : '';
-                    
-                    // Injection directe d'un <img> avec l'URL AVIF
+                    // Toutes les photos sont affichées dans leur orientation native
                     photoModalContainer.innerHTML = `
-                        <img src="${escapeHtml(imgUrl)}" alt="${altText}" class="${rotateClass}" style="max-width: 100%; max-height: 80vh; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+                        <img src="${escapeHtml(imgUrl)}" alt="${altText}" style="max-width: 100%; max-height: 80vh; border-radius: 8px; box-shadow: 0 4px 25px rgba(0,0,0,0.6); object-fit: contain;">
                     `;
-                    photoModal.classList.remove('hidden');
+                    
+                    const photoModal = document.getElementById('photo-modal');
+                    if (photoModal) photoModal.classList.remove('hidden');
                 }
                 return;
             }
