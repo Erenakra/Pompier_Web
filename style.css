@@ -254,7 +254,12 @@ body.inventory-mode-active .inventory-actions {
     border-left-color: #28a745 !important;
 }
 
-/* --- Modale d'édition --- */
+/* --- Verrouillage du Scroll Arrière-plan & Modales --- */
+body.modal-open {
+    overflow: hidden !important;
+}
+
+/* --- Modale d'édition et modales générales --- */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -266,6 +271,7 @@ body.inventory-mode-active .inventory-actions {
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    overscroll-behavior: contain;
 }
 
 .modal-content {
@@ -275,6 +281,7 @@ body.inventory-mode-active .inventory-actions {
     width: 90%;
     max-width: 450px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    overscroll-behavior: contain;
 }
 
 .modal-content h3 {
@@ -513,10 +520,108 @@ body.inventory-mode-active .inventory-actions {
     display: none;
 }
 
-/* Scroll vertical si la modale est trop haute */
+/* --- Modale Plan de Rangement Ergonomique & Fixe --- */
 .plan-content {
-    max-height: 85vh;
+    max-width: 960px;
+    width: 95%;
+    max-height: 88vh;
+    height: 88vh;
+    display: flex;
+    flex-direction: column;
+    padding: 0 !important;
+    overflow: hidden;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.plan-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    background: #ffffff;
+    border-bottom: 2px solid #e2e8f0;
+    flex-shrink: 0;
+    z-index: 10;
+}
+
+.plan-main-title {
+    margin: 0;
+    padding: 0;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #003366;
+    border: none;
+}
+
+.plan-body {
+    flex: 1 1 auto;
     overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 20px 24px;
+    min-height: 0;
+    -webkit-overflow-scrolling: touch;
+}
+
+.plan-footer {
+    background: #ffffff;
+    padding: 14px 24px;
+    border-top: 1px solid #e2e8f0;
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.08);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-shrink: 0;
+    z-index: 10;
+}
+
+.btn-close-plan {
+    padding: 10px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #003366;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    box-shadow: 0 2px 6px rgba(0, 51, 102, 0.2);
+}
+
+.btn-close-plan:hover {
+    background-color: #002244;
+    transform: translateY(-1px);
+}
+
+.btn-close-plan:active {
+    transform: translateY(1px);
+}
+
+@media (max-width: 600px) {
+    .plan-content {
+        width: 96%;
+        height: 92vh;
+        max-height: 92vh;
+        border-radius: 10px;
+    }
+    .plan-header {
+        padding: 12px 16px;
+    }
+    .plan-main-title {
+        font-size: 1.15rem;
+    }
+    .plan-body {
+        padding: 14px 12px;
+    }
+    .plan-footer {
+        padding: 12px 16px;
+    }
+    .btn-close-plan {
+        width: 100%;
+        text-align: center;
+        padding: 12px;
+    }
 }
 
 /* --- Bouton Fermer Modale (X) --- */
@@ -655,30 +760,54 @@ body.inventory-mode-active .inventory-actions {
 
 .plan-sub-title {
     margin: 0;
-    padding: 12px 18px;
-    font-size: 1.1rem;
+    padding: 14px 20px;
+    min-height: 52px;
+    box-sizing: border-box;
+    font-size: 1.15rem;
     font-weight: 600;
     color: #003366;
     background: #f8fafc;
     border-bottom: 1px solid #e2e8f0;
-    border-left: 5px solid #003366;
+    border-left: 6px solid #003366;
     display: flex;
     align-items: center;
     justify-content: space-between;
     cursor: pointer;
     user-select: none;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s ease;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.05);
 }
 
 .plan-sub-title:hover {
     background: #edf2f7;
 }
 
+.plan-sub-title:active {
+    background: #e2e8f0;
+}
+
+/* Flèche / Chevron tactile agrandie (24px / 1.5rem) avec zone circulaire bien visible */
 .plan-sub-title::after {
     content: "▾";
-    font-size: 1.1rem;
+    font-size: 1.5rem; /* ~24px */
+    line-height: 1;
     color: #003366;
-    transition: transform 0.2s ease;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(0, 51, 102, 0.06);
+    flex-shrink: 0;
+    margin-left: 10px;
+    transform-origin: center center;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s ease;
+}
+
+.plan-sub-title:hover::after {
+    background: rgba(0, 51, 102, 0.12);
 }
 
 .plan-sub-title.collapsed::after {

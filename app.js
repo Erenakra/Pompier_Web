@@ -541,6 +541,25 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
         }
 
+        // --- Verrouillage strict du défilement de l'arrière-plan (Scroll Chaining) ---
+        const updateBodyScrollLock = () => {
+            const hasOpenModal = document.querySelector('.modal-overlay:not(.hidden)');
+            if (hasOpenModal) {
+                document.body.classList.add('modal-open');
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.classList.remove('modal-open');
+                document.body.style.overflow = '';
+            }
+        };
+
+        // Surveillance automatique de l'ouverture et fermeture de toutes les modales
+        const modalObserver = new MutationObserver(updateBodyScrollLock);
+        document.querySelectorAll('.modal-overlay').forEach(modal => {
+            modalObserver.observe(modal, { attributes: true, attributeFilter: ['class'] });
+        });
+        updateBodyScrollLock();
+
         // --- Système d'Images (Plan et Photos) ---
         const btnViewPlan = document.getElementById('btn-view-plan');
         const planModal = document.getElementById('plan-modal');
@@ -551,6 +570,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             btnViewPlan.addEventListener('click', () => {
                 if (!currentUser) return; // Sécurité optionnelle
                 planModal.classList.remove('hidden');
+                updateBodyScrollLock();
             });
         }
 
@@ -582,14 +602,20 @@ document.addEventListener('DOMContentLoaded', async () => {
             // Fermeture via la croix (X) ou bouton "Fermer"
             if (e.target.classList.contains('btn-close-modal') || e.target.closest('.btn-close-modal')) {
                 const modal = e.target.closest('.modal-overlay');
-                if (modal) modal.classList.add('hidden');
+                if (modal) {
+                    modal.classList.add('hidden');
+                    updateBodyScrollLock();
+                }
                 return;
             }
 
             // Fermeture rapide de la photo agrandie : clic en dehors de l'image (sur l'arrière-plan semi-transparent ou le conteneur)
             if (e.target.closest('#photo-modal') && e.target.tagName !== 'IMG') {
                 const photoModal = document.getElementById('photo-modal');
-                if (photoModal) photoModal.classList.add('hidden');
+                if (photoModal) {
+                    photoModal.classList.add('hidden');
+                    updateBodyScrollLock();
+                }
                 return;
             }
 
@@ -601,6 +627,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     return;
                 }
                 e.target.classList.add('hidden');
+                updateBodyScrollLock();
                 return;
             }
 
@@ -616,7 +643,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                     `;
                     
                     const photoModal = document.getElementById('photo-modal');
-                    if (photoModal) photoModal.classList.remove('hidden');
+                    if (photoModal) {
+                        photoModal.classList.remove('hidden');
+                        updateBodyScrollLock();
+                    }
                 }
                 return;
             }
