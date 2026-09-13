@@ -1,0 +1,1602 @@
+{
+  "VPI arrière.avif": [
+    {
+      "id": "vpi-1",
+      "nom": "LDT 80 m",
+      "x": 49.1,
+      "y": 39.7
+    },
+    {
+      "id": "vpi-2",
+      "nom": "Lance LDT",
+      "x": 72.3,
+      "y": 64.5
+    },
+    {
+      "id": "vpi-3",
+      "nom": "Pompe incendie",
+      "x": 51.1,
+      "y": 70.5
+    },
+    {
+      "id": "vpi-4",
+      "nom": "Vanne d'amorçage",
+      "x": 33.7,
+      "y": 54.2
+    },
+    {
+      "id": "vpi-5",
+      "nom": "Vanne d'eau amorceur",
+      "x": 43.7,
+      "y": 52.8
+    },
+    {
+      "id": "vpi-6",
+      "nom": "Vanne tonne-pompe",
+      "x": 51.3,
+      "y": 80.9
+    },
+    {
+      "id": "vpi-7",
+      "nom": "Orifice d'aspiration (raccord 100)",
+      "x": 47.2,
+      "y": 83.9
+    },
+    {
+      "id": "vpi-8",
+      "nom": "Remplissage citerne (raccord 45)",
+      "x": 30.9,
+      "y": 85.5
+    },
+    {
+      "id": "vpi-9",
+      "nom": "Refoulement (raccord 65)",
+      "x": 63.7,
+      "y": 60.9
+    },
+    {
+      "id": "vpi-10",
+      "nom": "Refoulement (raccord 40)",
+      "x": 52.6,
+      "y": 64.2
+    },
+    {
+      "id": "vpi-11",
+      "nom": "Refoulement (raccord 40)",
+      "x": 42.4,
+      "y": 63.7
+    },
+    {
+      "id": "vpi-12",
+      "nom": "Collecteur à clapets",
+      "x": 64.3,
+      "y": 86.5
+    },
+    {
+      "id": "vpi-13",
+      "nom": "Tuyaux d'aspiration 2 m Ø 110 (x5)",
+      "x": 50.4,
+      "y": 20.5
+    },
+    {
+      "id": "vpi-14",
+      "nom": "2 clés tricoises",
+      "x": 72.5,
+      "y": 76.9
+    }
+  ],
+  "arrière vpi.avif": [
+    {
+      "id": "vpi-1",
+      "nom": "LDT 80 m",
+      "x": 49.1,
+      "y": 39.7
+    },
+    {
+      "id": "vpi-2",
+      "nom": "Lance LDT",
+      "x": 72.3,
+      "y": 64.5
+    },
+    {
+      "id": "vpi-3",
+      "nom": "Pompe incendie",
+      "x": 51.1,
+      "y": 70.5
+    },
+    {
+      "id": "vpi-4",
+      "nom": "Vanne d'amorçage",
+      "x": 33.7,
+      "y": 54.2
+    },
+    {
+      "id": "vpi-5",
+      "nom": "Vanne d'eau amorceur",
+      "x": 43.7,
+      "y": 52.8
+    },
+    {
+      "id": "vpi-6",
+      "nom": "Vanne tonne-pompe",
+      "x": 51.3,
+      "y": 80.9
+    },
+    {
+      "id": "vpi-7",
+      "nom": "Orifice d'aspiration (raccord 100)",
+      "x": 47.2,
+      "y": 83.9
+    },
+    {
+      "id": "vpi-8",
+      "nom": "Remplissage citerne (raccord 45)",
+      "x": 30.9,
+      "y": 85.5
+    },
+    {
+      "id": "vpi-9",
+      "nom": "Refoulement (raccord 65)",
+      "x": 63.7,
+      "y": 60.9
+    },
+    {
+      "id": "vpi-10",
+      "nom": "Refoulement (raccord 40)",
+      "x": 52.6,
+      "y": 64.2
+    },
+    {
+      "id": "vpi-11",
+      "nom": "Refoulement (raccord 40)",
+      "x": 42.4,
+      "y": 63.7
+    },
+    {
+      "id": "vpi-12",
+      "nom": "Collecteur à clapets",
+      "x": 64.3,
+      "y": 86.5
+    },
+    {
+      "id": "vpi-13",
+      "nom": "Tuyaux d'aspiration 2 m Ø 110 (x5)",
+      "x": 50.4,
+      "y": 20.5
+    },
+    {
+      "id": "vpi-14",
+      "nom": "2 clés tricoises",
+      "x": 72.5,
+      "y": 76.9
+    }
+  ],
+  "Sac PS VPI éclaté.avif": [
+    {
+      "id": "ps-1",
+      "nom": "Garrot tourniquet (CAT)",
+      "x": 28.5,
+      "y": 38
+    },
+    {
+      "id": "ps-2",
+      "nom": "Compresses stériles & CHU",
+      "x": 52,
+      "y": 46.5
+    },
+    {
+      "id": "ps-3",
+      "nom": "Colliers cervicaux (Adulte / Enfant)",
+      "x": 74.5,
+      "y": 65
+    }
+  ],
+  "sac oxygénation éclaté.avif": [
+    {
+      "id": "hp-120826",
+      "nom": "Bouteille d'oxygène médical gazeux (2 litres / 200 bars)",
+      "x": 45.1,
+      "y": 13.2
+    },
+    {
+      "id": "hp-225053",
+      "nom": "Insufflateur manuel adulte (> 30kg)",
+      "x": 39.1,
+      "y": 61.6
+    },
+    {
+      "id": "hp-257193",
+      "nom": "Insufflateur manuel pédiatrique",
+      "x": 82.1,
+      "y": 71.3
+    },
+    {
+      "id": "hp-305800",
+      "nom": "MHC pédiatrique",
+      "x": 70.1,
+      "y": 46.7
+    },
+    {
+      "id": "hp-332647",
+      "nom": "MHC adulte",
+      "x": 18.7,
+      "y": 49.3
+    },
+    {
+      "id": "hp-419318",
+      "nom": "Jeu de canules oropharyngées (code couleur par taille)",
+      "x": 58.3,
+      "y": 61.2
+    },
+    {
+      "id": "hp-462912",
+      "nom": "MHC adulte",
+      "x": 16.3,
+      "y": 76.9
+    }
+  ],
+  "latéral arrière gauche.avif": [
+    {
+      "id": "hp-816003",
+      "nom": "Projecteur 220V",
+      "x": 26.1,
+      "y": 5.7
+    },
+    {
+      "id": "hp-830195",
+      "nom": "Projecteur 220V",
+      "x": 47.7,
+      "y": 5.4
+    },
+    {
+      "id": "hp-866547",
+      "nom": "Projecteur à batterie",
+      "x": 55,
+      "y": 19.6
+    },
+    {
+      "id": "hp-948243",
+      "nom": "Halligan",
+      "x": 47.2,
+      "y": 25.3
+    },
+    {
+      "id": "hp-991731",
+      "nom": "Tuyau 10m 70",
+      "x": 56.5,
+      "y": 41
+    },
+    {
+      "id": "hp-014291",
+      "nom": "2 Bouchons 65",
+      "x": 70,
+      "y": 43.5
+    },
+    {
+      "id": "hp-086451",
+      "nom": "Réduction 65 40",
+      "x": 79.4,
+      "y": 40.1
+    },
+    {
+      "id": "hp-097787",
+      "nom": "Réduction 40 22",
+      "x": 85.8,
+      "y": 46.6
+    },
+    {
+      "id": "hp-116035",
+      "nom": "Clé criquet poto",
+      "x": 75.5,
+      "y": 50
+    },
+    {
+      "id": "hp-132219",
+      "nom": "Caisse a outil",
+      "x": 18.3,
+      "y": 73.9
+    },
+    {
+      "id": "hp-153099",
+      "nom": "Rallonge 220V 40m",
+      "x": 32.5,
+      "y": 72.5
+    },
+    {
+      "id": "hp-198963",
+      "nom": "Groupe éléctrogène (unité ?)",
+      "x": 62.1,
+      "y": 74.4
+    },
+    {
+      "id": "hp-213876",
+      "nom": "Marteau",
+      "x": 55.4,
+      "y": 91.5
+    },
+    {
+      "id": "hp-223011",
+      "nom": "Massette",
+      "x": 74.7,
+      "y": 92.5
+    }
+  ],
+  "latéral avant gauche.avif": [
+    {
+      "id": "hp-329948",
+      "nom": "Masques ARI (x2)",
+      "x": 56,
+      "y": 32.3
+    },
+    {
+      "id": "hp-348431",
+      "nom": "Manette ARI",
+      "x": 15.6,
+      "y": 67.7
+    },
+    {
+      "id": "hp-355987",
+      "nom": "Bache",
+      "x": 15.9,
+      "y": 45
+    },
+    {
+      "id": "hp-366545",
+      "nom": "ARI Chef d'équipe",
+      "x": 29.4,
+      "y": 59.3
+    },
+    {
+      "id": "hp-373123",
+      "nom": "ARI équipier",
+      "x": 48.4,
+      "y": 64.6
+    },
+    {
+      "id": "hp-391141",
+      "nom": "Commande ARI",
+      "x": 65.7,
+      "y": 52.4
+    },
+    {
+      "id": "hp-414467",
+      "nom": "2 boutielles réserve ARI",
+      "x": 76.9,
+      "y": 64
+    }
+  ],
+  "Coffre bas arrière gauche.avif": [
+    {
+      "id": "hp-540885",
+      "nom": "Crépine",
+      "x": 36.3,
+      "y": 61.1
+    },
+    {
+      "id": "hp-577658",
+      "nom": "Commande",
+      "x": 45.5,
+      "y": 62.5
+    },
+    {
+      "id": "hp-587442",
+      "nom": "Flotteur",
+      "x": 61,
+      "y": 64.5
+    }
+  ],
+  "coffre bas avant gauche.avif": [
+    {
+      "id": "hp-618712",
+      "nom": "Batterie VPI",
+      "x": 30.1,
+      "y": 48.7
+    },
+    {
+      "id": "hp-635527",
+      "nom": "Cuissare",
+      "x": 34.6,
+      "y": 74.1
+    },
+    {
+      "id": "hp-649876",
+      "nom": "Pompe vide cave 220V",
+      "x": 66.7,
+      "y": 53.9
+    },
+    {
+      "id": "hp-657018",
+      "nom": "Gants",
+      "x": 70.8,
+      "y": 79.6
+    }
+  ],
+  "Coffre latérale arrière droit.avif": [
+    {
+      "id": "hp-728292",
+      "nom": "Grosse lance tronconique",
+      "x": 20.9,
+      "y": 22.8
+    },
+    {
+      "id": "hp-748219",
+      "nom": "3 LDV 500",
+      "x": 16.9,
+      "y": 47.6
+    },
+    {
+      "id": "hp-783236",
+      "nom": "Pièce division 65 2x40",
+      "x": 41,
+      "y": 30.6
+    },
+    {
+      "id": "hp-792612",
+      "nom": "Pièce division 100 2x65",
+      "x": 56.8,
+      "y": 31.1
+    },
+    {
+      "id": "hp-807500",
+      "nom": "Caisse feu de cheminé",
+      "x": 50.5,
+      "y": 53.4
+    },
+    {
+      "id": "hp-815088",
+      "nom": "Seau pompe",
+      "x": 74.8,
+      "y": 43.7
+    },
+    {
+      "id": "hp-832308",
+      "nom": "Tuyau 70",
+      "x": 11.1,
+      "y": 89.6
+    },
+    {
+      "id": "hp-834892",
+      "nom": "Tuyau 70",
+      "x": 20.8,
+      "y": 89.4
+    },
+    {
+      "id": "hp-837118",
+      "nom": "Tuyau 70",
+      "x": 30.7,
+      "y": 88.7
+    },
+    {
+      "id": "hp-855796",
+      "nom": "Tuyau 45",
+      "x": 39.9,
+      "y": 88.4
+    },
+    {
+      "id": "hp-858210",
+      "nom": "Tuyau 45",
+      "x": 46.6,
+      "y": 88.1
+    },
+    {
+      "id": "hp-860311",
+      "nom": "Tuyau 45",
+      "x": 52.7,
+      "y": 87.9
+    },
+    {
+      "id": "hp-861959",
+      "nom": "Tuyau 45",
+      "x": 59.3,
+      "y": 87.6
+    },
+    {
+      "id": "hp-863945",
+      "nom": "Tuyau 45",
+      "x": 65.7,
+      "y": 86.5
+    },
+    {
+      "id": "hp-866548",
+      "nom": "Tuyau 45",
+      "x": 72.1,
+      "y": 86.6
+    },
+    {
+      "id": "hp-868761",
+      "nom": "Tuyau 45",
+      "x": 78.4,
+      "y": 86
+    }
+  ],
+  "Coffre latérale avant droit.avif": [
+    {
+      "id": "hp-908701",
+      "nom": "Caisse pantalon anti-coupure",
+      "x": 30.5,
+      "y": 29.5
+    },
+    {
+      "id": "hp-949185",
+      "nom": "Tronçonneuse à batterie",
+      "x": 48.2,
+      "y": 31.4
+    },
+    {
+      "id": "hp-964018",
+      "nom": "Casque de protection",
+      "x": 71.4,
+      "y": 29
+    },
+    {
+      "id": "hp-059277",
+      "nom": "Extincteur poudre 9Kg",
+      "x": 26.4,
+      "y": 79.9
+    },
+    {
+      "id": "hp-091707",
+      "nom": "Extincteur à eau 9l",
+      "x": 32.1,
+      "y": 56.5
+    },
+    {
+      "id": "hp-130618",
+      "nom": "Extincteur CO2 (2Kg?)",
+      "x": 39.9,
+      "y": 65.1
+    },
+    {
+      "id": "hp-214764",
+      "nom": "5 cônes de signalisation",
+      "x": 50.5,
+      "y": 71
+    },
+    {
+      "id": "hp-220780",
+      "nom": "4 cônes de signalisation",
+      "x": 68.4,
+      "y": 72.8
+    },
+    {
+      "id": "hp-244262",
+      "nom": "2 triangles de signalisation",
+      "x": 59.9,
+      "y": 58.5
+    }
+  ],
+  "VPI coffre bas arrière droit.avif": [
+    {
+      "id": "hp-350652",
+      "nom": "2 Cales",
+      "x": 39.1,
+      "y": 67.1
+    },
+    {
+      "id": "hp-381037",
+      "nom": "Bidon d'essence (5l?)",
+      "x": 53.9,
+      "y": 41.5
+    },
+    {
+      "id": "hp-413018",
+      "nom": "Bidon d'huile de chaine (5l?)",
+      "x": 63.3,
+      "y": 40.7
+    }
+  ],
+  "VPI coffre bas avant droit.avif": [
+    {
+      "id": "hp-438355",
+      "nom": "Sac absorbant",
+      "x": 50.2,
+      "y": 46.3
+    }
+  ],
+  "coffre toit VPI.avif": [
+    {
+      "id": "hp-509690",
+      "nom": "Planche d'olivier",
+      "x": 51.1,
+      "y": 26.7
+    },
+    {
+      "id": "hp-394164",
+      "nom": "Pioche",
+      "x": 47.9,
+      "y": 57.8
+    },
+    {
+      "id": "hp-409964",
+      "nom": "3 Balais de brossiner",
+      "x": 41.6,
+      "y": 56.3
+    },
+    {
+      "id": "hp-435879",
+      "nom": "Pelle ronde",
+      "x": 82,
+      "y": 65.1
+    },
+    {
+      "id": "hp-457885",
+      "nom": "2 Raclette",
+      "x": 85.5,
+      "y": 54.7
+    },
+    {
+      "id": "hp-482437",
+      "nom": "Clé de barrage",
+      "x": 80.6,
+      "y": 52.1
+    },
+    {
+      "id": "hp-528453",
+      "nom": "4 Traverses",
+      "x": 27.2,
+      "y": 52.3
+    }
+  ],
+  "cabine coffre banquette.avif": [
+    {
+      "id": "hp-582158",
+      "nom": "Sac poubelle (50l?)",
+      "x": 17.4,
+      "y": 53.1
+    },
+    {
+      "id": "hp-607998",
+      "nom": "Gants de feu",
+      "x": 39.6,
+      "y": 54.4
+    },
+    {
+      "id": "hp-623181",
+      "nom": "Cuissard",
+      "x": 52.9,
+      "y": 58.6
+    },
+    {
+      "id": "hp-635661",
+      "nom": "LSPCC Sacs",
+      "x": 85.4,
+      "y": 58
+    }
+  ],
+  "cabine arrière gauche.avif": [
+    {
+      "id": "hp-748590",
+      "nom": "Hâche grand",
+      "x": 84.5,
+      "y": 43.3
+    },
+    {
+      "id": "hp-776450",
+      "nom": "Coupe boulon grand",
+      "x": 33.7,
+      "y": 29.2
+    },
+    {
+      "id": "hp-801578",
+      "nom": "Pied biche grand",
+      "x": 52.8,
+      "y": 65.1
+    },
+    {
+      "id": "hp-810458",
+      "nom": "Pied biche petit",
+      "x": 30,
+      "y": 45.9
+    }
+  ],
+  "cabine avant droit.avif": [
+    {
+      "id": "hp-857375",
+      "nom": "2 Lampes",
+      "x": 15.1,
+      "y": 51.1
+    },
+    {
+      "id": "hp-863221",
+      "nom": "2 Gilets",
+      "x": 11.2,
+      "y": 58
+    },
+    {
+      "id": "hp-876495",
+      "nom": "Rubalise",
+      "x": 71.1,
+      "y": 97.2
+    },
+    {
+      "id": "hp-887774",
+      "nom": "Détécteur de fuite",
+      "x": 69.1,
+      "y": 82.1
+    },
+    {
+      "id": "hp-896029",
+      "nom": "Radio",
+      "x": 39.1,
+      "y": 25.7
+    },
+    {
+      "id": "hp-909489",
+      "nom": "Projecteur de recherche",
+      "x": 44.6,
+      "y": 7.8
+    },
+    {
+      "id": "hp-916021",
+      "nom": "Liseuse",
+      "x": 33.1,
+      "y": 7.5
+    },
+    {
+      "id": "hp-129385",
+      "nom": "Pédale 2-tons",
+      "x": 57.8,
+      "y": 48.9
+    }
+  ],
+  "cabine avant gauche.avif": [
+    {
+      "id": "hp-209187",
+      "nom": "Gilet haute visibilité",
+      "x": 19.2,
+      "y": 53.7
+    },
+    {
+      "id": "hp-241603",
+      "nom": "Clé triquoise",
+      "x": 14.4,
+      "y": 86.8
+    },
+    {
+      "id": "hp-249648",
+      "nom": "Rubalise",
+      "x": 15.9,
+      "y": 76.4
+    }
+  ],
+  "cabine arrière gauche3.avif": [
+    {
+      "id": "hp-329037",
+      "nom": "4 lampes",
+      "x": 62.6,
+      "y": 12.1
+    },
+    {
+      "id": "hp-341497",
+      "nom": "4 Gilets",
+      "x": 47.2,
+      "y": 26.7
+    }
+  ],
+  "Bac commandes VPI.avif": [
+    {
+      "id": "hp-994202",
+      "nom": "Sacoche d'intervention",
+      "x": 18.1,
+      "y": 63.5
+    },
+    {
+      "id": "hp-007143",
+      "nom": "Fourreaux de protection",
+      "x": 37,
+      "y": 70.8
+    },
+    {
+      "id": "hp-048830",
+      "nom": "Commande blanche 10-15m",
+      "x": 50.7,
+      "y": 70.2
+    },
+    {
+      "id": "hp-081227",
+      "nom": "Commande 15-20m",
+      "x": 68,
+      "y": 71.8
+    },
+    {
+      "id": "hp-105570",
+      "nom": "Grande commande avec mousqueton 25-30m",
+      "x": 89.5,
+      "y": 69
+    }
+  ],
+  "Bac Cordages VPI.avif": [
+    {
+      "id": "hp-589831",
+      "nom": "Aussière d'amarrage / Remorquage ~25m",
+      "x": 54.6,
+      "y": 40.1
+    },
+    {
+      "id": "hp-597456",
+      "nom": "Aussière de service / sauvetage ~20m",
+      "x": 58.9,
+      "y": 69.7
+    }
+  ],
+  "Bac hydraulique.avif": [
+    {
+      "id": "hp-720429",
+      "nom": "Pompe d'épuisement submersible",
+      "x": 86,
+      "y": 47.6
+    },
+    {
+      "id": "hp-764666",
+      "nom": "Division / Collecteur à robinets",
+      "x": 32.4,
+      "y": 54.4
+    },
+    {
+      "id": "hp-873308",
+      "nom": "Raccord d'extrémité / Adaptateur",
+      "x": 66.3,
+      "y": 54.9
+    },
+    {
+      "id": "hp-949577",
+      "nom": "Clé en T",
+      "x": 10.3,
+      "y": 62.2
+    },
+    {
+      "id": "hp-984194",
+      "nom": "Grande clé tricoise / clé de raccordement",
+      "x": 28.9,
+      "y": 78.2
+    },
+    {
+      "id": "hp-021264",
+      "nom": "Paires de clés d'accouplement articulées",
+      "x": 52.6,
+      "y": 73.3
+    }
+  ],
+  "bac tronçonneuse.avif": [
+    {
+      "id": "hp-095230",
+      "nom": "Rubalise",
+      "x": 24.4,
+      "y": 59.9
+    },
+    {
+      "id": "hp-102083",
+      "nom": "Gilet haute visibilité",
+      "x": 51.7,
+      "y": 71.2
+    }
+  ],
+  "Sac PS poche avant VPI.avif": [
+    {
+      "id": "hp-547244",
+      "nom": "Poche frontale supérieure",
+      "x": 48,
+      "y": 35.4
+    },
+    {
+      "id": "hp-597020",
+      "nom": "Fiches de bilan d'intervention",
+      "x": 68,
+      "y": 72.6
+    },
+    {
+      "id": "hp-622453",
+      "nom": "Drap à usage unique",
+      "x": 29.8,
+      "y": 72.9
+    }
+  ],
+  "Sac PS Poche latérale SAT.avif": [
+    {
+      "id": "hp-762644",
+      "nom": "Poche latérale droite",
+      "x": 57.2,
+      "y": 42.7
+    },
+    {
+      "id": "hp-810531",
+      "nom": "Oxymètre de pouls portable",
+      "x": 67.1,
+      "y": 77
+    },
+    {
+      "id": "hp-842950",
+      "nom": "Capteur SpO2 déporté à pince digitale",
+      "x": 73.4,
+      "y": 88.2
+    },
+    {
+      "id": "hp-880927",
+      "nom": "Trousse de transport",
+      "x": 35.5,
+      "y": 78.2
+    }
+  ],
+  "Sac PS VPI Poche latérale hémorragie.avif": [
+    {
+      "id": "hp-936156",
+      "nom": "Poche latérale gauche",
+      "x": 46.1,
+      "y": 26.9
+    },
+    {
+      "id": "hp-981394",
+      "nom": "Drap stérile pour brûlé",
+      "x": 54.3,
+      "y": 80.4
+    },
+    {
+      "id": "hp-002212",
+      "nom": "Pochettes de compresses stériles",
+      "x": 31.3,
+      "y": 60.7
+    },
+    {
+      "id": "hp-036470",
+      "nom": "Bandes extensibles",
+      "x": 71.5,
+      "y": 61.9
+    }
+  ],
+  "Sac PS2.avif": [
+    {
+      "id": "hp-290555",
+      "nom": "Corps du sac",
+      "x": 43,
+      "y": 92.5
+    },
+    {
+      "id": "hp-333302",
+      "nom": "Carnet de note SUAP",
+      "x": 27.9,
+      "y": 31.6
+    },
+    {
+      "id": "hp-345462",
+      "nom": "Pince hémostatique",
+      "x": 25.5,
+      "y": 40.4
+    },
+    {
+      "id": "hp-357869",
+      "nom": "Stylo à bille",
+      "x": 24.1,
+      "y": 47.4
+    },
+    {
+      "id": "hp-397642",
+      "nom": "Marqueur / Feutre",
+      "x": 28.1,
+      "y": 25.7
+    },
+    {
+      "id": "hp-457720",
+      "nom": "Trousse modulaire amovible JAUNE",
+      "x": 61.6,
+      "y": 39.7
+    },
+    {
+      "id": "hp-463091",
+      "nom": "Trousse modulaire amovible VERTE",
+      "x": 58.7,
+      "y": 57.3
+    },
+    {
+      "id": "hp-467483",
+      "nom": "Trousse modulaire amovible ROUGE",
+      "x": 82.6,
+      "y": 61.1
+    }
+  ],
+  "Sacoche jaune PS.avif": [
+    {
+      "id": "hp-735375",
+      "nom": "écharpes triangulaires",
+      "x": 17.9,
+      "y": 65.5
+    },
+    {
+      "id": "hp-756920",
+      "nom": "Couvertures de survie",
+      "x": 43.4,
+      "y": 83.7
+    },
+    {
+      "id": "hp-786229",
+      "nom": "Couvertures de survie",
+      "x": 62.8,
+      "y": 82.7
+    },
+    {
+      "id": "hp-836647",
+      "nom": "dose de gel d'eau pour brûlures",
+      "x": 87.7,
+      "y": 67.6
+    }
+  ],
+  "Sacoche rouge PS.avif": [
+    {
+      "id": "hp-038119",
+      "nom": "Sachets de compresses de gaze",
+      "x": 46.5,
+      "y": 54.1
+    },
+    {
+      "id": "hp-083853",
+      "nom": "Barrette d'unidoses de sérum physiologique (NaCI 0.9%)",
+      "x": 45.6,
+      "y": 82.7
+    }
+  ],
+  "Sacoche verte PS.avif": [
+    {
+      "id": "hp-142673",
+      "nom": "Sacs vomitoires gradués",
+      "x": 21.6,
+      "y": 62.4
+    },
+    {
+      "id": "hp-193570",
+      "nom": "Canule rouge (taille 4 / Grand adulte)",
+      "x": 89.7,
+      "y": 71.8
+    },
+    {
+      "id": "hp-216102",
+      "nom": "Canule jaune (taille 3 / adulte moyen)",
+      "x": 69.9,
+      "y": 72.1
+    },
+    {
+      "id": "hp-258668",
+      "nom": "Canule verte (taille 2 / petit adulte)",
+      "x": 57,
+      "y": 67.7
+    },
+    {
+      "id": "hp-281642",
+      "nom": "Canule blanche (taille 1 / pédiatrique)",
+      "x": 43.4,
+      "y": 67.4
+    }
+  ],
+  "VTULE coffre.avif": [
+    {
+      "id": "hp-596142",
+      "nom": "Cônes de signalisations escamotables",
+      "x": 55.9,
+      "y": 70.3
+    },
+    {
+      "id": "hp-616134",
+      "nom": "Sacoche de transport textile orange",
+      "x": 53,
+      "y": 44.5
+    },
+    {
+      "id": "hp-636017",
+      "nom": "Paire de gants de manutention en cuir",
+      "x": 54.6,
+      "y": 30.8
+    },
+    {
+      "id": "hp-684841",
+      "nom": "Boudins / Feuilles absorbants pour hydrocarbures",
+      "x": 22.7,
+      "y": 66.1
+    }
+  ],
+  "bac d'urgence.avif": [
+    {
+      "id": "hp-809120",
+      "nom": "Mallette",
+      "x": 23.3,
+      "y": 79.5
+    },
+    {
+      "id": "hp-834516",
+      "nom": "Trousse / Kit d'urgence",
+      "x": 19.2,
+      "y": 53.4
+    },
+    {
+      "id": "hp-878718",
+      "nom": "Couverture Polaire / Confort",
+      "x": 57.7,
+      "y": 78
+    },
+    {
+      "id": "hp-905399",
+      "nom": "Sac de transport étanche en bâche PVC grise",
+      "x": 86.4,
+      "y": 66
+    }
+  ],
+  "Bac EPI VTULE.avif": [
+    {
+      "id": "hp-131072",
+      "nom": "Sacoche avec commande d'amarrage",
+      "x": 33.9,
+      "y": 18.1
+    },
+    {
+      "id": "hp-146900",
+      "nom": "Classeur PLAN / ATLAS",
+      "x": 58.8,
+      "y": 26.2
+    },
+    {
+      "id": "hp-201254",
+      "nom": "Gants de manutention / protection mécanique en cuir",
+      "x": 38.2,
+      "y": 62
+    },
+    {
+      "id": "hp-258036",
+      "nom": "Lampe torche / Projecteur d'intervention",
+      "x": 86.1,
+      "y": 44.3
+    },
+    {
+      "id": "hp-361813",
+      "nom": "Combinaisons de protection à usage unique",
+      "x": 63.1,
+      "y": 68.9
+    },
+    {
+      "id": "hp-437243",
+      "nom": "Flacon de gel / solution hydroalcoolique (~100ml)",
+      "x": 79.2,
+      "y": 92
+    },
+    {
+      "id": "hp-498821",
+      "nom": "Pelle pliante en acier",
+      "x": 25.2,
+      "y": 59.6
+    },
+    {
+      "id": "hp-528334",
+      "nom": "Pochette pour pelle pliante",
+      "x": 19.5,
+      "y": 67.6
+    }
+  ],
+  "Sac PS VTULE poche avant.avif": [
+    {
+      "id": "hp-842859",
+      "nom": "Fiche d'inventaire",
+      "x": 48.3,
+      "y": 56.3
+    },
+    {
+      "id": "hp-862439",
+      "nom": "Porte-bloc rigide",
+      "x": 57.2,
+      "y": 84.3
+    },
+    {
+      "id": "hp-986438",
+      "nom": "poche face avant",
+      "x": 49.8,
+      "y": 25.9
+    }
+  ],
+  "Sac PS VTULE poche avant2.avif": [
+    {
+      "id": "hp-056247",
+      "nom": "Poche supérieure",
+      "x": 46.2,
+      "y": 15.8
+    },
+    {
+      "id": "hp-110699",
+      "nom": "Collier cervical adulte réglable",
+      "x": 79.2,
+      "y": 58.3
+    },
+    {
+      "id": "hp-123390",
+      "nom": "Collier cervical pédiatrique réglable",
+      "x": 67.6,
+      "y": 65.1
+    },
+    {
+      "id": "hp-147590",
+      "nom": "Drap de transport à usage unique",
+      "x": 30,
+      "y": 70.5
+    },
+    {
+      "id": "hp-173548",
+      "nom": "Champ stérile de soin",
+      "x": 54.8,
+      "y": 76.9
+    },
+    {
+      "id": "hp-185353",
+      "nom": "Couverture de survie",
+      "x": 51.2,
+      "y": 53.7
+    }
+  ],
+  "Sac Bilan dans PS.avif": [
+    {
+      "id": "hp-400727",
+      "nom": "Tensiomètre électronique automatique avec brassard adulte",
+      "x": 64.3,
+      "y": 35.2
+    },
+    {
+      "id": "hp-449210",
+      "nom": "Oxymètre de pouls portable (saturomètre)",
+      "x": 40,
+      "y": 38.9
+    },
+    {
+      "id": "hp-475306",
+      "nom": "Lampe d'examen pupillaire",
+      "x": 87.8,
+      "y": 59.6
+    },
+    {
+      "id": "hp-512045",
+      "nom": "Lot de piles de rechange",
+      "x": 25,
+      "y": 52.9
+    },
+    {
+      "id": "hp-554314",
+      "nom": "Thérmomètre frontal",
+      "x": 17.9,
+      "y": 35.7
+    }
+  ],
+  "Gants dans PS.avif": [
+    {
+      "id": "hp-703693",
+      "nom": "Gants d'examen à usage unique en nitrile bleu (taille M / L)",
+      "x": 41.3,
+      "y": 57.2
+    }
+  ],
+  "Sacs DASRI dans PS.avif": [
+    {
+      "id": "hp-853209",
+      "nom": "Sacs à déchets DASRI jaunes",
+      "x": 72.1,
+      "y": 27.4
+    },
+    {
+      "id": "hp-874201",
+      "nom": "Sacs vomitoires gradués étanches",
+      "x": 32.6,
+      "y": 25.4
+    }
+  ],
+  "Masque dans PS.avif": [
+    {
+      "id": "hp-920621",
+      "nom": "Masques de protection respiratoire FFP2",
+      "x": 46.7,
+      "y": 54.2
+    }
+  ],
+  "Sac aspi mucosités.avif": [
+    {
+      "id": "hp-102979",
+      "nom": "Aspirateur de mucosités manuel à gâchette",
+      "x": 50.7,
+      "y": 84.5
+    },
+    {
+      "id": "hp-152859",
+      "nom": "Sondes d'aspiration trachéale",
+      "x": 44.4,
+      "y": 63
+    }
+  ],
+  "Sac tensiomètre.avif": [
+    {
+      "id": "hp-288099",
+      "nom": "Brassards de tensiomètre interchangeables",
+      "x": 57.2,
+      "y": 37.6
+    },
+    {
+      "id": "hp-329757",
+      "nom": "Stéthoscope biauriculaire",
+      "x": 23.5,
+      "y": 49.7
+    },
+    {
+      "id": "hp-381107",
+      "nom": "Tensiomètre manopoire anéroïde",
+      "x": 69.7,
+      "y": 59.3
+    }
+  ],
+  "DSA dans Sac PS.avif": [
+    {
+      "id": "hp-551340",
+      "nom": "Compartiment principal",
+      "x": 24.2,
+      "y": 17.6
+    },
+    {
+      "id": "hp-596418",
+      "nom": "Défibrillateur Automatisé Externe (DAE / DSA)",
+      "x": 54.1,
+      "y": 62.2
+    },
+    {
+      "id": "hp-685591",
+      "nom": "Paire d'éléctrodes de défibrillation pré-connectables",
+      "x": 86.2,
+      "y": 47.6
+    },
+    {
+      "id": "hp-717184",
+      "nom": "Ciseaux de secours à bouts ronds",
+      "x": 9.4,
+      "y": 53.6
+    },
+    {
+      "id": "hp-738215",
+      "nom": "Rasoir jetable à usage unique",
+      "x": 6.2,
+      "y": 71
+    },
+    {
+      "id": "hp-876437",
+      "nom": "Compresse / Lingette de séchage",
+      "x": 25.5,
+      "y": 63.8
+    }
+  ],
+  "Sac PS1 VTULE.avif": [
+    {
+      "id": "hp-966035",
+      "nom": "Compartiment principal",
+      "x": 76.7,
+      "y": 8.2
+    },
+    {
+      "id": "hp-028783",
+      "nom": "Garrot tourniquet opérationnel (Type C-A-T)",
+      "x": 13.5,
+      "y": 52.8
+    },
+    {
+      "id": "hp-103683",
+      "nom": "Pansement compressif d'urgence",
+      "x": 72.4,
+      "y": 53.4
+    },
+    {
+      "id": "hp-142572",
+      "nom": "Pansements absorbants stériles",
+      "x": 39.4,
+      "y": 78.2
+    },
+    {
+      "id": "hp-169524",
+      "nom": "Ciseaux de secours à bouts ronds",
+      "x": 6.8,
+      "y": 76.5
+    },
+    {
+      "id": "hp-188045",
+      "nom": "Lunettes de protection oculaire",
+      "x": 40.2,
+      "y": 57.8
+    },
+    {
+      "id": "hp-254543",
+      "nom": "Barrette d'unidoses de sérum physiologique (NaCI 0.9 %)",
+      "x": 88,
+      "y": 78.8
+    },
+    {
+      "id": "hp-307564",
+      "nom": "Rouleaux de sparadrap médical sécable",
+      "x": 79.1,
+      "y": 68.2
+    },
+    {
+      "id": "hp-330053",
+      "nom": "Flacon d'antiseptique dermique local",
+      "x": 75.8,
+      "y": 61.6
+    }
+  ],
+  "Sac PS VTULE.avif": [
+    {
+      "id": "hp-569271",
+      "nom": "Constantes, diagnostics et EPI",
+      "x": 24.1,
+      "y": 25.4
+    },
+    {
+      "id": "hp-587734",
+      "nom": "Urgences vitales",
+      "x": 71.4,
+      "y": 26.7
+    },
+    {
+      "id": "hp-629581",
+      "nom": "Sacoche DAE/DSA rouge",
+      "x": 61.1,
+      "y": 40.6
+    },
+    {
+      "id": "hp-646836",
+      "nom": "Trousse Aspiration (PAX)",
+      "x": 73.9,
+      "y": 64.8
+    },
+    {
+      "id": "hp-671071",
+      "nom": "Trousse Hémorragie",
+      "x": 82.2,
+      "y": 43.5
+    },
+    {
+      "id": "hp-715312",
+      "nom": "Couverture de survie",
+      "x": 51.6,
+      "y": 62
+    },
+    {
+      "id": "hp-755918",
+      "nom": "Trousse Bilan",
+      "x": 11.7,
+      "y": 58
+    },
+    {
+      "id": "hp-775645",
+      "nom": "Trousse Masques",
+      "x": 28.6,
+      "y": 59.9
+    },
+    {
+      "id": "hp-805889",
+      "nom": "Trousse Tensiomètre manuel / Stéthoscope",
+      "x": 12.4,
+      "y": 39.3
+    },
+    {
+      "id": "hp-829135",
+      "nom": "Trousse Vomix / DASRI",
+      "x": 39.9,
+      "y": 41.5
+    },
+    {
+      "id": "hp-852559",
+      "nom": "Trousse Soins / Brûlures",
+      "x": 25.5,
+      "y": 38.6
+    },
+    {
+      "id": "hp-858577",
+      "nom": "Trousse Gants",
+      "x": 42.7,
+      "y": 56
+    },
+    {
+      "id": "hp-965404",
+      "nom": "Lingettes",
+      "x": 93.6,
+      "y": 48.4
+    }
+  ],
+  "sac oxygénation1.avif": [
+    {
+      "id": "hp-568333",
+      "nom": "Masques de protection respiratoire à usage unique (FFP2 / FFP3)",
+      "x": 51.8,
+      "y": 58
+    },
+    {
+      "id": "hp-596062",
+      "nom": "Poche filet intérieure du rabat",
+      "x": 47.4,
+      "y": 24.1
+    }
+  ],
+  "Sac oxygénation.avif": [
+    {
+      "id": "hp-639516",
+      "nom": "Ciseaux de secours à bouts ronds",
+      "x": 74,
+      "y": 57.6
+    },
+    {
+      "id": "hp-701311",
+      "nom": "Compartiment principal garni",
+      "x": 35.7,
+      "y": 35.2
+    }
+  ],
+  "sac oxygénation2.avif": [
+    {
+      "id": "hp-796488",
+      "nom": "Bouteille d'oxygène médical gazeux 2 litres / 200 bars",
+      "x": 45.2,
+      "y": 45.3
+    },
+    {
+      "id": "hp-882116",
+      "nom": "Robinet-Détendeur-Débimètre Intégré (RDI)",
+      "x": 14,
+      "y": 45.9
+    },
+    {
+      "id": "hp-896536",
+      "nom": "Sangle de fixation",
+      "x": 37.1,
+      "y": 75.4
+    }
+  ],
+  "VTULE coffre antiere.avif": [
+    {
+      "id": "hp-068136",
+      "nom": "Rampe LED à défilement arrière",
+      "x": 48.5,
+      "y": 18.9
+    },
+    {
+      "id": "hp-088971",
+      "nom": "échelle téléscopique en alluminium",
+      "x": 32.4,
+      "y": 47.1
+    },
+    {
+      "id": "hp-117811",
+      "nom": "Bac de balisage / signalisation",
+      "x": 20.5,
+      "y": 71.3
+    },
+    {
+      "id": "hp-135191",
+      "nom": "Bac SUAP / Urgence",
+      "x": 50.7,
+      "y": 68.7
+    },
+    {
+      "id": "hp-170630",
+      "nom": "Extincteur portatid à eau pulvérisée avec additif (9L?)",
+      "x": 78.4,
+      "y": 72.3
+    },
+    {
+      "id": "hp-191878",
+      "nom": "Sac de prompt secours haute visibilité",
+      "x": 68.2,
+      "y": 59.4
+    },
+    {
+      "id": "hp-219169",
+      "nom": "Sac d'oxygénothérapie",
+      "x": 65.4,
+      "y": 50.2
+    },
+    {
+      "id": "hp-251284",
+      "nom": "Gilets de haute visibilité",
+      "x": 59.8,
+      "y": 30
+    },
+    {
+      "id": "hp-284980",
+      "nom": "Classeur PLAN / ATLAS",
+      "x": 40.5,
+      "y": 29.2
+    }
+  ]
+}

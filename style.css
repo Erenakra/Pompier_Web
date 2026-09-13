@@ -817,3 +817,496 @@ body.modal-open {
 .plan-sub-content {
     padding: 15px;
 }
+
+/* --- Points Interactifs (Hotspots) sur Photos Agrandies --- */
+.photo-interactive-wrapper {
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+    max-height: 80vh;
+    line-height: 0;
+    user-select: none;
+}
+
+.photo-enlarged {
+    max-width: 100%;
+    max-height: 80vh;
+    width: auto;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.6);
+    display: block;
+    object-fit: contain;
+}
+
+.hotspot-pin {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: #dc3545; /* Rouge secours vif */
+    border: 2px solid #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    z-index: 20;
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    line-height: normal;
+}
+
+/* Radar pulse au repos */
+.hotspot-pin::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 50%;
+    background: inherit;
+    z-index: -1;
+    animation: hotspot-radar 2s infinite ease-out;
+}
+
+@keyframes hotspot-radar {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    70% {
+        transform: scale(2.2);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(2.2);
+        opacity: 0;
+    }
+}
+
+/* Cœur blanc du point */
+.hotspot-pin::after {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    transition: transform 0.2s ease;
+}
+
+/* Survol et état actif */
+.hotspot-pin:hover,
+.hotspot-pin.active {
+    transform: translate(-50%, -50%) scale(1.25);
+    background-color: #ff3b4e;
+    z-index: 30;
+}
+
+.hotspot-pin:hover::after,
+.hotspot-pin.active::after {
+    transform: scale(1.2);
+}
+
+/* Infobulle / Étiquette (Tooltip) */
+.hotspot-tooltip {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%) translateY(6px);
+    background-color: #003366; /* Bleu secours */
+    color: #ffffff;
+    padding: 7px 14px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    z-index: 40;
+}
+
+/* Flèche directionnelle vers le point */
+.hotspot-tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: #003366 transparent transparent transparent;
+}
+
+/* Affichage de l'infobulle au survol sur PC ou au clic/tap */
+.hotspot-pin:hover .hotspot-tooltip,
+.hotspot-pin.active .hotspot-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: auto;
+}
+
+/* Variations de position de l'infobulle */
+.hotspot-pin.tooltip-bottom .hotspot-tooltip {
+    bottom: auto;
+    top: calc(100% + 10px);
+    transform: translateX(-50%) translateY(-6px);
+}
+.hotspot-pin.tooltip-bottom .hotspot-tooltip::after {
+    top: auto;
+    bottom: 100%;
+    border-color: transparent transparent #003366 transparent;
+}
+.hotspot-pin.tooltip-bottom:hover .hotspot-tooltip,
+.hotspot-pin.tooltip-bottom.active .hotspot-tooltip {
+    transform: translateX(-50%) translateY(0);
+}
+
+.hotspot-pin.tooltip-left .hotspot-tooltip {
+    left: 0;
+    transform: translateX(0) translateY(6px);
+}
+.hotspot-pin.tooltip-left .hotspot-tooltip::after {
+    left: 12px;
+    transform: none;
+}
+.hotspot-pin.tooltip-left:hover .hotspot-tooltip,
+.hotspot-pin.tooltip-left.active .hotspot-tooltip {
+    transform: translateX(0) translateY(0);
+}
+
+.hotspot-pin.tooltip-right .hotspot-tooltip {
+    left: auto;
+    right: 0;
+    transform: translateX(0) translateY(6px);
+}
+.hotspot-pin.tooltip-right .hotspot-tooltip::after {
+    left: auto;
+    right: 12px;
+    transform: none;
+}
+.hotspot-pin.tooltip-right:hover .hotspot-tooltip,
+.hotspot-pin.tooltip-right.active .hotspot-tooltip {
+    transform: translateX(0) translateY(0);
+}
+
+/* Toast informatif pour le mode calibrage */
+.calibration-toast {
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background-color: rgba(0, 51, 102, 0.95);
+    color: #ffffff;
+    padding: 10px 22px;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.calibration-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* --- Barre d'Outils et Mode Annotation / Étalonnage --- */
+.photo-modal-toolbar {
+    position: fixed;
+    top: 20px;
+    left: 25px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    z-index: 1200;
+}
+
+/* Bouton roue crantée discret / toggleable */
+.btn-toolbar-gear {
+    background: rgba(0, 51, 102, 0.75);
+    color: #ffffff;
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    font-size: 1.15rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.btn-toolbar-gear:hover,
+.btn-toolbar-gear.active {
+    background: rgba(0, 51, 102, 1);
+    border-color: #ffffff;
+    transform: scale(1.08);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+}
+
+/* Panneau déroulant d'outils */
+.photo-modal-tools-panel {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    background: rgba(0, 34, 68, 0.88);
+    padding: 5px 10px;
+    border-radius: 25px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    animation: panelFadeIn 0.2s ease-out;
+}
+
+@keyframes panelFadeIn {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.btn-toolbar-annotation,
+.btn-toolbar-export,
+.btn-toolbar-reset {
+    background: rgba(0, 51, 102, 0.88);
+    color: #ffffff;
+    border: 1.5px solid rgba(255, 255, 255, 0.45);
+    border-radius: 20px;
+    padding: 7px 14px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    user-select: none;
+}
+
+.btn-toolbar-reset {
+    background: rgba(108, 117, 125, 0.85);
+    border-color: rgba(255, 255, 255, 0.35);
+}
+
+.btn-toolbar-annotation:hover,
+.btn-toolbar-export:hover,
+.btn-toolbar-reset:hover {
+    background: rgba(0, 51, 102, 1);
+    border-color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.btn-toolbar-reset:hover {
+    background: rgba(73, 80, 87, 1);
+}
+
+/* État actif quand le Mode Annotation est enclenché */
+.btn-toolbar-annotation.active {
+    background: #ffc107;
+    color: #002244;
+    border-color: #ffffff;
+    font-weight: 700;
+    box-shadow: 0 0 15px rgba(255, 193, 7, 0.6);
+    animation: annotation-pulse 1.8s infinite;
+}
+
+@keyframes annotation-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.04); }
+    100% { transform: scale(1); }
+}
+
+/* Bannière d'instruction en mode annotation */
+.annotation-banner {
+    position: fixed;
+    top: 75px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 51, 102, 0.95);
+    color: #ffc107;
+    border: 1px solid rgba(255, 193, 7, 0.5);
+    padding: 8px 22px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    z-index: 1200;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    pointer-events: none;
+    text-align: center;
+}
+
+/* Curseur viseur sur l'image en mode annotation */
+.photo-interactive-wrapper.annotation-mode img {
+    cursor: crosshair !important;
+}
+
+/* Boîte de dialogue stylisée pour ajouter un point */
+.hotspot-dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.65);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1300;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.hotspot-dialog-box {
+    background: #ffffff;
+    padding: 24px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 420px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    text-align: left;
+    border-top: 5px solid #003366;
+    animation: dialogAppear 0.2s ease-out;
+}
+
+@keyframes dialogAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.92);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.hotspot-dialog-box h4 {
+    margin: 0 0 6px 0;
+    color: #003366;
+    font-size: 1.25rem;
+}
+
+.hotspot-dialog-coords {
+    font-size: 0.85rem;
+    color: #666;
+    margin: 0 0 15px 0;
+}
+
+.hotspot-dialog-coords span {
+    font-weight: bold;
+    color: #dc3545;
+}
+
+.hotspot-dialog-box input {
+    width: 100%;
+    padding: 11px 14px;
+    font-size: 1rem;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.hotspot-dialog-box input:focus {
+    border-color: #003366;
+}
+
+.hotspot-dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.btn-dialog-cancel {
+    background: #e2e8f0;
+    color: #333;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-dialog-cancel:hover {
+    background: #cbd5e1;
+}
+
+.btn-dialog-confirm {
+    background: #003366;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-dialog-confirm:hover {
+    background: #002244;
+}
+
+@media (max-width: 650px) {
+    .photo-modal-toolbar {
+        top: 15px;
+        left: 15px;
+        gap: 6px;
+    }
+    .photo-modal-tools-panel {
+        flex-wrap: wrap;
+        max-width: calc(100vw - 90px);
+        padding: 4px 8px;
+        gap: 5px;
+    }
+    .btn-toolbar-gear {
+        width: 34px;
+        height: 34px;
+        font-size: 1rem;
+    }
+    .btn-toolbar-annotation,
+    .btn-toolbar-export,
+    .btn-toolbar-reset {
+        padding: 5px 10px;
+        font-size: 0.75rem;
+    }
+    .annotation-banner {
+        top: 60px;
+        font-size: 0.75rem;
+        padding: 6px 14px;
+        width: 90%;
+    }
+    /* Infobulles mobiles compactes et sans débordement */
+    .hotspot-tooltip {
+        max-width: 200px;
+        white-space: normal;
+        text-align: center;
+        font-size: 0.78rem;
+        padding: 6px 10px;
+        line-height: 1.25;
+    }
+}

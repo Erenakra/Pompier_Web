@@ -481,12 +481,18 @@
                                 </div>
                                 <p>Sac tensiomètre</p>
                             </div>
+                            <div class="plan-card">
+                                <div class="img-container">
+                                    <img src="images/Sac aspi mucosités.avif" alt="Sac aspiration mucosités" class="plan-img" data-image="images/Sac aspi mucosités.avif">
+                                </div>
+                                <p>Sac aspiration mucosités</p>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="plan-sub-section">
-                    <h5 class="plan-sub-title">Sac d'Oxygénation</h5>
+                    <h5 class="plan-sub-title">Sac d'oxygénothérapie</h5>
                     <div class="plan-sub-content">
                         <div class="plan-grid">
                             <div class="plan-card">
@@ -513,12 +519,6 @@
                                 </div>
                                 <p>Sac oxygénation éclaté</p>
                             </div>
-                            <div class="plan-card">
-                                <div class="img-container">
-                                    <img src="images/Sac aspi mucosités.avif" alt="Sac aspiration mucosités" class="plan-img" data-image="images/Sac aspi mucosités.avif">
-                                </div>
-                                <p>Sac aspiration mucosités</p>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -534,9 +534,36 @@
 
 <!-- Modale Photo Matériel / Grand Format -->
 <div id="photo-modal" class="modal-overlay hidden" style="z-index: 1100;">
+    <!-- Barre d'outils supérieure discrète / toggleable : Outils d'étalonnage -->
+    <div class="photo-modal-toolbar">
+        <button type="button" id="btn-toggle-tools" class="btn-toolbar-gear" aria-label="Outils d'étalonnage" title="Outils d'étalonnage et export">⚙️</button>
+        <div id="photo-modal-tools-panel" class="photo-modal-tools-panel hidden">
+            <button type="button" id="btn-toggle-annotation" class="btn-toolbar-annotation" title="Activer le mode pour cartographier les équipements en un clic">🎯 Mode Annotation</button>
+            <button type="button" id="btn-export-hotspots" class="btn-toolbar-export" title="Télécharger le fichier hotspots.json contenant tous les points">💾 Exporter JSON</button>
+            <button type="button" id="btn-reset-hotspots" class="btn-toolbar-reset" title="Réinitialiser et recharger depuis le fichier hotspots.json">🔄 Recharger JSON</button>
+        </div>
+    </div>
+
+    <!-- Bannière d'instruction en mode annotation -->
+    <div id="annotation-banner" class="annotation-banner hidden">🎯 Mode Annotation Actif : Cliquez sur la photo pour placer un point d'intérêt</div>
+
     <button type="button" class="btn-close-modal btn-close-photo" aria-label="Fermer la photo">✕</button>
+
     <div class="modal-content photo-content" style="background: transparent; box-shadow: none; max-width: 95%; max-height: 90vh; text-align: center; position: relative; padding: 0; display: flex; align-items: center; justify-content: center;">
         <div id="photo-modal-container" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%;"></div>
+    </div>
+
+    <!-- Boîte de dialogue stylisée pour saisie du nom de l'équipement -->
+    <div id="hotspot-dialog" class="hotspot-dialog hidden">
+        <div class="hotspot-dialog-box">
+            <h4>Ajouter un équipement</h4>
+            <p class="hotspot-dialog-coords">Position : <span id="hotspot-coords-display">X: 0%, Y: 0%</span></p>
+            <input type="text" id="hotspot-name-input" placeholder="Ex: Lance LDT, Pompe incendie, Garrot..." maxlength="70" autocomplete="off">
+            <div class="hotspot-dialog-actions">
+                <button type="button" id="btn-cancel-hotspot" class="btn-dialog-cancel">Annuler</button>
+                <button type="button" id="btn-confirm-hotspot" class="btn-dialog-confirm">Valider le point</button>
+            </div>
+        </div>
     </div>
 </div>
 <script src="app.js"></script>

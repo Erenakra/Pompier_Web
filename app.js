@@ -30,7 +30,27 @@ document.addEventListener('DOMContentLoaded', async () => {
     let activeVehicule = 'VTULE';
     let vehiculesData = {};
     let items = [];
+    let hotspotsData = {};
     
+    // Chargement de la source de vérité des points d'intérêt
+    const loadHotspotsData = async () => {
+        try {
+            const res = await fetch('hotspots.json');
+            if (res.ok) {
+                hotspotsData = await res.json();
+                console.log(`[Hotspots] ${Object.keys(hotspotsData).length} photos chargées avec succès depuis hotspots.json`);
+            } else {
+                const resFallback = await fetch('hotspots_2026-09-12.json');
+                if (resFallback.ok) {
+                    hotspotsData = await resFallback.json();
+                    console.log(`[Hotspots] ${Object.keys(hotspotsData).length} photos chargées depuis hotspots_2026-09-12.json`);
+                }
+            }
+        } catch (err) {
+            console.warn('[Hotspots] Erreur chargement hotspots.json (repli sur données intégrées) :', err);
+        }
+    };
+
     // Pour que saveItems ait accès à activeVehicule
     const saveItems = () => {
         localStorage.setItem('materiauxData_' + activeVehicule, JSON.stringify(items));
@@ -102,6 +122,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             };
             
             await loadMateriauxData();
+            await loadHotspotsData();
 
             // --- Système d'identification ---
             const loginModal = document.getElementById('login-modal');
@@ -560,11 +581,411 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
         updateBodyScrollLock();
 
-        // --- Système d'Images (Plan et Photos) ---
+        // --- Système d'Images, Plan et Points d'Intérêt (Hotspots) ---
         const btnViewPlan = document.getElementById('btn-view-plan');
         const planModal = document.getElementById('plan-modal');
         const photoModal = document.getElementById('photo-modal');
         const photoModalContainer = document.getElementById('photo-modal-container');
+
+        // Base de données par défaut des Points d'Intérêt (Hotspots) par photo
+        const DEFAULT_HOTSPOTS_DATA = {
+            "VPI arrière.avif": [
+                { id: "vpi-1", nom: "LDT 80 m", x: 49.1, y: 39.7 },
+                { id: "vpi-2", nom: "Lance LDT", x: 72.3, y: 64.5 },
+                { id: "vpi-3", nom: "Pompe incendie", x: 51.1, y: 70.5 },
+                { id: "vpi-4", nom: "Vanne d'amorçage", x: 33.7, y: 54.2 },
+                { id: "vpi-5", nom: "Vanne d'eau amorceur", x: 43.7, y: 52.8 },
+                { id: "vpi-6", nom: "Vanne tonne-pompe", x: 51.3, y: 80.9 },
+                { id: "vpi-7", nom: "Orifice d'aspiration (raccord 100)", x: 47.2, y: 83.9 },
+                { id: "vpi-8", nom: "Remplissage citerne (raccord 45)", x: 30.9, y: 85.5 },
+                { id: "vpi-9", nom: "Refoulement (raccord 65)", x: 63.7, y: 60.9 },
+                { id: "vpi-10", nom: "Refoulement (raccord 40)", x: 52.6, y: 64.2 },
+                { id: "vpi-11", nom: "Refoulement (raccord 40)", x: 42.4, y: 63.7 },
+                { id: "vpi-12", nom: "Collecteur à clapets", x: 64.3, y: 86.5 },
+                { id: "vpi-13", nom: "Tuyaux d'aspiration 2 m Ø 110 (x5)", x: 50.4, y: 20.5 },
+                { id: "vpi-14", nom: "2 clés tricoises", x: 72.5, y: 76.9 }
+            ],
+            "arrière vpi.avif": [
+                { id: "vpi-1", nom: "LDT 80 m", x: 49.1, y: 39.7 },
+                { id: "vpi-2", nom: "Lance LDT", x: 72.3, y: 64.5 },
+                { id: "vpi-3", nom: "Pompe incendie", x: 51.1, y: 70.5 },
+                { id: "vpi-4", nom: "Vanne d'amorçage", x: 33.7, y: 54.2 },
+                { id: "vpi-5", nom: "Vanne d'eau amorceur", x: 43.7, y: 52.8 },
+                { id: "vpi-6", nom: "Vanne tonne-pompe", x: 51.3, y: 80.9 },
+                { id: "vpi-7", nom: "Orifice d'aspiration (raccord 100)", x: 47.2, y: 83.9 },
+                { id: "vpi-8", nom: "Remplissage citerne (raccord 45)", x: 30.9, y: 85.5 },
+                { id: "vpi-9", nom: "Refoulement (raccord 65)", x: 63.7, y: 60.9 },
+                { id: "vpi-10", nom: "Refoulement (raccord 40)", x: 52.6, y: 64.2 },
+                { id: "vpi-11", nom: "Refoulement (raccord 40)", x: 42.4, y: 63.7 },
+                { id: "vpi-12", nom: "Collecteur à clapets", x: 64.3, y: 86.5 },
+                { id: "vpi-13", nom: "Tuyaux d'aspiration 2 m Ø 110 (x5)", x: 50.4, y: 20.5 },
+                { id: "vpi-14", nom: "2 clés tricoises", x: 72.5, y: 76.9 }
+            ],
+            "Sac PS VPI éclaté.avif": [
+                { id: "ps-1", nom: "Garrot tourniquet (CAT)", x: 28.5, y: 38.0 },
+                { id: "ps-2", nom: "Compresses stériles & CHU", x: 52.0, y: 46.5 },
+                { id: "ps-3", nom: "Colliers cervicaux (Adulte / Enfant)", x: 74.5, y: 65.0 }
+            ],
+            "sac oxygénation éclaté.avif": [
+                { id: "o2-1", nom: "Bouteille d'Oxygène 2L & Manodétendeur", x: 42.0, y: 32.5 },
+                { id: "o2-2", nom: "BAVU & Masques Haute Concentration", x: 68.0, y: 55.0 },
+                { id: "o2-3", nom: "Canules de Guedel & Raccord", x: 25.0, y: 72.0 }
+            ]
+        };
+
+        // Gestion de customHotspotsData dans localStorage
+        const getCustomHotspots = () => {
+            try {
+                return JSON.parse(localStorage.getItem('customHotspotsData') || '{}');
+            } catch (e) {
+                return {};
+            }
+        };
+
+        const saveCustomHotspots = (customData) => {
+            localStorage.setItem('customHotspotsData', JSON.stringify(customData));
+        };
+
+        const normalizeImageKey = (imgUrl) => {
+            if (!imgUrl) return '';
+            let clean = imgUrl;
+            try { clean = decodeURIComponent(imgUrl); } catch (e) {}
+            return clean.split('/').pop().trim();
+        };
+
+        // Récupération dynamique : priorité absolue à customHotspotsData si modifié, puis hotspotsData (hotspots.json), puis DEFAULT_HOTSPOTS_DATA
+        const getHotspotsForImage = (imgUrl) => {
+            const filename = normalizeImageKey(imgUrl);
+            if (!filename) return [];
+
+            const customAll = getCustomHotspots();
+            // 1. Chercher en priorité dans customHotspotsData (modifications locales)
+            for (const [k, spots] of Object.entries(customAll)) {
+                if (normalizeImageKey(k).toLowerCase() === filename.toLowerCase()) {
+                    return spots;
+                }
+            }
+
+            // 2. Chercher dans hotspotsData (source de vérité chargée depuis hotspots.json)
+            for (const [k, spots] of Object.entries(hotspotsData)) {
+                if (normalizeImageKey(k).toLowerCase() === filename.toLowerCase()) {
+                    return spots;
+                }
+            }
+
+            // 3. Sinon chercher dans DEFAULT_HOTSPOTS_DATA (secours codé en dur)
+            for (const [k, spots] of Object.entries(DEFAULT_HOTSPOTS_DATA)) {
+                if (normalizeImageKey(k).toLowerCase() === filename.toLowerCase()) {
+                    return spots;
+                }
+            }
+
+            return [];
+        };
+
+        // Ajout d'un point dans customHotspotsData
+        const addHotspotPoint = (imgUrl, equipmentName, x, y) => {
+            const filename = normalizeImageKey(imgUrl);
+            const customAll = getCustomHotspots();
+
+            let currentSpots = customAll[filename] ? [...customAll[filename]] : [...getHotspotsForImage(imgUrl)];
+
+            const newSpot = {
+                id: `hp-${Date.now().toString().slice(-6)}`,
+                nom: equipmentName.trim(),
+                x: parseFloat(x),
+                y: parseFloat(y)
+            };
+
+            currentSpots.push(newSpot);
+            customAll[filename] = currentSpots;
+            saveCustomHotspots(customAll);
+            return newSpot;
+        };
+
+        // Suppression d'un point
+        const removeHotspotPoint = (imgUrl, pointId) => {
+            const filename = normalizeImageKey(imgUrl);
+            const customAll = getCustomHotspots();
+            let currentSpots = customAll[filename] ? [...customAll[filename]] : [...getHotspotsForImage(imgUrl)];
+            currentSpots = currentSpots.filter(p => (p.id || `hp-${p.x}-${p.y}`) !== pointId);
+            customAll[filename] = currentSpots;
+            saveCustomHotspots(customAll);
+        };
+
+        // Export global au format JSON de toutes les photos annotées
+        const exportHotspotsJSON = () => {
+            const customAll = getCustomHotspots();
+            // Fusion : DEFAULT_HOTSPOTS_DATA + hotspotsData (source de vérité) + customAll (ajouts locaux)
+            const merged = { ...DEFAULT_HOTSPOTS_DATA, ...hotspotsData };
+            for (const [k, spots] of Object.entries(customAll)) {
+                merged[k] = spots;
+            }
+
+            const jsonStr = JSON.stringify(merged, null, 2);
+            const blob = new Blob([jsonStr], { type: 'application/json;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `hotspots.json`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+
+            showCalibrationToast("Fichier hotspots.json exporté avec succès !");
+        };
+
+        // Notification toast
+        const showCalibrationToast = (message) => {
+            let toast = document.getElementById('calibration-toast');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'calibration-toast';
+                toast.className = 'calibration-toast';
+                document.body.appendChild(toast);
+            }
+            toast.textContent = message;
+            toast.classList.add('show');
+            clearTimeout(toast._timeout);
+            toast._timeout = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2500);
+        };
+
+        // État du Mode Annotation / Étalonnage
+        let isAnnotationMode = false;
+        let currentOpenedImageUrl = '';
+        let pendingHotspotCoords = null;
+
+        const updateAnnotationUI = () => {
+            const btnToggle = document.getElementById('btn-toggle-annotation');
+            const banner = document.getElementById('annotation-banner');
+            const wrapper = photoModalContainer.querySelector('.photo-interactive-wrapper');
+
+            if (btnToggle) {
+                btnToggle.classList.toggle('active', isAnnotationMode);
+                btnToggle.innerHTML = isAnnotationMode ? '✅ Mode Annotation (Actif)' : '⚙️ Mode Annotation';
+            }
+            if (banner) {
+                banner.classList.toggle('hidden', !isAnnotationMode);
+            }
+            if (wrapper) {
+                wrapper.classList.toggle('annotation-mode', isAnnotationMode);
+            }
+        };
+
+        // Rendu dynamique des pastilles / hotspots sur l'image affichée
+        const renderHotspots = (imgUrl) => {
+            const wrapper = photoModalContainer.querySelector('.photo-interactive-wrapper');
+            if (!wrapper) return;
+
+            // Supprimer les puces existantes
+            wrapper.querySelectorAll('.hotspot-pin').forEach(p => p.remove());
+
+            const hotspots = getHotspotsForImage(imgUrl);
+            if (!hotspots || hotspots.length === 0) return;
+
+            const fragment = document.createDocumentFragment();
+            hotspots.forEach(hp => {
+                let posClass = '';
+                if (hp.y < 18) posClass += ' tooltip-bottom';
+                if (hp.x < 18) posClass += ' tooltip-left';
+                else if (hp.x > 82) posClass += ' tooltip-right';
+
+                const pin = document.createElement('div');
+                pin.className = `hotspot-pin${posClass}`;
+                pin.style.left = `${hp.x}%`;
+                pin.style.top = `${hp.y}%`;
+                pin.setAttribute('data-id', hp.id || `hp-${hp.x}-${hp.y}`);
+                pin.setAttribute('role', 'button');
+                pin.setAttribute('aria-label', hp.nom);
+                pin.innerHTML = `<div class="hotspot-tooltip">${escapeHtml(hp.nom)}</div>`;
+
+                fragment.appendChild(pin);
+            });
+
+            wrapper.appendChild(fragment);
+        };
+
+        // Popup de saisie du nom de l'équipement
+        const openHotspotDialog = (x, y) => {
+            pendingHotspotCoords = { x, y };
+            const coordsDisplay = document.getElementById('hotspot-coords-display');
+            const nameInput = document.getElementById('hotspot-name-input');
+            const dialog = document.getElementById('hotspot-dialog');
+
+            if (coordsDisplay) coordsDisplay.textContent = `X: ${x}%, Y: ${y}%`;
+            if (nameInput) {
+                nameInput.value = '';
+                setTimeout(() => nameInput.focus(), 100);
+            }
+            if (dialog) dialog.classList.remove('hidden');
+        };
+
+        const closeHotspotDialog = () => {
+            const dialog = document.getElementById('hotspot-dialog');
+            if (dialog) dialog.classList.add('hidden');
+            pendingHotspotCoords = null;
+        };
+
+        // Boutons de la boîte de dialogue Hotspot
+        const btnCancelHotspot = document.getElementById('btn-cancel-hotspot');
+        const btnConfirmHotspot = document.getElementById('btn-confirm-hotspot');
+        const hotspotNameInput = document.getElementById('hotspot-name-input');
+
+        if (btnCancelHotspot) {
+            btnCancelHotspot.addEventListener('click', closeHotspotDialog);
+        }
+
+        const handleConfirmHotspot = () => {
+            if (!pendingHotspotCoords || !currentOpenedImageUrl) return;
+            const name = hotspotNameInput ? hotspotNameInput.value.trim() : '';
+            if (!name) {
+                if (hotspotNameInput) hotspotNameInput.focus();
+                return;
+            }
+
+            addHotspotPoint(currentOpenedImageUrl, name, pendingHotspotCoords.x, pendingHotspotCoords.y);
+            renderHotspots(currentOpenedImageUrl);
+            closeHotspotDialog();
+            showCalibrationToast(`Point "${name}" ajouté !`);
+        };
+
+        if (btnConfirmHotspot) {
+            btnConfirmHotspot.addEventListener('click', handleConfirmHotspot);
+        }
+
+        if (hotspotNameInput) {
+            hotspotNameInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    handleConfirmHotspot();
+                } else if (e.key === 'Escape') {
+                    closeHotspotDialog();
+                }
+            });
+        }
+
+        // Bouton roue crantée (discret/toggleable) pour les outils
+        const btnToggleTools = document.getElementById('btn-toggle-tools');
+        const toolsPanel = document.getElementById('photo-modal-tools-panel');
+        if (btnToggleTools && toolsPanel) {
+            btnToggleTools.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toolsPanel.classList.toggle('hidden');
+                btnToggleTools.classList.toggle('active', !toolsPanel.classList.contains('hidden'));
+            });
+        }
+
+        // Bouton Toggle Mode Annotation
+        const btnToggleAnnotation = document.getElementById('btn-toggle-annotation');
+        if (btnToggleAnnotation) {
+            btnToggleAnnotation.addEventListener('click', (e) => {
+                e.stopPropagation();
+                isAnnotationMode = !isAnnotationMode;
+                updateAnnotationUI();
+                if (isAnnotationMode) {
+                    showCalibrationToast("Mode Annotation activé : cliquez sur l'image pour ajouter un équipement");
+                }
+            });
+        }
+
+        // Bouton Exporter JSON Hotspots (source de vérité)
+        const btnExportHotspots = document.getElementById('btn-export-hotspots');
+        if (btnExportHotspots) {
+            btnExportHotspots.addEventListener('click', (e) => {
+                e.stopPropagation();
+                exportHotspotsJSON();
+            });
+        }
+
+        // Bouton Réinitialiser / Recharger depuis hotspots.json
+        const btnResetHotspots = document.getElementById('btn-reset-hotspots');
+        if (btnResetHotspots) {
+            btnResetHotspots.addEventListener('click', async (e) => {
+                e.stopPropagation();
+                if (confirm("Voulez-vous réinitialiser tous les points d'intérêt et recharger la source de vérité hotspots.json ?\n(Toutes les modifications locales non exportées seront écrasées)")) {
+                    localStorage.removeItem('customHotspotsData');
+                    await loadHotspotsData();
+                    if (currentOpenedImageUrl) {
+                        renderHotspots(currentOpenedImageUrl);
+                    }
+                    showCalibrationToast("Hotspots réinitialisés depuis hotspots.json !");
+                }
+            });
+        }
+
+        // Fonction centralisée de fermeture de la photo agrandie
+        const closePhotoModal = () => {
+            const photoModal = document.getElementById('photo-modal');
+            if (photoModal) {
+                photoModal.classList.add('hidden');
+                isAnnotationMode = false;
+                updateAnnotationUI();
+                closeHotspotDialog();
+                if (toolsPanel) toolsPanel.classList.add('hidden');
+                if (btnToggleTools) btnToggleTools.classList.remove('active');
+                updateBodyScrollLock();
+            }
+        };
+
+        // Raccourci clavier global Échap pour une accessibilité et ergonomie parfaite
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const activeTooltip = document.querySelector('.hotspot-pin.active');
+                if (activeTooltip) {
+                    activeTooltip.classList.remove('active');
+                    return;
+                }
+                const hotspotDialog = document.getElementById('hotspot-dialog');
+                if (hotspotDialog && !hotspotDialog.classList.contains('hidden')) {
+                    closeHotspotDialog();
+                    return;
+                }
+                if (toolsPanel && !toolsPanel.classList.contains('hidden')) {
+                    toolsPanel.classList.add('hidden');
+                    if (btnToggleTools) btnToggleTools.classList.remove('active');
+                    return;
+                }
+                const photoModal = document.getElementById('photo-modal');
+                if (photoModal && !photoModal.classList.contains('hidden')) {
+                    closePhotoModal();
+                }
+            }
+        });
+
+        // Outil d'aide au calibrage (Mode Développeur : Shift + Clic)
+        const setupCalibrationTool = (imgElement) => {
+            if (!imgElement) return;
+            imgElement.addEventListener('click', (e) => {
+                const rect = imgElement.getBoundingClientRect();
+                const clickX = e.clientX - rect.left;
+                const clickY = e.clientY - rect.top;
+                const x = parseFloat(((clickX / rect.width) * 100).toFixed(1));
+                const y = parseFloat(((clickY / rect.height) * 100).toFixed(1));
+
+                // Si le Mode Annotation visuel est actif, ouvrir la boîte de dialogue
+                if (isAnnotationMode) {
+                    openHotspotDialog(x, y);
+                    return;
+                }
+
+                // En mode normal : Shift + Clic copie le snippet dans la console et le presse-papier
+                const codeSnippet = `{ id: "hp-${Date.now().toString().slice(-4)}", nom: "A renommer", x: ${x}, y: ${y} },`;
+                if (e.shiftKey) {
+                    console.log("%c🎯 [CALIBRAGE HOTSPOT]", "color: #dc3545; font-weight: bold; font-size: 14px;");
+                    console.log(codeSnippet);
+                    showCalibrationToast(`Coordonnées : x: ${x}%, y: ${y}%`);
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(codeSnippet).catch(() => {});
+                    }
+                } else {
+                    console.log(`[Hotspot Clavier Shift+Clic] x: ${x}%, y: ${y}% (Maintenez Shift pour copier le snippet)`);
+                }
+            });
+        };
 
         if (btnViewPlan) {
             btnViewPlan.addEventListener('click', () => {
@@ -599,23 +1020,69 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Fusion des écouteurs d'événements (Event Delegation)
         document.body.addEventListener('click', (e) => {
+            // Fermeture du panneau d'outils si clic en dehors de la barre d'outils
+            if (!e.target.closest('.photo-modal-toolbar') && toolsPanel && !toolsPanel.classList.contains('hidden')) {
+                toolsPanel.classList.add('hidden');
+                if (btnToggleTools) btnToggleTools.classList.remove('active');
+            }
+
             // Fermeture via la croix (X) ou bouton "Fermer"
             if (e.target.classList.contains('btn-close-modal') || e.target.closest('.btn-close-modal')) {
                 const modal = e.target.closest('.modal-overlay');
                 if (modal) {
-                    modal.classList.add('hidden');
-                    updateBodyScrollLock();
+                    if (modal.id === 'photo-modal') {
+                        closePhotoModal();
+                    } else {
+                        modal.classList.add('hidden');
+                        updateBodyScrollLock();
+                    }
                 }
                 return;
             }
 
-            // Fermeture rapide de la photo agrandie : clic en dehors de l'image (sur l'arrière-plan semi-transparent ou le conteneur)
-            if (e.target.closest('#photo-modal') && e.target.tagName !== 'IMG') {
-                const photoModal = document.getElementById('photo-modal');
-                if (photoModal) {
-                    photoModal.classList.add('hidden');
-                    updateBodyScrollLock();
+            // Clic sur un point d'intérêt (Hotspot) :
+            const clickedPin = e.target.closest('.hotspot-pin');
+            if (clickedPin) {
+                e.stopPropagation();
+
+                // En Mode Annotation : proposer la suppression du point
+                if (isAnnotationMode) {
+                    const spotName = clickedPin.getAttribute('aria-label') || 'ce point';
+                    if (confirm(`Mode Annotation : Voulez-vous supprimer le point "${spotName}" ?`)) {
+                        removeHotspotPoint(currentOpenedImageUrl, clickedPin.getAttribute('data-id'));
+                        renderHotspots(currentOpenedImageUrl);
+                        showCalibrationToast(`Point "${spotName}" supprimé.`);
+                    }
+                    return;
                 }
+
+                // En Mode Normal : afficher ou masquer l'infobulle
+                const isActive = clickedPin.classList.contains('active');
+                document.querySelectorAll('.hotspot-pin.active').forEach(p => p.classList.remove('active'));
+                if (!isActive) {
+                    clickedPin.classList.add('active');
+                }
+                return;
+            }
+
+            // Clic sur l'infobulle ou la boîte de dialogue : ne rien fermer
+            if (e.target.closest('.hotspot-tooltip') || e.target.closest('.hotspot-dialog-box')) {
+                e.stopPropagation();
+                return;
+            }
+
+            // Clic sur l'image dans le conteneur interactif :
+            if (e.target.closest('.photo-interactive-wrapper')) {
+                // En mode normal, referme les infobulles ouvertes
+                if (!isAnnotationMode) {
+                    document.querySelectorAll('.hotspot-pin.active').forEach(p => p.classList.remove('active'));
+                }
+                return;
+            }
+
+            // Fermeture rapide de la photo agrandie : clic en dehors de la photo (sur l'arrière-plan semi-transparent)
+            if (e.target.closest('#photo-modal') && !e.target.closest('.photo-modal-toolbar') && !e.target.closest('.hotspot-dialog')) {
+                closePhotoModal();
                 return;
             }
 
@@ -631,17 +1098,34 @@ document.addEventListener('DOMContentLoaded', async () => {
                 return;
             }
 
-            // Ouverture de la photo du matériel ou du plan (orientation native)
+            // Ouverture de la photo du matériel ou du plan (orientation native + Hotspots)
             if (e.target.classList.contains('btn-photo') || e.target.classList.contains('plan-img')) {
                 const imgUrl = e.target.getAttribute('data-image');
                 if (imgUrl) {
                     const altText = escapeHtml(e.target.getAttribute('alt') || 'Photo équipement');
-                    
-                    // Toutes les photos sont affichées dans leur orientation native
+                    currentOpenedImageUrl = imgUrl;
+
                     photoModalContainer.innerHTML = `
-                        <img src="${escapeHtml(imgUrl)}" alt="${altText}" style="max-width: 100%; max-height: 80vh; border-radius: 8px; box-shadow: 0 4px 25px rgba(0,0,0,0.6); object-fit: contain;">
+                        <div class="photo-interactive-wrapper">
+                            <img src="${escapeHtml(imgUrl)}" alt="${altText}" class="photo-enlarged">
+                        </div>
                     `;
-                    
+
+                    // Génération dynamique des hotspots (lecture en direct de customHotspotsData ou hotspots.json)
+                    renderHotspots(imgUrl);
+
+                    const imgElement = photoModalContainer.querySelector('.photo-enlarged');
+                    if (imgElement) {
+                        setupCalibrationTool(imgElement);
+                    }
+
+                    // Réinitialiser le mode annotation à chaque nouvelle photo ouverte
+                    isAnnotationMode = false;
+                    updateAnnotationUI();
+                    closeHotspotDialog();
+                    if (toolsPanel) toolsPanel.classList.add('hidden');
+                    if (btnToggleTools) btnToggleTools.classList.remove('active');
+
                     const photoModal = document.getElementById('photo-modal');
                     if (photoModal) {
                         photoModal.classList.remove('hidden');
