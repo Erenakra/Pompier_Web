@@ -200,6 +200,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const searchInput = document.getElementById('search-input');
         
         let activeFilter = 'Tout';
+        let hideControlled = false; // Mode Inventaire : masquer les items déjà contrôlés
         let isGlobalCritical = false;
         
         items = Array.isArray(items) ? items : [items];
@@ -266,6 +267,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                     } else if (activeFilter === 'OK') {
                         if (m.etat !== 'Opérationnel' || (m.perimable && diffDays < 60)) return false;
                     }
+
+                    // Mode Inventaire : masquer les items déjà contrôlés si activé
+                    if (hideControlled && m.controlled) return false;
 
                     if (!normalizedQuery) return true;
 
@@ -339,8 +343,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                             </div>
                             <button class="btn-action" data-id="${m.id_produit}">✏️ Modifier</button>
                             <div class="inventory-actions">
-                                <button class="btn-conforme" data-id="${m.id_produit}">✅ Conforme</button>
-                                <button class="btn-anomalie" data-id="${m.id_produit}">❌ Anomalie</button>
+                                <button class="btn-conforme" data-id="${m.id_produit}" ${m.controlled ? 'disabled' : ''}>✅ Conforme</button>
+                                <button class="btn-anomalie" data-id="${m.id_produit}" ${m.controlled ? 'disabled' : ''}>❌ Anomalie</button>
+                                ${m.controlled ? `<button class="btn-undo" data-id="${m.id_produit}" title="Annuler le contrôle de cet équipement">↩️ Annuler</button>` : ''}
                             </div>
                         </div>
                     `;
@@ -385,10 +390,66 @@ document.addEventListener('DOMContentLoaded', async () => {
                     btnToggleInventory.innerText = '📋 Activer le Mode Inventaire';
                     progressContainer.classList.add('hidden');
                     
-                    // Correction du bug : réinitialiser l'état contrôlé de tous les items
-                    items.forEach(m => m.controlled = false);
+                    // Réinitialiser l'état contrôlé de tous les items et persister
+                    // (last_verified est conservé : c'est un historique utile entre les sessions)
+                    items.forEach(m => {
+                        m.controlled = false;
+                        if (m.etat_precedent) delete m.etat_precedent; // nettoyer le snapshot d'annulation
+                    });
+                    saveItems(); // Persister la réinitialisation (bug corrigé : avant, les controlled revenaient au refresh)
+                    // Réinitialiser aussi le filtre 'Masquer les contrôlés'
+                    hideControlled = false;
+                    const btnHC = document.getElementById('btn-hide-controlled');
+                    if (btnHC) {
+                        btnHC.classList.remove('active');
+                        btnHC.innerText = '👁️ Masquer les contrôlés';
+                    }
                     renderMateriaux(searchInput ? searchInput.value : '');
                 }
+            });
+        }
+
+        // --- Bouton 'Tout conforme' (action groupée, Mode Inventaire) ---
+        const btnAllConforme = document.getElementById('btn-all-conforme');
+        if (btnAllConforme) {
+            btnAllConforme.addEventListener('click', () => {
+                // Compter les items non contrôlés du véhicule actif (toutes zones)
+                const uncontrolled = items.filter(m => {
+                    const itemVehicule = m.vehicule || 'commun';
+                    return itemVehicule === 'commun' || itemVehicule === activeVehicule;
+                }).filter(m => !m.controlled);
+
+                if (uncontrolled.length === 0) {
+                    alert("Tous les matériels sont déjà contrôlés.");
+                    return;
+                }
+
+                if (!confirm(`Marquer ${uncontrolled.length} matériel(s) comme conformes ?\n\nCette action validera tous les équipements non encore contrôlés du véhicule ${activeVehicule}.`)) {
+                    return;
+                }
+
+                const dateStr = new Date().toLocaleString('fr-FR', { 
+                    day: '2-digit', month: '2-digit', year: 'numeric', 
+                    hour: '2-digit', minute: '2-digit' 
+                });
+                uncontrolled.forEach(m => {
+                    m.controlled = true;
+                    m.last_verified = dateStr;
+                });
+                addLog(`Tout conforme (validation groupée de ${uncontrolled.length} matériels)`, activeVehicule);
+                saveItems();
+                renderMateriaux(searchInput ? searchInput.value : '');
+            });
+        }
+
+        // --- Bouton 'Masquer les contrôlés' (Mode Inventaire) ---
+        const btnHideControlled = document.getElementById('btn-hide-controlled');
+        if (btnHideControlled) {
+            btnHideControlled.addEventListener('click', () => {
+                hideControlled = !hideControlled;
+                btnHideControlled.classList.toggle('active', hideControlled);
+                btnHideControlled.innerText = hideControlled ? '👁️ Afficher les contrôlés' : '👁️ Masquer les contrôlés';
+                renderMateriaux(searchInput ? searchInput.value : '');
             });
         }
 
@@ -516,6 +577,49 @@ document.addEventListener('DOMContentLoaded', async () => {
                     saveItems();
                     renderMateriaux(searchInput ? searchInput.value : '');
                     closeEditModal();
+                }
+            });
+        }
+
+        // --- Modale de motif d'anomalie (Mode Inventaire) ---
+        const anomalieModal = document.getElementById('anomalie-modal');
+        let pendingAnomalieItemId = null; // ID de l'item en attente d'un choix de motif
+
+        // Appliquer l'anomalie avec le motif sélectionné
+        const applyAnomalieWithMotif = (motif) => {
+            const item = items.find(m => m.id_produit === pendingAnomalieItemId);
+            if (item) {
+                item.etat_precedent = item.etat; // Snapshot pour permettre l'annulation
+                item.etat = motif; // Le motif devient le statut (Manquant, Abîmé, Périmé, Non testable)
+                item.controlled = true;
+                item.motif_anomalie = motif; // Conservé pour l'export CSV et l'historique
+                const dateStr = new Date().toLocaleString('fr-FR', { 
+                    day: '2-digit', month: '2-digit', year: 'numeric', 
+                    hour: '2-digit', minute: '2-digit' 
+                });
+                item.last_verified = dateStr;
+                isGlobalCritical = true;
+                alertBanner.classList.remove('hidden');
+                addLog(`Anomalie (${motif})`, item.nom);
+                saveItems();
+                renderMateriaux(searchInput ? searchInput.value : '');
+            }
+            pendingAnomalieItemId = null;
+            anomalieModal.classList.add('hidden');
+        };
+
+        // Choix d'un motif dans la modale (délégation sur les boutons de motif)
+        if (anomalieModal) {
+            anomalieModal.addEventListener('click', (e) => {
+                if (e.target.classList.contains('btn-anomalie-choice')) {
+                    const motif = e.target.getAttribute('data-motif');
+                    if (motif) applyAnomalieWithMotif(motif);
+                    return;
+                }
+                // Fermeture via le bouton Annuler ou clic sur l'overlay
+                if (e.target.id === 'btn-cancel-anomalie' || e.target === anomalieModal) {
+                    pendingAnomalieItemId = null;
+                    anomalieModal.classList.add('hidden');
                 }
             });
         }
@@ -1151,21 +1255,31 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
                 return;
             }
-            // Bouton "Anomalie"
+            // Bouton "Anomalie" — ouvre la modale de choix du motif
             if (e.target.classList.contains('btn-anomalie')) {
                 const id = e.target.getAttribute('data-id');
                 const item = items.find(m => m.id_produit === id);
                 if (item) {
-                    item.etat = "Non opérationnel";
-                    item.controlled = true;
-                    const dateStr = new Date().toLocaleString('fr-FR', { 
-                        day: '2-digit', month: '2-digit', year: 'numeric', 
-                        hour: '2-digit', minute: '2-digit' 
-                    });
-                    item.last_verified = dateStr;
-                    isGlobalCritical = true;
-                    alertBanner.classList.remove('hidden');
-                    addLog("Anomalie", item.nom);
+                    // Stocker l'ID de l'item en attente de motif et ouvrir la modale
+                    pendingAnomalieItemId = id;
+                    anomalieModal.classList.remove('hidden');
+                }
+                return;
+            }
+            // Bouton "Annuler" (Mode Inventaire) — rétablit l'item avant contrôle
+            if (e.target.classList.contains('btn-undo')) {
+                const id = e.target.getAttribute('data-id');
+                const item = items.find(m => m.id_produit === id);
+                if (item) {
+                    // Restaurer l'état précédent si une anomalie avait été appliquée
+                    if (item.etat_precedent) {
+                        item.etat = item.etat_precedent;
+                        delete item.etat_precedent;
+                        delete item.motif_anomalie;
+                    }
+                    item.controlled = false;
+                    delete item.last_verified;
+                    addLog("Annulation du contrôle", item.nom);
                     saveItems();
                     renderMateriaux(searchInput ? searchInput.value : '');
                 }
@@ -1180,7 +1294,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     editNomInput.value = item.nom;
                     editQuantiteInput.value = item.quantite;
                     editDateInput.value = item.date_peremption || '';
-                    editStatutInput.value = ["Opérationnel", "Non opérationnel", "Abîmé", "Manquant"].includes(item.etat) ? item.etat : 'Non opérationnel';
+                    editStatutInput.value = ["Opérationnel", "Non opérationnel", "Abîmé", "Manquant", "Périmé", "Non testable"].includes(item.etat) ? item.etat : 'Non opérationnel';
                     
                     editModal.classList.remove('hidden');
                 }

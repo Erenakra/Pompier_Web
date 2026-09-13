@@ -1304,9 +1304,108 @@ body.modal-open {
     .hotspot-tooltip {
         max-width: 200px;
         white-space: normal;
-        text-align: center;
-        font-size: 0.78rem;
+        text-align: center;        font-size: 0.78rem;
         padding: 6px 10px;
         line-height: 1.25;
     }
+}
+
+/* --- Mode Inventaire : bouton Masquer les contrôlés --- */
+.progress-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+}
+
+.btn-all-conforme {
+    background-color: transparent;
+    color: #28a745;
+    border: 2px solid #28a745;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+.btn-all-conforme:hover {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-hide-controlled {
+    background-color: transparent;
+    color: #003366;
+    border: 2px solid #003366;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 8px;
+    transition: all 0.2s;
+}
+
+.btn-hide-controlled:hover {
+    background-color: #003366;
+    color: white;
+}
+
+.btn-hide-controlled.active {
+    background-color: #28a745;
+    color: white;
+    border-color: #28a745;
+}
+
+/* --- Mode Inventaire : bouton Annuler le contrôle --- */
+.btn-undo {
+    background-color: transparent;
+    color: #6c757d;
+    border: 2px solid #6c757d;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    color: white;
+    background-color: #6c757d;
+    transition: background-color 0.2s, opacity 0.2s;
+    white-space: nowrap;
+}
+
+.btn-undo:hover {
+    background-color: #5a6268;
+}
+
+/* Boutons Conforme/Anomalie désactivés une fois l'item contrôlé */
+.btn-conforme:disabled, .btn-anomalie:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+/* --- Mode Inventaire : modale de motif d'anomalie --- */
+.anomalie-choices {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.btn-anomalie-choice {
+    background-color: white;
+    border: 2px solid #dc3545;
+    color: #dc3545;
+    padding: 12px 15px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s;
+}
+
+.btn-anomalie-choice:hover {
+    background-color: #dc3545;
+    color: white;
 }

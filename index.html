@@ -39,6 +39,27 @@
     <div class="progress-bar-bg">
         <div class="progress-bar-fill" id="progress-bar-fill" style="width: 0%;"></div>
     </div>
+    <div class="progress-actions">
+        <button id="btn-all-conforme" class="btn-all-conforme" title="Marquer tous les matériels visibles comme conformes">✅ Tout conforme</button>
+        <button id="btn-hide-controlled" class="btn-hide-controlled" title="Masquer ou afficher les matériels déjà contrôlés">👁️ Masquer les contrôlés</button>
+    </div>
+</div>
+
+<!-- Modale de motif d'anomalie -->
+<div id="anomalie-modal" class="modal-overlay hidden">
+    <div class="modal-content" style="max-width: 400px;">
+        <h3>⚠️ Motif de l'anomalie</h3>
+        <p style="color: #555; margin-bottom: 15px;">Sélectionnez le motif pour cet équipement :</p>
+        <div class="anomalie-choices">
+            <button type="button" class="btn-anomalie-choice" data-motif="Manquant">📦 Manquant</button>
+            <button type="button" class="btn-anomalie-choice" data-motif="Abîmé">🔧 Abîmé</button>
+            <button type="button" class="btn-anomalie-choice" data-motif="Périmé">⏳ Périmé</button>
+            <button type="button" class="btn-anomalie-choice" data-motif="Non testable">❓ Non testable</button>
+        </div>
+        <div class="modal-actions">
+            <button type="button" id="btn-cancel-anomalie" class="btn-cancel">Annuler</button>
+        </div>
+    </div>
 </div>
 
 <!-- Barre de recherche pour filtrer le matériel en temps réel -->
@@ -100,12 +121,13 @@
             </div>
             
             <div class="form-group">
-                <label for="edit-statut">Statut</label>
-                <select id="edit-statut" required>
+                <label for="edit-statut">Statut</label>                <select id="edit-statut" required>
                     <option value="Opérationnel">Opérationnel</option>
                     <option value="Non opérationnel">Non opérationnel</option>
                     <option value="Abîmé">Abîmé</option>
                     <option value="Manquant">Manquant</option>
+                    <option value="Périmé">Périmé</option>
+                    <option value="Non testable">Non testable</option>
                 </select>
             </div>
             
