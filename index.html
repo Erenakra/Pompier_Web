@@ -38,10 +38,10 @@
     <div class="progress-text" id="progress-text">0 / 0 matériels contrôlés</div>
     <div class="progress-bar-bg">
         <div class="progress-bar-fill" id="progress-bar-fill" style="width: 0%;"></div>
-    </div>
-    <div class="progress-actions">
+    </div>    <div class="progress-actions">
         <button id="btn-all-conforme" class="btn-all-conforme" title="Marquer tous les matériels visibles comme conformes">✅ Tout conforme</button>
         <button id="btn-hide-controlled" class="btn-hide-controlled" title="Masquer ou afficher les matériels déjà contrôlés">👁️ Masquer les contrôlés</button>
+        <button id="btn-export-report" class="btn-export-report" title="Télécharger le rapport de session d'inventaire (PDF-ready texte)">📄 Rapport de session</button>
     </div>
 </div>
 
@@ -80,19 +80,18 @@
     ⚠️ ATTENTION : Du matériel est périmé ou abîmé !
 </div>
 
-<main>
-    <section id="sac-prompt-secours">
-        <h2>Sac Prompt Secours</h2>
+<main>    <section id="sac-prompt-secours">
+        <h2>Sac Prompt Secours <span class="section-progress-badge" id="progress-badge-prompt-secours"></span></h2>
         <div class="materiaux-liste" id="liste-prompt-secours"></div>
     </section>
 
     <section id="sac-oxygenation">
-        <h2>Sac Oxygénation</h2>
+        <h2>Sac Oxygénation <span class="section-progress-badge" id="progress-badge-oxygenation"></span></h2>
         <div class="materiaux-liste" id="liste-oxygenation"></div>
     </section>
 
     <section id="materiel-general">
-        <h2>Matériel Général</h2>
+        <h2>Matériel Général <span class="section-progress-badge" id="progress-badge-general"></span></h2>
         <div class="materiaux-liste" id="liste-general"></div>
     </section>
 </main>

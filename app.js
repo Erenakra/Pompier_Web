@@ -197,6 +197,20 @@ document.addEventListener('DOMContentLoaded', async () => {
                 localStorage.setItem('inventoryLogs', JSON.stringify(logs));
             };
 
+            // Log d'événement de session (début/fin d'inventaire) — format dédié sans "a modifié"
+            const addSessionLog = (event) => {
+                if (!currentUser) return;
+                let logs = JSON.parse(localStorage.getItem('inventoryLogs') || '[]');
+                const dateStr = new Date().toLocaleString('fr-FR', { 
+                    day: '2-digit', month: '2-digit', year: 'numeric', 
+                    hour: '2-digit', minute: '2-digit', second: '2-digit' 
+                });
+                const logEntry = `[${dateStr}] - ${escapeHtml(currentUser)} : ${escapeHtml(event)}.`;
+                logs.push(logEntry);
+                logs = logs.slice(-500);
+                localStorage.setItem('inventoryLogs', JSON.stringify(logs));
+            };
+
         const searchInput = document.getElementById('search-input');
         
         let activeFilter = 'Tout';
@@ -228,12 +242,32 @@ document.addEventListener('DOMContentLoaded', async () => {
         const progressText = document.getElementById('progress-text');
 
         const updateProgressBar = () => {
-            const total = items.length;
-            const controlled = items.filter(m => m.controlled === true || m.last_verified).length;
+            // Le suivi de session ne concerne que le véhicule actif
+            const sessionItems = items.filter(m => {
+                const itemVehicule = m.vehicule || 'commun';
+                return itemVehicule === 'commun' || itemVehicule === activeVehicule;
+            });
+            const total = sessionItems.length;
+            const controlled = sessionItems.filter(m => m.controlled === true).length;
             const percentage = total === 0 ? 0 : Math.round((controlled / total) * 100);
             
             progressBarFill.style.width = percentage + '%';
             progressText.innerText = `${controlled} / ${total} matériels contrôlés`;
+
+            // Pastilles de progression par section (Mode Inventaire)
+            const badgeIds = {
+                'Sac prompt secours': 'progress-badge-prompt-secours',
+                'Sac oxygénation': 'progress-badge-oxygenation',
+                'Matériel Général': 'progress-badge-general'
+            };
+            Object.entries(badgeIds).forEach(([zone, badgeId]) => {
+                const badge = document.getElementById(badgeId);
+                if (!badge) return;
+                const zoneItems = sessionItems.filter(m => m.emplacement === zone);
+                const zoneControlled = zoneItems.filter(m => m.controlled === true).length;
+                badge.innerText = `${zoneControlled}/${zoneItems.length}`;
+                badge.classList.toggle('complete', zoneItems.length > 0 && zoneControlled === zoneItems.length);
+            });
         };
 
         // Fonction de rendu dynamique selon la recherche
@@ -378,6 +412,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // --- Mode Inventaire ---
         const btnToggleInventory = document.getElementById('btn-toggle-inventory');
+        // Calcule les statistiques de la session en cours (items du véhicule actif)
+        const getSessionStats = () => {
+            const sessionItems = items.filter(m => {
+                const itemVehicule = m.vehicule || 'commun';
+                return itemVehicule === 'commun' || itemVehicule === activeVehicule;
+            });
+            const controlled = sessionItems.filter(m => m.controlled);
+            const anomalies = controlled.filter(m => m.motif_anomalie);
+            const conformes = controlled.filter(m => !m.motif_anomalie);
+            return { total: sessionItems.length, controlled: controlled.length, conformes: conformes.length, anomalies: anomalies.length };
+        };
         if (btnToggleInventory) {
             btnToggleInventory.addEventListener('click', () => {
                 document.body.classList.toggle('inventory-mode-active');
@@ -385,11 +430,17 @@ document.addEventListener('DOMContentLoaded', async () => {
                     btnToggleInventory.classList.add('active');
                     btnToggleInventory.innerText = '❌ Désactiver le Mode Inventaire';
                     progressContainer.classList.remove('hidden');
+                    // Log de début de session d'inventaire
+                    addSessionLog(`Début de session d'inventaire (${activeVehicule})`);
                 } else {
                     btnToggleInventory.classList.remove('active');
                     btnToggleInventory.innerText = '📋 Activer le Mode Inventaire';
                     progressContainer.classList.add('hidden');
-                    
+
+                    // Log de fin de session avec statistiques
+                    const stats = getSessionStats();
+                    addSessionLog(`Fin de session d'inventaire (${activeVehicule}) — ${stats.controlled}/${stats.total} contrôlés, ${stats.conformes} conformes, ${stats.anomalies} anomalies`);
+
                     // Réinitialiser l'état contrôlé de tous les items et persister
                     // (last_verified est conservé : c'est un historique utile entre les sessions)
                     items.forEach(m => {
@@ -450,6 +501,95 @@ document.addEventListener('DOMContentLoaded', async () => {
                 btnHideControlled.classList.toggle('active', hideControlled);
                 btnHideControlled.innerText = hideControlled ? '👁️ Afficher les contrôlés' : '👁️ Masquer les contrôlés';
                 renderMateriaux(searchInput ? searchInput.value : '');
+            });
+        }
+
+        // --- Export du rapport de session (Mode Inventaire) ---
+        // Génère un rapport texte complet : qui, quand, stats, détail des anomalies et contrôles
+        const btnExportReport = document.getElementById('btn-export-report');
+        if (btnExportReport) {
+            btnExportReport.addEventListener('click', () => {
+                const stats = getSessionStats();
+                const sessionItems = items.filter(m => {
+                    const itemVehicule = m.vehicule || 'commun';
+                    return itemVehicule === 'commun' || itemVehicule === activeVehicule;
+                });
+                const controlled = sessionItems.filter(m => m.controlled);
+                const anomalies = controlled.filter(m => m.motif_anomalie);
+                const conformes = controlled.filter(m => !m.motif_anomalie);
+                const uncontrolled = sessionItems.filter(m => !m.controlled);
+
+                const nowStr = new Date().toLocaleString('fr-FR', { 
+                    day: '2-digit', month: '2-digit', year: 'numeric', 
+                    hour: '2-digit', minute: '2-digit' 
+                });
+
+                let report = '';
+                report += '═'.repeat(60) + '\n';
+                report += '     RAPPORT DE SESSION D\'INVENTAIRE\n';
+                report += '═'.repeat(60) + '\n\n';
+                report += `Véhicule   : ${activeVehicule}\n`;
+                report += `Opérateur  : ${currentUser || 'Inconnu'}\n`;
+                report += `Date       : ${nowStr}\n\n`;
+                report += '─── SYNTHÈSE ────────────────────────────────\n';
+                report += `Matériels concernés : ${stats.total}\n`;
+                report += `Contrôlés           : ${stats.controlled} (${stats.total > 0 ? Math.round(stats.controlled / stats.total * 100) : 0}%)\n`;
+                report += `Conformes           : ${stats.conformes}\n`;
+                report += `Anomalies           : ${stats.anomalies}\n\n`;
+
+                // Détail des anomalies
+                report += '─── ANOMALIES DÉTECTÉES ────────────────────\n';
+                if (anomalies.length === 0) {
+                    report += 'Aucune anomalie détectée.\n\n';
+                } else {
+                    anomalies.forEach((m, i) => {
+                        report += `  ${i + 1}. ${m.nom}\n`;
+                        report += `     Motif   : ${m.motif_anomalie}\n`;
+                        report += `     Empl.   : ${m.localisation_precise || m.emplacement}\n`;
+                        report += `     Vérifié : ${m.last_verified || 'N/A'}\n`;
+                    });
+                    report += '\n';
+                }
+
+                // Détail des contrôles conformes
+                report += '─── MATÉRIELS CONFORMES ────────────────────\n';
+                if (conformes.length === 0) {
+                    report += 'Aucun matériel validé conforme pour le moment.\n\n';
+                } else {
+                    conformes.forEach((m, i) => {
+                        report += `  ${i + 1}. ${m.nom} — vérifié le ${m.last_verified || 'N/A'}\n`;
+                    });
+                    report += '\n';
+                }
+
+                // Items non contrôlés
+                report += '─── NON ENCORE CONTRÔLÉS ──────────────────\n';
+                if (uncontrolled.length === 0) {
+                    report += 'Tous les matériels ont été contrôlés. ✔\n\n';
+                } else {
+                    uncontrolled.forEach((m, i) => {
+                        report += `  ${i + 1}. ${m.nom} (${m.localisation_precise || m.emplacement})\n`;
+                    });
+                    report += '\n';
+                }
+
+                report += '═'.repeat(60) + '\n';
+                report += 'Fin du rapport — généré automatiquement.\n';
+
+                // Téléchargement du rapport en fichier texte
+                const blob = new Blob(['\ufeff', report], { type: 'text/plain;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                const dateFile = new Date().toISOString().slice(0, 10);
+                link.download = `Rapport_Inventaire_${activeVehicule}_${dateFile}.txt`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+
+                // Log de l'export
+                addSessionLog(`Export du rapport de session (${activeVehicule}) — ${stats.controlled}/${stats.total} contrôlés, ${stats.anomalies} anomalies`);
             });
         }
 
@@ -555,10 +695,45 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const item = items.find(m => m.id_produit === id);
                 
                 if (item) {
+                    // Snapshot avant modification pour générer un log précis
+                    const oldValues = {
+                        nom: item.nom,
+                        quantite: item.quantite,
+                        date_peremption: item.date_peremption || '',
+                        etat: item.etat
+                    };
+
+                    // Étiquettes lisibles pour les champs
+                    const fieldLabels = {
+                        nom: 'Nom',
+                        quantite: 'Quantité',
+                        date_peremption: 'Date de péremption',
+                        etat: 'Statut'
+                    };
+
                     item.nom = editNomInput.value;
                     item.quantite = parseInt(editQuantiteInput.value, 10);
                     item.date_peremption = editDateInput.value || null;
                     item.etat = editStatutInput.value;
+
+                    // Générer un log détaillé des modifications
+                    const changes = [];
+                    if (oldValues.nom !== item.nom) {
+                        changes.push(`${fieldLabels.nom}: "${oldValues.nom}" → "${item.nom}"`);
+                    }
+                    if (oldValues.quantite !== item.quantite) {
+                        changes.push(`${fieldLabels.quantite}: ${oldValues.quantite} → ${item.quantite}`);
+                    }
+                    if (oldValues.date_peremption !== (item.date_peremption || '')) {
+                        changes.push(`${fieldLabels.date_peremption}: "${oldValues.date_peremption || 'Aucune'}" → "${item.date_peremption || 'Aucune'}"`);
+                    }
+                    if (oldValues.etat !== item.etat) {
+                        changes.push(`${fieldLabels.etat}: ${oldValues.etat} → ${item.etat}`);
+                    }
+
+                    // Log précis : liste les champs modifiés, ou "Aucun changement" si rien n'a bougé
+                    const logDetail = changes.length > 0 ? changes.join(', ') : 'Aucun changement détecté';
+                    addLog(logDetail, item.nom);
                     
                     // Mettre à jour l'alerte globale
                     isGlobalCritical = items.some(m => {
@@ -571,8 +746,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                     } else {
                         alertBanner.classList.add('hidden');
                     }
-                    
-                    addLog("Mise à jour des informations", item.nom);
                     
                     saveItems();
                     renderMateriaux(searchInput ? searchInput.value : '');

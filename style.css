@@ -1336,6 +1336,46 @@ body.modal-open {
     color: white;
 }
 
+.btn-export-report {
+    background-color: transparent;
+    color: #003366;
+    border: 2px solid #003366;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+.btn-export-report:hover {
+    background-color: #003366;
+    color: white;
+}
+
+/* --- Mode Inventaire : pastille de progression par section --- */
+.section-progress-badge {
+    display: none;
+    font-size: 0.65em;
+    font-weight: bold;
+    background-color: #e0e0e0;
+    color: #003366;
+    padding: 3px 10px;
+    border-radius: 12px;
+    margin-left: 8px;
+    vertical-align: middle;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+body.inventory-mode-active .section-progress-badge {
+    display: inline-block;
+}
+
+.section-progress-badge.complete {
+    background-color: #28a745;
+    color: white;
+}
+
 .btn-hide-controlled {
     background-color: transparent;
     color: #003366;
