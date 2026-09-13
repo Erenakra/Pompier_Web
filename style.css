@@ -70,6 +70,39 @@ h2 {
     padding-bottom: 5px;
 }
 
+/* --- Sections pliables / dépliables de la page principale --- */
+/* Fonctionne comme les sous-sections du Plan de Rangement :    */
+/* un clic sur le titre replie la liste du matériel.            */
+h2.section-title {
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    transition: color 0.2s;
+}
+
+h2.section-title:hover {
+    color: #dc3545;
+}
+
+h2.section-title::after {
+    content: '▾';
+    font-size: 0.75em;
+    margin-left: auto;
+    color: #003366;
+    transition: transform 0.2s;
+}
+
+h2.section-title:hover::after {
+    color: #dc3545;
+}
+
+h2.section-title.collapsed::after {
+    content: '▸';
+}
+
 .materiel-card {
     border-left: 5px solid #4CAF50;
     padding: 15px;

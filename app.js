@@ -1,11 +1,19 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const vehiculeInfo = document.getElementById('vehicule-info');
     const alertBanner = document.getElementById('alert-banner');
-    const containers = {
-        "Sac prompt secours": document.getElementById('liste-prompt-secours'),
-        "Sac oxygénation": document.getElementById('liste-oxygenation'),
-        "Matériel Général": document.getElementById('liste-general')
-    };
+    // Configuration des sections de la page principale, alignée sur le Plan
+    // de Rangement : une section par catégorie physique, rattachée à un véhicule.
+    // emplacement : valeur du champ "emplacement" dans materiaux.json
+    const SECTIONS = [
+        { vehicule: 'VPI',   emplacement: 'Cabine',                sectionId: 'sec-vpi-cabine',    listId: 'liste-vpi-cabine',    badgeId: 'badge-vpi-cabine' },
+        { vehicule: 'VPI',   emplacement: 'Coffres & Extérieur',   sectionId: 'sec-vpi-coffres',   listId: 'liste-vpi-coffres',   badgeId: 'badge-vpi-coffres' },
+        { vehicule: 'VPI',   emplacement: 'Bacs VPI',              sectionId: 'sec-vpi-bacs',      listId: 'liste-vpi-bacs',      badgeId: 'badge-vpi-bacs' },
+        { vehicule: 'VPI',   emplacement: 'Sacs de secours',       sectionId: 'sec-vpi-sacs',      listId: 'liste-vpi-sacs',      badgeId: 'badge-vpi-sacs' },
+        { vehicule: 'VTULE', emplacement: 'Véhicule & Coffre',     sectionId: 'sec-vtule-coffre',  listId: 'liste-vtule-coffre',  badgeId: 'badge-vtule-coffre' },
+        { vehicule: 'VTULE', emplacement: 'Bacs VTULE',            sectionId: 'sec-vtule-bacs',     listId: 'liste-vtule-bacs',    badgeId: 'badge-vtule-bacs' },
+        { vehicule: 'VTULE', emplacement: 'Sac Prompt Secours',    sectionId: 'sec-vtule-ps',       listId: 'liste-vtule-ps',      badgeId: 'badge-vtule-ps' },
+        { vehicule: 'VTULE', emplacement: "Sac d'oxygénothérapie", sectionId: 'sec-vtule-o2',        listId: 'liste-vtule-o2',      badgeId: 'badge-vtule-o2' }
+    ];
 
     const escapeHtml = (str) => {
         if (!str) return '';
@@ -110,6 +118,17 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
             
             const loadMateriauxData = async () => {
+                // Migration v2 : la liste a été restructurée depuis hotspots.json
+                // (sections par véhicule). On repart des données du JSON et on
+                // efface les anciennes listes locales incompatibles.
+                const MATERIAUX_VERSION = 2;
+                const storedVersion = parseInt(localStorage.getItem('materiauxVersion') || '1', 10);
+                if (storedVersion < MATERIAUX_VERSION) {
+                    localStorage.removeItem('materiauxData_VTULE');
+                    localStorage.removeItem('materiauxData_VPI');
+                    localStorage.setItem('materiauxVersion', String(MATERIAUX_VERSION));
+                    console.log('[Inventaire] Structure de liste v2 détectée : données locales réinitialisées.');
+                }
                 const localData = localStorage.getItem('materiauxData_' + activeVehicule);
                 if (localData) {
                     items = JSON.parse(localData);
@@ -254,16 +273,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             progressBarFill.style.width = percentage + '%';
             progressText.innerText = `${controlled} / ${total} matériels contrôlés`;
 
-            // Pastilles de progression par section (Mode Inventaire)
-            const badgeIds = {
-                'Sac prompt secours': 'progress-badge-prompt-secours',
-                'Sac oxygénation': 'progress-badge-oxygenation',
-                'Matériel Général': 'progress-badge-general'
-            };
-            Object.entries(badgeIds).forEach(([zone, badgeId]) => {
-                const badge = document.getElementById(badgeId);
+            // Pastilles de progression par section (Mode Inventaire),
+            // pilotées par la configuration SECTIONS
+            SECTIONS.forEach(sec => {
+                const badge = document.getElementById(sec.badgeId);
                 if (!badge) return;
-                const zoneItems = sessionItems.filter(m => m.emplacement === zone);
+                const zoneItems = sessionItems.filter(m => m.emplacement === sec.emplacement);
                 const zoneControlled = zoneItems.filter(m => m.controlled === true).length;
                 badge.innerText = `${zoneControlled}/${zoneItems.length}`;
                 badge.classList.toggle('complete', zoneItems.length > 0 && zoneControlled === zoneItems.length);
@@ -275,7 +290,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             const normalizedQuery = query.trim().toLowerCase();
             const now = new Date(); // Date instanciée à chaque rendu !
 
-            Object.entries(containers).forEach(([zone, container]) => {
+            SECTIONS.forEach(sec => {
+                const sectionEl = document.getElementById(sec.sectionId);
+                const container = document.getElementById(sec.listId);
+                if (!container) return;
+                // Masquer les sections qui n'appartiennent pas au véhicule actif
+                if (sectionEl) sectionEl.style.display = sec.vehicule === activeVehicule ? 'block' : 'none';
+                const zone = sec.emplacement;
                 // Filtrage selon le nom du matériel, l'emplacement, le véhicule et activeFilter
                 const filtered = items.filter(m => {
                     if (m.emplacement !== zone) return false;
@@ -1271,6 +1292,20 @@ document.addEventListener('DOMContentLoaded', async () => {
                 updateBodyScrollLock();
             });
         }
+
+        // --- Plier / Déplier les sections de la page principale ---
+        // Même comportement que les sous-sections du Plan de Rangement :
+        // un clic sur le titre de catégorie replie / déplie la liste.
+        document.querySelectorAll('main .section-title').forEach(title => {
+            title.addEventListener('click', () => {
+                title.classList.toggle('collapsed');
+                const content = title.nextElementSibling; // .materiaux-liste
+                if (content) {
+                    const isHidden = content.style.display === 'none';
+                    content.style.display = isHidden ? 'block' : 'none';
+                }
+            });
+        });
 
         // --- Plier / Déplier les sous-sections du Plan de Rangement (optionnel) ---
         const planSubTitles = document.querySelectorAll('.plan-sub-title');
