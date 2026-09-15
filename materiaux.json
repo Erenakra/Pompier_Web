@@ -337,7 +337,7 @@
   },
   {
     "id_produit": "vpi_ext_21",
-    "nom": "Clé criquet poto",
+    "nom": "Clé cliquet poteau",
     "emplacement": "Coffres & Extérieur",
     "localisation_precise": "Latéral arrière gauche",
     "quantite": 1,
@@ -397,7 +397,7 @@
   },
   {
     "id_produit": "vpi_ext_26",
-    "nom": "Massette",
+    "nom": "Piquet de terre",
     "emplacement": "Coffres & Extérieur",
     "localisation_precise": "Latéral arrière gauche",
     "quantite": 1,
@@ -853,7 +853,7 @@
   },
   {
     "id_produit": "vpi_ext_64",
-    "nom": "Balais de brossiner",
+    "nom": "Balais de brosse",
     "emplacement": "Coffres & Extérieur",
     "localisation_precise": "Coffre toit",
     "quantite": 3,
@@ -1273,7 +1273,7 @@
   },
   {
     "id_produit": "vpi_bac_10",
-    "nom": "Raccord d'extrémité / Adaptateur",
+    "nom": "Raccord adaptateur français/allemand",
     "emplacement": "Bacs VPI",
     "localisation_precise": "Bac hydraulique",
     "quantite": 1,
@@ -1285,7 +1285,7 @@
   },
   {
     "id_produit": "vpi_bac_11",
-    "nom": "Clé en T",
+    "nom": "Clé poteau en T",
     "emplacement": "Bacs VPI",
     "localisation_precise": "Bac hydraulique",
     "quantite": 1,
@@ -1309,7 +1309,7 @@
   },
   {
     "id_produit": "vpi_bac_13",
-    "nom": "Paires de clés d'accouplement articulées",
+    "nom": "Clé tricoise universelle",
     "emplacement": "Bacs VPI",
     "localisation_precise": "Bac hydraulique",
     "quantite": 1,
@@ -1405,7 +1405,7 @@
   },
   {
     "id_produit": "vpi_sac_09",
-    "nom": "Drap stérile pour brûlé",
+    "nom": "CHUT",
     "emplacement": "Sacs de secours",
     "localisation_precise": "Sac PS – poche latérale gauche (hémorragie)",
     "quantite": 1,
