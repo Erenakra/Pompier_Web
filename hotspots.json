@@ -99,30 +99,6 @@
       "y": 64.5
     },
     {
-      "id": "vpi-3",
-      "nom": "Pompe incendie",
-      "x": 51.1,
-      "y": 70.5
-    },
-    {
-      "id": "vpi-4",
-      "nom": "Vanne d'amorçage",
-      "x": 33.7,
-      "y": 54.2
-    },
-    {
-      "id": "vpi-5",
-      "nom": "Vanne d'eau amorceur",
-      "x": 43.7,
-      "y": 52.8
-    },
-    {
-      "id": "vpi-6",
-      "nom": "Vanne tonne-pompe",
-      "x": 51.3,
-      "y": 80.9
-    },
-    {
       "id": "vpi-7",
       "nom": "Orifice d'aspiration (raccord 100)",
       "x": 47.2,
@@ -169,26 +145,74 @@
       "nom": "2 clés tricoises",
       "x": 72.5,
       "y": 76.9
+    },
+    {
+      "id": "hp-487216",
+      "nom": "Vanne LDT",
+      "x": 32.6,
+      "y": 53.6
+    },
+    {
+      "id": "hp-532383",
+      "nom": "Vanne Sauterelle",
+      "x": 43.9,
+      "y": 52.4
+    },
+    {
+      "id": "hp-606609",
+      "nom": "Pompe",
+      "x": 51.5,
+      "y": 72.6
+    },
+    {
+      "id": "hp-635672",
+      "nom": "Vanne d'amorçage",
+      "x": 42,
+      "y": 72.3
+    },
+    {
+      "id": "hp-752280",
+      "nom": "Vanne citerne",
+      "x": 60.6,
+      "y": 77
+    },
+    {
+      "id": "hp-803839",
+      "nom": "Vanne aspiration",
+      "x": 50.7,
+      "y": 79
+    },
+    {
+      "id": "hp-881767",
+      "nom": "Remplissage amorseur",
+      "x": 55.9,
+      "y": 54.4
     }
   ],
   "Sac PS VPI éclaté.avif": [
     {
-      "id": "ps-1",
-      "nom": "Garrot tourniquet (CAT)",
-      "x": 28.5,
-      "y": 38
+      "id": "hp-205791",
+      "nom": "Colliers cervicale Adulte/enfant",
+      "x": 26.1,
+      "y": 67.1
     },
     {
-      "id": "ps-2",
-      "nom": "Compresses stériles & CHU",
-      "x": 52,
-      "y": 46.5
+      "id": "hp-292695",
+      "nom": "Draps",
+      "x": 60.1,
+      "y": 66.9
     },
     {
-      "id": "ps-3",
-      "nom": "Colliers cervicaux (Adulte / Enfant)",
-      "x": 74.5,
-      "y": 65
+      "id": "hp-306790",
+      "nom": "Aspirateur de mucosités",
+      "x": 78.1,
+      "y": 65.5
+    },
+    {
+      "id": "hp-343387",
+      "nom": "Compartiment principale",
+      "x": 30.3,
+      "y": 28.2
     }
   ],
   "sac oxygénation éclaté.avif": [
@@ -297,12 +321,6 @@
       "y": 72.5
     },
     {
-      "id": "hp-198963",
-      "nom": "Groupe éléctrogène (unité ?)",
-      "x": 62.1,
-      "y": 74.4
-    },
-    {
       "id": "hp-213876",
       "nom": "Marteau",
       "x": 55.4,
@@ -319,6 +337,12 @@
       "nom": "Piquet de terre",
       "x": 76.2,
       "y": 93.8
+    },
+    {
+      "id": "hp-178231",
+      "nom": "Groupe électrogène",
+      "x": 62.1,
+      "y": 75.7
     }
   ],
   "latéral avant gauche.avif": [
@@ -327,12 +351,6 @@
       "nom": "Masques ARI (x2)",
       "x": 56,
       "y": 32.3
-    },
-    {
-      "id": "hp-348431",
-      "nom": "Manette ARI",
-      "x": 15.6,
-      "y": 67.7
     },
     {
       "id": "hp-355987",
@@ -363,6 +381,18 @@
       "nom": "2 boutielles réserve ARI",
       "x": 76.9,
       "y": 64
+    },
+    {
+      "id": "hp-210527",
+      "nom": "Sac prompt secours",
+      "x": 77.6,
+      "y": 29.7
+    },
+    {
+      "id": "hp-246527",
+      "nom": "Tableau côntrol ARI",
+      "x": 16.2,
+      "y": 64.6
     }
   ],
   "Coffre bas arrière gauche.avif": [
@@ -573,16 +603,16 @@
       "y": 67.1
     },
     {
-      "id": "hp-381037",
-      "nom": "Bidon d'essence (5l?)",
-      "x": 53.9,
-      "y": 41.5
+      "id": "hp-975395",
+      "nom": "Bidon d'essence 10l",
+      "x": 53.2,
+      "y": 43
     },
     {
-      "id": "hp-413018",
-      "nom": "Bidon d'huile de chaine (5l?)",
-      "x": 63.3,
-      "y": 40.7
+      "id": "hp-000454",
+      "nom": "Bidon d'huile de chaîne",
+      "x": 64.2,
+      "y": 41.7
     }
   ],
   "VPI coffre bas avant droit.avif": [
@@ -635,15 +665,21 @@
       "nom": "Balais de brosse",
       "x": 41.1,
       "y": 56.8
+    },
+    {
+      "id": "hp-342271",
+      "nom": "Batte à feu",
+      "x": 14,
+      "y": 55.7
+    },
+    {
+      "id": "hp-415441",
+      "nom": "Barre à mine",
+      "x": 65.5,
+      "y": 71
     }
   ],
   "cabine coffre banquette.avif": [
-    {
-      "id": "hp-582158",
-      "nom": "Sac poubelle (50l?)",
-      "x": 17.4,
-      "y": 53.1
-    },
     {
       "id": "hp-607998",
       "nom": "Gants de feu",
@@ -657,36 +693,42 @@
       "y": 58.6
     },
     {
-      "id": "hp-635661",
-      "nom": "LSPCC Sacs",
-      "x": 85.4,
-      "y": 58
+      "id": "hp-204759",
+      "nom": "Sacs poubelles",
+      "x": 19.4,
+      "y": 53.9
+    },
+    {
+      "id": "hp-238659",
+      "nom": "Sacs LSPCC",
+      "x": 84.5,
+      "y": 55
     }
   ],
   "cabine arrière gauche.avif": [
     {
-      "id": "hp-748590",
-      "nom": "Hâche grand",
-      "x": 84.5,
-      "y": 43.3
+      "id": "hp-293944",
+      "nom": "Grande hâche",
+      "x": 84.3,
+      "y": 41.9
     },
     {
-      "id": "hp-776450",
-      "nom": "Coupe boulon grand",
-      "x": 33.7,
-      "y": 29.2
+      "id": "hp-309280",
+      "nom": "Grand pied biche",
+      "x": 53.3,
+      "y": 66.8
     },
     {
-      "id": "hp-801578",
-      "nom": "Pied biche grand",
-      "x": 52.8,
-      "y": 65.1
+      "id": "hp-330672",
+      "nom": "Petit pied biche",
+      "x": 29.8,
+      "y": 45
     },
     {
-      "id": "hp-810458",
-      "nom": "Pied biche petit",
-      "x": 30,
-      "y": 45.9
+      "id": "hp-348176",
+      "nom": "Coupe boulon",
+      "x": 31.6,
+      "y": 30
     }
   ],
   "cabine avant droit.avif": [
@@ -747,16 +789,22 @@
       "y": 53.7
     },
     {
-      "id": "hp-241603",
-      "nom": "Clé triquoise",
-      "x": 14.4,
-      "y": 86.8
-    },
-    {
       "id": "hp-249648",
       "nom": "Rubalise",
       "x": 15.9,
       "y": 76.4
+    },
+    {
+      "id": "hp-081048",
+      "nom": "Clé tricoise",
+      "x": 14.8,
+      "y": 86
+    },
+    {
+      "id": "hp-155150",
+      "nom": "Chaîne à neige",
+      "x": 68.9,
+      "y": 55.9
     }
   ],
   "cabine arrière gauche3.avif": [
@@ -771,26 +819,20 @@
       "nom": "4 Gilets",
       "x": 47.2,
       "y": 26.7
+    },
+    {
+      "id": "hp-395085",
+      "nom": "Boîte à clés",
+      "x": 49.1,
+      "y": 37
     }
   ],
   "Bac commandes VPI.avif": [
-    {
-      "id": "hp-994202",
-      "nom": "Sacoche d'intervention",
-      "x": 18.1,
-      "y": 63.5
-    },
     {
       "id": "hp-007143",
       "nom": "Fourreaux de protection",
       "x": 37,
       "y": 70.8
-    },
-    {
-      "id": "hp-048830",
-      "nom": "Commande blanche 10-15m",
-      "x": 50.7,
-      "y": 70.2
     },
     {
       "id": "hp-081227",
@@ -803,40 +845,40 @@
       "nom": "Grande commande avec mousqueton 25-30m",
       "x": 89.5,
       "y": 69
+    },
+    {
+      "id": "hp-837223",
+      "nom": "Commande",
+      "x": 16.8,
+      "y": 62.5
+    },
+    {
+      "id": "hp-993211",
+      "nom": "Commande 15m",
+      "x": 50,
+      "y": 70.3
     }
   ],
   "Bac Cordages VPI.avif": [
     {
-      "id": "hp-589831",
-      "nom": "Aussière d'amarrage / Remorquage ~25m",
-      "x": 54.6,
-      "y": 40.1
+      "id": "hp-726100",
+      "nom": "Corde ~20m",
+      "x": 52.6,
+      "y": 39.9
     },
     {
-      "id": "hp-597456",
-      "nom": "Aussière de service / sauvetage ~20m",
-      "x": 58.9,
-      "y": 69.7
+      "id": "hp-765351",
+      "nom": "Corde ~20m",
+      "x": 57.6,
+      "y": 72.3
     }
   ],
   "Bac hydraulique.avif": [
-    {
-      "id": "hp-720429",
-      "nom": "Pompe d'épuisement submersible",
-      "x": 86,
-      "y": 47.6
-    },
     {
       "id": "hp-764666",
       "nom": "Division / Collecteur à robinets",
       "x": 32.4,
       "y": 54.4
-    },
-    {
-      "id": "hp-984194",
-      "nom": "Grande clé tricoise / clé de raccordement",
-      "x": 28.9,
-      "y": 78.2
     },
     {
       "id": "hp-431192",
@@ -855,6 +897,18 @@
       "nom": "Raccord adaptateur français/allemand",
       "x": 66.7,
       "y": 53.7
+    },
+    {
+      "id": "hp-632058",
+      "nom": "Pompe hydro-éjecteur",
+      "x": 85.6,
+      "y": 50.2
+    },
+    {
+      "id": "hp-660459",
+      "nom": "Grande clé tricoise",
+      "x": 28.1,
+      "y": 79.5
     }
   ],
   "bac tronçonneuse.avif": [
@@ -865,10 +919,10 @@
       "y": 59.9
     },
     {
-      "id": "hp-102083",
-      "nom": "Gilet haute visibilité",
-      "x": 51.7,
-      "y": 71.2
+      "id": "hp-514599",
+      "nom": "Pantalon anti-coupure",
+      "x": 51.5,
+      "y": 71.6
     }
   ],
   "Sac PS poche avant VPI.avif": [
@@ -957,12 +1011,6 @@
       "y": 31.6
     },
     {
-      "id": "hp-345462",
-      "nom": "Pince hémostatique",
-      "x": 25.5,
-      "y": 40.4
-    },
-    {
       "id": "hp-357869",
       "nom": "Stylo à bille",
       "x": 24.1,
@@ -991,6 +1039,12 @@
       "nom": "Trousse modulaire amovible ROUGE",
       "x": 82.6,
       "y": 61.1
+    },
+    {
+      "id": "hp-455639",
+      "nom": "Ciseaux d'urgence",
+      "x": 27.1,
+      "y": 41
     }
   ],
   "Sacoche jaune PS.avif": [
